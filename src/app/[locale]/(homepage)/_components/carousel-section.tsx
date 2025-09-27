@@ -13,9 +13,9 @@ export default function CarouselSection() {
   // Translation
   const t = useTranslations();
   return (
-    <section className="container flex h-[441px]  flex-wrap justify-between gap-3 text-white">
+    <section className="flex h-[441px] flex-wrap justify-between gap-3 text-white">
       {/* Static image */}
-      <div className="relative h-[439px] w-[301px] gap-[10px]">
+      <div className="relative h-[439px] flex-1 gap-[10px]">
         {/* Image */}
         <Image
           src="/assets/home-section-1-static.png"
