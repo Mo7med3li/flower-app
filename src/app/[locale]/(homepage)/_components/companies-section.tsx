@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function CompaniesSection() {
   return (
-    <section className="max-w-screen-2xl px-4 sm:px-6 md:px-12 lg:px-20 mx-auto">
-      <div className="bg-[#FBEAEA] rounded-3xl w-full min-h-56 px-6 flex flex-col items-center justify-center">
+    <section>
+      <div className="bg-maroon-50 dark:bg-zinc-700 rounded-[20px] w-full min-h-56 px-6 flex flex-col items-center justify-center">
         <h2 className="font-bold font-Sarabun text-maroon-700 text-4xl">
           Trusted by over<span className="text-soft-pink-500"> 4.5k+ </span>
           companies

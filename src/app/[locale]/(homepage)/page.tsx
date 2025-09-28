@@ -6,6 +6,7 @@ import FeaturesSection from "./_components/features-section";
 import Gallery from "./_components/gallery-section";
 import MostPopular from "./_components/most-popular/most-popular";
 import OccasionsSection from "./_components/occasions-section";
+import TestimonialsSection from "./_components/testimonials-section/testimonials-section";
 
 export default function Home({
   searchParams,
@@ -14,7 +15,7 @@ export default function Home({
   searchParams?: { occasion?: string };
 }) {
   return (
-    <main className="py-10 container">
+    <main className="p-10 space-y-20">
       {/* Carousel section */}
       <CarouselSection />
 
@@ -24,18 +25,21 @@ export default function Home({
       {/* Features section */}
       <FeaturesSection />
 
-      {/*Companie sectoin*/}
+      {/*Companie section*/}
       <BestSelling />
       <MostPopular searchParams={searchParams || {}} />
 
-      {/*About sectoin*/}
+      {/*About section*/}
       <AboutUs />
 
-      {/*Gallery sectoin*/}
+      {/*Gallery section*/}
       <Gallery />
 
+      {/* Testimonials section */}
+      <TestimonialsSection />
+
+      {/* Companies section */}
       <CompaniesSection />
-      {/* <ProductReview /> */}
     </main>
   );
 }
