@@ -43,6 +43,16 @@ export default getRequestConfig(async ({ requestLocale }) => {
       dateTime: {
         //^ --- SHORT YEAR FORMATS (year: '2-digit') ---
 
+        // Date short version-only 2 digits except for the year.
+        "date-base-hours": {
+          hour: "2-digit",
+          minute: "2-digit",
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+          numberingSystem: locale === "ar" ? "arab" : "latn",
+        },
+
         //~ 09/06/25
         "short-numeric-date": {
           day: "2-digit",
