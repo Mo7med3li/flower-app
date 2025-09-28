@@ -11,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+// import { useTestimonials } from "@/hooks/testimonials/use-get-testimonials";
 import client1 from "../../../../../../public/assets/client1.png";
 import client2 from "../../../../../../public/assets/client2.png";
 import client3 from "../../../../../../public/assets/client3.png";
@@ -18,6 +19,10 @@ import client4 from "../../../../../../public/assets/client4.jpg";
 import TestimonialsCard from "./testimonial-card";
 
 const TestimonialsCarousel = () => {
+  // TODO: After API is ready
+  // Queries
+  // const { testimonials, isLoading, error } = useTestimonials();
+
   // Translations
   const locale = useLocale();
   const t = useTranslations();
