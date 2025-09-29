@@ -327,5 +327,12 @@
   "review-test-1": "I've been ordering from this flower shop for years and they never disappoint. The quality and service are exceptional!",
   "review-test-2": "Customer service is top-notch and the flowers last longer than any others I've bought. Highly recommend!",
   "review-test-3": "The team truly cares about every order. I always feel confident when I buy flowers from here. The checkout process was sup...",
-  "review-test-4": "Absolutely wonderful service! The team was professional and everything went smoothly from start to finish."
+  "review-test-4": "Absolutely wonderful service! The team was professional and everything went smoothly from start to finish.",
+  "notifications": "Notifications",
+  "clear-all-notifications": "Clear all notifications",
+  "mark-all-as-read": "Mark all as read",
+  "loading-notifications": "Loading Notifications...",
+  "no-notifications-to-display": "No notifications to display.",
+  "marks-as-read": "Marks as read",
+  "delete-notification": "Delete notification"
 }
