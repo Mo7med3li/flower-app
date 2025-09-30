@@ -29,7 +29,7 @@ export default function OccasionsSection() {
   const t = useTranslations();
 
   return (
-    <section className="mt-10 lg:px-20 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white">
+    <section className="my-10 lg:px-20 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white">
       {OCCASIONS_IMAGES.map((occasion, index) => {
         return (
           <Link href="/occasion" key={index} className="w-full col-span-1">

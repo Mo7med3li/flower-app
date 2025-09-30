@@ -30,16 +30,19 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section className="mx-auto my-10 flex w-[1279px] flex-wrap justify-between rounded-2xl bg-maroon-50 p-10 dark:bg-zinc-700">
+    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-0 justify-center items-center lg:mx-20 mx-4 rounded-2xl bg-maroon-50 p-10 dark:bg-zinc-700">
       {featureItems.map((item, index) => {
         return (
-          <div key={index} className="flex flex-wrap gap-4">
+          <div
+            key={index}
+            className="col-span-1 border dark:border-zinc-50 lg:border-none p-1 border-zinc-700 flex flex-wrap gap-4 items-center justify-center"
+          >
             {/* Icon */}
-            <div className="flex size-[65px] items-center justify-center rounded-full bg-maroon-600 text-white dark:bg-softpink-200 dark:text-zinc-700">
+            <div className="flex size-[65px] items-center justify-center rounded-full bg-maroon-600 text-white dark:bg-soft-pink-200 dark:text-zinc-800">
               {item.icon}
             </div>
             <div className="flex flex-col gap-[5px]">
-              <h4 className="text-xl font-semibold dark:text-softpink-200">{item.title}</h4>
+              <h4 className="text-xl font-semibold dark:text-soft-pink-200">{item.title}</h4>
               <p className="text-sm font-normal text-zinc-700 dark:text-zinc-300">
                 {item.description}
               </p>
