@@ -336,5 +336,12 @@
   "loading-notifications": "تحميل الإشعارات ...",
   "no-notifications-to-display": ".لا توجد إشعارات لعرضها",
   "marks-as-read": "تمييز كمقروء",
-  "delete-notification": "حذف الإشعار"
+  "delete-notification": "حذف الإشعار",
+  "explore-gifts": "استكشاف الهدايا",
+  "not-sure-what-to-choose": "لست متأكدا ما تختار؟",
+  "best-selling-text": "ابدأ مع أكثر منتجاتنا مبيعًا، فهذه هي الهدايا التي يحرص عملاؤنا دائمًا على اقتنائها. سواء كنت تحتفل بعيد ميلاد، أو ذكرى سنوية، أو حفل زفاف، فإن اختياراتنا المميزة مضمونة لترك انطباع لا يُنسى.",
+  "feature": {
+    "title": "<pink>شوف</pink> اللي الكل <pink>بيشتريه</pink> دلوقتي"
+  },
+  "best-selling": "الاكثر مبيعا"
 }

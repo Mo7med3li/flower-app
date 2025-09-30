@@ -334,5 +334,12 @@
   "loading-notifications": "Loading Notifications...",
   "no-notifications-to-display": "No notifications to display.",
   "marks-as-read": "Marks as read",
-  "delete-notification": "Delete notification"
+  "delete-notification": "Delete notification",
+  "explore-gifts": "Explore gifts",
+  "not-sure-what-to-choose": "Not sure what to choose?",
+  "best-selling-text": "Start with our best sellers, these are the gifts our customers keep coming back for. Whether you&apos;re celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+  "feature": {
+    "title": "<pink>Check Out</pink> What Everyone’s <pink>Buying</pink> Right Now"
+  },
+  "best-selling": "Best Selling"
 }
