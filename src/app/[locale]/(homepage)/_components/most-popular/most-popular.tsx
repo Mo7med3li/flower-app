@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import { getOccasions } from "@/lib/apis/occasions.api";
 import BarTitle from "@/components/common/bar-title";
@@ -11,16 +12,17 @@ export default async function MostPopular({
 }: {
   searchParams: { occasion?: string };
 }) {
+  const t = await getTranslations();
   // Functions
   const response = await getOccasions({ limit: 4 });
 
+  // Error handling
   if ("error" in response) {
-    return <p>error while fetching data</p>;
+    return <p>{t("error-while-fetching-data")}</p>;
   }
 
-  const { occasions } = response;
-
   // Variables
+  const { occasions } = response;
   let selectedOccasion = occasions.find((occasion) => occasion._id === searchParams.occasion);
 
   // If search params are empty (default search param)
@@ -30,16 +32,16 @@ export default async function MostPopular({
 
   // If occasion Id does not exist (change in occasion id)
   if (!selectedOccasion) {
-    return <p>occasion id not valid</p>;
+    return <p>{t("occasion-id-not-valid")}</p>;
   }
 
   return (
     <>
-      <Tabs defaultValue={`${selectedOccasion._id}`}>
+      <Tabs defaultValue={`${selectedOccasion._id}`} className="lg:px-20 px-4">
         {/* Heading */}
         <div className="flex justify-between items-center">
           {/* Title */}
-          <BarTitle title="Most Popular" highlightBarWidth="w-[27%]" mainBarWidth="w-9/12" />
+          <BarTitle title={t("most-popular")} highlightBarWidth="w-[27%]" mainBarWidth="w-9/12" />
 
           {/* Taps list titles */}
           <TabsList className="bg-transparent gap-6">
@@ -52,7 +54,6 @@ export default async function MostPopular({
           defaultValue={selectedOccasion._id}
           key={selectedOccasion._id}
           value={selectedOccasion._id}
-          // TODO Change text Color
           className="mt-10"
         >
           <Suspense fallback={<SingleProductSkeleton count={4} key={selectedOccasion._id} />}>

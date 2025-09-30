@@ -341,5 +341,10 @@
   "feature": {
     "title": "<pink>Check Out</pink> What Everyone’s <pink>Buying</pink> Right Now"
   },
-  "best-selling": "Best Selling"
+  "best-selling": "Best Selling",
+  "no-products-ioccasion": "There is no products in this occasion",
+  "error-while-fetching-data": "error while fetching data",
+  "occasion-id-not-valid": "occasion id not valid",
+  "most-popular": "Most Popular",
+  "no-products-in-this-occasion": "There is no products in this occasion"
 }

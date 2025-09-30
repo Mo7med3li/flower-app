@@ -85,7 +85,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
             height={0}
             style={{ objectFit: "cover" }}
             alt={singleProduct.title}
-            className="h-72 w-80 rounded-xl"
+            className="h-72 w-full rounded-xl"
           ></Image>
         </Link>
 
@@ -98,7 +98,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
         </h3>
       </div>
 
-      {/* Product descreption */}
+      {/* Product description */}
       <div>
         {/* Price , Review & Cart button*/}
         <div className="flex justify-between font-medium">

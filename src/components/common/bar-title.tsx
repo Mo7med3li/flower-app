@@ -27,14 +27,13 @@ export default function BarTitle({
   return (
     <p
       className={cn(
-        // TODO Change text Color
-        "font-inter relative font-bold text-[#741C21]",
+        "font-inter relative font-bold text-maroon-700 dark:text-soft-pink-200",
         titleClassName,
         // Pseudo-element styles for decorative bars
-        "before:content-[''] before:absolute before:z-0 before:bg-[#FFE0E7] before:h-4 before:w-40 before:rounded-e-full before:bottom-0 before:left-0",
+        "before:content-[''] before:absolute before:z-0 before:bg-maroon-50 dark:before:bg-soft-pink-50/20 before:h-4 before:w-40 before:rounded-e-full before:bottom-0 before:left-0",
         mainBarWidth === "w-2/3" ? "before:w-2/3" : mainBarWidth,
-        "after:content-[''] after:absolute after:z-10 after:bg-[#E65073] after:h-0.5 after:w-16 after:bottom-0 after:left-0",
-        highlightBarWidth === "w-1/4" ? "after:w-1/4" : highlightBarWidth
+        "after:content-[''] after:absolute after:z-10 after:bg-maroon-500 dark:after:bg-soft-pink-200 after:h-0.5 after:w-16 after:bottom-0 after:left-0",
+        highlightBarWidth === "w-1/4" ? "after:w-1/4" : highlightBarWidth,
       )}
     >
       <span className="relative z-20">{title}</span>

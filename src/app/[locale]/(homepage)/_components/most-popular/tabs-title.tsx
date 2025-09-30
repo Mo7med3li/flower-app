@@ -10,12 +10,19 @@ interface TabsTitleProps {
 }
 
 export default function TabsTitle({ occasions }: TabsTitleProps) {
+  // Navigation
   const router = useRouter();
+
+  // path Name
   const pathname = usePathname();
+
+  // search params
   const searchParams = useSearchParams();
 
+  // Variables
   const currentOccasionId = searchParams.get("occasion");
 
+  // useEffect
   useEffect(() => {
     if (!currentOccasionId && occasions.length > 0) {
       const params = new URLSearchParams(searchParams);
@@ -44,7 +51,7 @@ export default function TabsTitle({ occasions }: TabsTitleProps) {
           key={occasion._id}
           value={occasion._id}
           onClick={() => handleClick(occasion._id)}
-          className="text-zinc-700 data-[state=active]:text-[#A6252A] transition-colors duration-200 hover:text-[#A6252A]/80"
+          className="text-zinc-700 dark:text-zinc-400 data-[state=active]:text-maroon-600 dark:data-[state=active]:text-soft-pink-200 transition-colors duration-200 hover:text-[#A6252A]/80 font-medium"
         >
           {occasion.name}
         </TabsTrigger>

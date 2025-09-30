@@ -25,8 +25,10 @@ export default function Home({
       {/* Features section */}
       <FeaturesSection />
 
-      {/*Companie section*/}
+      {/*Best selling section*/}
       <BestSelling />
+
+      {/*Most Popular section*/}
       <MostPopular searchParams={searchParams || {}} />
 
       {/*About section*/}

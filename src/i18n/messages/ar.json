@@ -343,5 +343,10 @@
   "feature": {
     "title": "<pink>شوف</pink> اللي الكل <pink>بيشتريه</pink> دلوقتي"
   },
-  "best-selling": "الاكثر مبيعا"
+  "best-selling": "الاكثر مبيعا",
+  "no-products-ioccasion": "لا توجد منتجات في هذه المناسبة",
+  "error-while-fetching-data": "خطأ أثناء جلب البيانات",
+  "occasion-id-not-valid": "معرف المناسبة غير صالح",
+  "most-popular": "الأكثر شعبية",
+  "no-products-in-this-occasion": "لا توجد منتجات في هذه المناسبة"
 }
