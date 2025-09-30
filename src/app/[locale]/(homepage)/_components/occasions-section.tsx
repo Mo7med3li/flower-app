@@ -29,10 +29,10 @@ export default function OccasionsSection() {
   const t = useTranslations();
 
   return (
-    <section className="my-6 flex gap-6 text-white">
+    <section className="mt-10 lg:px-20 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white">
       {OCCASIONS_IMAGES.map((occasion, index) => {
         return (
-          <Link href="/occasion" key={index} className="w-full">
+          <Link href="/occasion" key={index} className="w-full col-span-1">
             <div className="relative h-[271px] w-full overflow-hidden rounded-2xl">
               {/* Image */}
               <Image src={occasion.image} alt={t(occasion.alt)} fill className="object-cover" />
@@ -40,7 +40,10 @@ export default function OccasionsSection() {
 
               <div className="absolute bottom-6 flex flex-col ltr:left-6 rtl:right-6">
                 {/* Badge */}
-                <Badge variant="secondary" className="w-fit">
+                <Badge
+                  variant="secondary"
+                  className="w-fit dark:bg-maroon-50 dark:text-maroon-600 dark:hover:bg-maroon-600 dark:hover:text-maroon-50"
+                >
                   {t(occasion.badge)}
                 </Badge>
                 {/* Title */}
