@@ -5,7 +5,6 @@ import { useState } from "react";
 import type { EmblaCarouselType } from "embla-carousel";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -50,11 +49,11 @@ export default function HomeCarousel() {
   return (
     <>
       <Carousel
-        opts={locale === "ar" ? { direction: "rtl" } : { direction: "ltr" }}
-        className="h-[440px] w-[955px] overflow-hidden rounded-[16px]"
+        opts={locale === "ar" ? { direction: "rtl", loop: true } : { direction: "ltr", loop: true }}
+        className="h-[440px] col-span-4 lg:col-span-3 overflow-hidden rounded-[16px]"
         setApi={setEmblaApi}
       >
-        <CarouselContent className="">
+        <CarouselContent>
           {CAROUSEL_IMAGES.map((item, index) => {
             return (
               <CarouselItem key={index} className="relative h-[440px]">
@@ -76,7 +75,7 @@ export default function HomeCarousel() {
                   <Button
                     asChild
                     variant={"secondary"}
-                    className="w-[129px] rounded-[10px] px-4 py-[10px]"
+                    className="w-[129px] rounded-[10px] px-4 py-[10px] dark:bg-maroon-50 dark:text-maroon-700"
                   >
                     <Link href="/products">{t("home-carousel-button")}</Link>
                   </Button>
@@ -89,22 +88,13 @@ export default function HomeCarousel() {
         {/* Carousel navigation buttons */}
         <div className="absolute bottom-[30.5px] w-20 ltr:right-8 rtl:left-8">
           <div className="flex h-[35px] w-[74px] justify-between rounded-full rtl:flex-row-reverse">
-            {locale === "en" ? (
-              <>
-                <CarouselPrevious className="text-[30px] text-maroon-600" />
-                <CarouselNext className="text-[30px] text-maroon-600" />
-              </>
-            ) : (
-              <>
-                <CarouselNext className="text-[30px] text-maroon-600 rtl:rotate-180" />
-                <CarouselPrevious className="text-[30px] text-maroon-600 rtl:rotate-180" />
-              </>
-            )}
+            <CarouselPrevious className="text-[30px] text-maroon-600 rtl:-rotate-180" />
+            <CarouselNext className="text-[30px] text-maroon-600 rtl:rotate-180" />
           </div>
         </div>
 
         {/* Carousel pagination */}
-        <div className="absolute top-[27.5px] flex flex-wrap justify-between gap-2 ltr:right-8 ltr:flex-row rtl:left-8">
+        <div className="absolute top-[27.5px] flex justify-between gap-2 ltr:right-8 ltr:flex-row rtl:left-8">
           {scrollSnaps.map((_, index) => {
             return (
               <Button
@@ -115,8 +105,8 @@ export default function HomeCarousel() {
                 }}
                 className={
                   selectedIndex === index
-                    ? "h-[10px] w-9 rounded-[46.6px] bg-maroon-600 transition-all duration-300 hover:bg-maroon-600"
-                    : "size-[10px] rounded-full bg-maroon-50 transition-all duration-300 hover:bg-maroon-50"
+                    ? "h-1 w-9 rounded-[46.6px] bg-maroon-600 dark:bg-maroon-600 transition-all duration-300 hover:bg-maroon-600 dark:hover:bg-maroon-600"
+                    : "h-1 w-1 rounded-full bg-maroon-50 transition-all duration-300 hover:bg-maroon-50 dark:hover:bg-maroon-600"
                 }
               ></Button>
             );

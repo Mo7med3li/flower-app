@@ -13,13 +13,13 @@ export default function CarouselSection() {
   // Translation
   const t = useTranslations();
   return (
-    <section className="flex h-[441px] flex-wrap justify-between gap-3 text-white">
+    <section className="grid grid-cols-4 relative gap-3 mt-10 lg:px-20 px-4 text-white">
       {/* Static image */}
-      <div className="relative h-[439px] flex-1 gap-[10px]">
+      <div className="relative col-span-4 h-[440px] lg:col-span-1">
         {/* Image */}
         <Image
           src="/assets/home-section-1-static.png"
-          className="rounded-2xl"
+          className="rounded-2xl w-full"
           fill
           alt="red presents"
         />
@@ -27,7 +27,7 @@ export default function CarouselSection() {
         {/* Title and button */}
         <div className="absolute bottom-[10px] start-[10px] flex flex-col p-6">
           {/* Badge */}
-          <Badge className="w-fit" variant="secondary">
+          <Badge className="w-fit dark:bg-maroon-50 dark:text-maroon-600" variant="secondary">
             {t("home-carousel-badge", { price: 10.99 })}
           </Badge>
           {/* Title */}
@@ -37,7 +37,7 @@ export default function CarouselSection() {
             href="/products"
             className={cn(
               buttonVariants({ variant: "secondary" }),
-              "px-rounded-2xl w-[130px] py-[10px]",
+              "px-rounded-2xl w-[130px] py-[10px] dark:bg-maroon-50 dark:text-maroon-600",
             )}
           >
             {t("home-section-one-button")} <ArrowRight className="rtl:rotate-180" />

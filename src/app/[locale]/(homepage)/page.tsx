@@ -15,7 +15,7 @@ export default function Home({
   searchParams?: { occasion?: string };
 }) {
   return (
-    <main className="p-10 space-y-20">
+    <main>
       {/* Carousel section */}
       <CarouselSection />
 
