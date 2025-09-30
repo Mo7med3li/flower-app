@@ -4,7 +4,6 @@ import Image from "next/image";
 
 // Icons
 import {
-  Bell,
   ClipboardList,
   Gift,
   Headset,
@@ -28,6 +27,7 @@ import { Link } from "@/i18n/navigation";
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import ToggleLocale from "@/components/layout/header/components/toggle-locale";
+import Notification from "@/components/common/notifications/notification-section";
 
 // Assets
 import LocationHeader from "./location-header";
@@ -109,7 +109,7 @@ export default async function Header() {
             )}
 
             {/* user data */}
-            <div className="flex-1 self-stretch flex items-center gap-2 border-r border-zinc-200 pr-4">
+            <div className=" flex items-center gap-2 border-r border-zinc-200 pr-4">
               <div className="relative">
                 <Heart />
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
@@ -122,12 +122,8 @@ export default async function Header() {
                   5
                 </span>
               </div>
-              <div className="relative">
-                <Bell />
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                  2
-                </span>
-              </div>
+              {/* Notifications */}
+              <Notification />
             </div>
 
             <div className="flex-1 self-stretch flex items-center gap-2">

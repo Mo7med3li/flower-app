@@ -47,6 +47,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-phone-number-input": "^3.4.12",
     "recharts": "2.15.4",
+    "sharp": "^0.34.4",
     "sonner": "^2.0.6",
     "table": "^6.9.0",
     "tailwind-merge": "^3.3.0",
