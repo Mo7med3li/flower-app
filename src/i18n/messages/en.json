@@ -346,5 +346,15 @@
   "error-while-fetching-data": "error while fetching data",
   "occasion-id-not-valid": "occasion id not valid",
   "most-popular": "Most Popular",
-  "no-products-in-this-occasion": "There is no products in this occasion"
+  "no-products-in-this-occasion": "There is no products in this occasion",
+  "about": "About",
+  "about-section": {
+    "title": "Delivering the <pink>Finest</pink> Gift Boxes for Your <pink>Special</pink> Moments"
+  },
+  "about-description": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it&#39;s for a birthday, wedding, or a simple “thank you,” our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
+  "discover": "Discover",
+  "competitive-prices-and-easy-shopping": "Competitive Prices & Easy Shopping",
+  "perfect-for-every-occasion": "Perfect for Every Occasion",
+  "premium-quality-and-elegant-packaging": "Premium Quality & Elegant Packaging",
+  "fast-and-reliable-delivery": "Fast & Reliable Delivery"
 }

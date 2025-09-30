@@ -348,5 +348,15 @@
   "error-while-fetching-data": "خطأ أثناء جلب البيانات",
   "occasion-id-not-valid": "معرف المناسبة غير صالح",
   "most-popular": "الأكثر شعبية",
-  "no-products-in-this-occasion": "لا توجد منتجات في هذه المناسبة"
+  "no-products-in-this-occasion": "لا توجد منتجات في هذه المناسبة",
+  "about": "حول",
+  "about-section": {
+    "title": "نقدّم <pink>أرقى</pink> صناديق الهدايا من أجلك في لحظاتك <pink>المميّزة</pink>"
+  },
+  "about-description": "اجعل كل لحظة لا تُنسى مع صناديق هدايانا الفاخرة. تم اختيارها بعناية وتغليفها بأناقة، حيث يحتوي كل صندوق على عناصر مختارة بعناية لتُبهر من تهديها إليه. سواء كانت لمناسبة عيد ميلاد، أو زفاف، أو مجرد عبارة “شكرًا”، فإن صناديق الهدايا لدينا مصممة لترك انطباع يدوم — لأن الهدايا المُفعمة بالاهتمام تبدأ من هنا",
+  "discover": "اكتشف",
+  "competitive-prices-and-easy-shopping": "الأسعار التنافسية و سهولة التسوق",
+  "perfect-for-every-occasion": "مثالي لكل مناسبة",
+  "premium-quality-and-elegant-packaging": "جودة فائقة وتغليف أنيق",
+  "fast-and-reliable-delivery": "توصيل سريع وموثوق"
 }
