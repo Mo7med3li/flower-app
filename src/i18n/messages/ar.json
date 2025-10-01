@@ -371,5 +371,19 @@
   "menu": "القائمة",
   "search-bar": "ما هي الهدية الرائعة التي تبحث عنها؟",
   "sign-in": "تسجيل الدخول",
-  "hello": "مرحبًا"
+  "hello": "مرحبًا",
+  "rose-e-commerce-app": "تطبيق التجارة الإلكترونية",
+  "all-rights-reserved": "جميع الحقوق محفوظة",
+  "discover-our-website": "اكتشف موقعنا",
+  "by-subscribing-to-our-newsletter": "من خلال الاشتراك في النشرة الإخبارية لدينا",
+  "enter-your-email": "أدخل بريدك الإلكتروني",
+  "subscribe": "اشترك",
+  "footer": {
+    "discount": "احصل على <pink> ٢٠٪ </pink> قبالة قسيمة خصم"
+  },
+  "terms-and-conditions": "الشروط والأحكام",
+  "privacy-policy": "سياسة الخصوصية",
+  "faqs": "الأسئلة الشائعة",
+  "footer-slug": "الزهور والهدايا الجميلة في كل مناسبة. \nتوصيل سريع وباقات برعاية",
+  "nasr-city-cairo-egypt": "مدينة نصر ، القاهرة ، مصر"
 }

@@ -370,5 +370,20 @@
   "menu": "Menu",
   "search-bar": "What awesome gift are you looking for?",
   "sign-in": "Sign In",
-  "hello": "hello"
+  "hello": "hello",
+  "rose-e-commerce-app": "Rose E-Commerce App",
+  "all-rights-reserved": "All rights reserved",
+  "discover-our-website": "Discover our website",
+  "by-subscribing-to-our-newsletter": "By subscribing to our newsletter",
+  "enter-your-email": "Enter your email",
+  "subscribe": "Subscribe",
+  "footer": {
+    "discount": "Get <pink>20%</pink> Off Discount Coupon"
+  },
+  "terms-and-conditions": "Terms & Conditions",
+  "privacy-policy": "Privacy Policy",
+  "faqs": "FAQs",
+  "footer-slug": "Beautiful flowers and gifts for every occasion. Fast delivery and curated bouquets",
+  "nasr-city-cairo-egypt": "Nasr City ,Cairo, Egypt",
+  "201505748872": "+201505748872"
 }
