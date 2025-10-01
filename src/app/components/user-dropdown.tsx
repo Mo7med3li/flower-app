@@ -45,7 +45,7 @@ export default function UserDropdown({ user }: UserProps) {
   return (
     <div className="flex-1 border-r pr-4 font-primary">
       {/* Greeting text */}
-      <p className="text-zinc-500 text-sm font-normal whitespace-nowrap">hello</p>
+      <p className="text-zinc-500 text-sm font-normal whitespace-nowrap">{t("hello")}</p>
       {/* User dropdown menu */}
       <DropdownMenu>
         <DropdownMenuTrigger className="flex flex-nowrap items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md p-1 transition-colors">

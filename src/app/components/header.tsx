@@ -34,37 +34,42 @@ import LocationHeader from "./location-header";
 
 // Locale Components
 import UserDropdown from "./user-dropdown";
+import MobileNav from "./mobile-nav";
+import { useTranslations } from "next-intl";
 
 export default async function Header() {
+  // Translation
+  const t = useTranslations();
+
   // Navbar object
   const navbar = [
     {
-      name: "Home",
+      name: t("home"),
       href: "/",
       icons: <House className="w-4 h-4" />,
     },
     {
-      name: "Products",
+      name: t("products"),
       href: "/products",
       icons: <Gift className="w-5 h-5" />,
     },
     {
-      name: "Categories",
+      name: t("categories"),
       href: "/categories",
       icons: <ClipboardList className="w-5 h-5" />,
     },
     {
-      name: "Occasions",
+      name: t("occasions"),
       href: "/occasions",
       icons: <PartyPopper className="w-5 h-5" />,
     },
     {
-      name: "Contact",
+      name: t("contact"),
       href: "/contact",
       icons: <Headset className="w-5 h-5" />,
     },
     {
-      name: "About",
+      name: t("about"),
       href: "/en/about",
       icons: <Info className="w-5 h-5" />,
     },
@@ -76,21 +81,47 @@ export default async function Header() {
 
   return (
     <header className=" flex flex-col w-full">
-      {/* Main header */}
-      <div className="bg-white dark:bg-zinc-800 w-full">
-        <div className="text-lg py-5 px-9 flex items-center justify-between gap-4 container mx-auto">
+      {/* Mobile top bar */}
+      <div className="bg-white dark:bg-zinc-800 w-full md:hidden">
+        <div className="container mx-auto flex items-center justify-between py-3 px-4">
+          {/* Left: Hamburger */}
+          <MobileNav />
+          {/* Center: Logo */}
+          <Image src={logo} alt="Logo" className="w-12 h-12" />
+          {/* Right: Actions (compact) */}
+          <div className="flex items-center gap-3">
+            {/* Sign in hidden on mobile to reduce clutter */}
+            {/* Favorites */}
+            <div className="relative">
+              <Heart />
+              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
+                0
+              </span>
+            </div>
+            {/* Cart */}
+            <div className="relative">
+              <ShoppingCart />
+              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
+                0
+              </span>
+            </div>
+            {/* Notifications */}
+            <Notification />
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop/Tablet header */}
+      <div className="bg-white dark:bg-zinc-800 w-full hidden md:block">
+        <div className="text-lg py-5 container mx-auto flex items-center justify-between gap-4">
           {/* image logo */}
-          <Image src={logo} alt="Logo" className="w-[85px] h-[85px]" />
+          <Image src={logo} alt="Logo" className="md:w-[85px] md:h-[85px]" />
 
           {/* address */}
-          {session && <LocationHeader />}
+          <div className="hidden lg:block">{session && <LocationHeader />}</div>
 
           {/* input search */}
-          <Input
-            type="search"
-            className="w-full"
-            placeholder="What awesome gift are you looking for?"
-          />
+          <Input type="search" className="md:max-w-full max-w-xl" placeholder={t("search-bar")} />
 
           {/* action */}
           <div className="flex items-center gap-4 p-4">
@@ -104,7 +135,7 @@ export default async function Header() {
                 href="/auth/login"
                 className="text-maroon-700 dark:text-soft-pink-200 font-medium text-base hover:underline whitespace-nowrap"
               >
-                Sign In
+                {t("sign-in")}
               </Link>
             )}
 
@@ -113,20 +144,20 @@ export default async function Header() {
               <div className="relative">
                 <Heart />
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                  3
+                  0
                 </span>
               </div>
               <div className="relative">
                 <ShoppingCart />
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                  5
+                  0
                 </span>
               </div>
               {/* Notifications */}
               <Notification />
             </div>
 
-            <div className="flex-1 self-stretch flex items-center gap-2">
+            <div className="flex items-center gap-2">
               <div className="relative">
                 <ModeToggle />
               </div>
@@ -140,8 +171,15 @@ export default async function Header() {
         </div>
       </div>
 
+      {/* Mobile search bar */}
+      <div className="bg-white dark:bg-zinc-800 w-full md:hidden border-t">
+        <div className="container mx-auto px-4 pb-3">
+          <Input type="search" className="w-full" placeholder={t("search-bar")} />
+        </div>
+      </div>
+
       {/* Navigation */}
-      <nav className="bg-maroon-700 dark:bg-soft-pink-200">
+      <nav className="bg-maroon-700 dark:bg-soft-pink-200 hidden md:block">
         <div className=" text-white dark:text-zinc-800 flex justify-center gap-4 px-4">
           {navbar.map((item) => (
             <Link

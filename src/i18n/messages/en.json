@@ -364,5 +364,11 @@
   },
   "logout": "Logout",
   "my-orders": "My Orders",
-  "my-profile": "My Profile"
+  "my-profile": "My Profile",
+  "home": "Home",
+  "contact": "Contact",
+  "menu": "Menu",
+  "search-bar": "What awesome gift are you looking for?",
+  "sign-in": "Sign In",
+  "hello": "hello"
 }
