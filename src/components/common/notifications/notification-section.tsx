@@ -72,7 +72,7 @@ export default function Notification() {
         id="notifications"
       >
         {/* Heading */}
-        <DropdownMenuLabel className="flex h-[58px] items-center bg-maroon-700 p-4 text-xl font-bold text-white dark:bg-softpink-200 dark:text-zinc-800">
+        <DropdownMenuLabel className="flex h-[58px] items-center bg-maroon-700 p-4 text-xl font-bold text-white dark:bg-soft-pink-200 dark:text-zinc-800">
           {t("notifications")} ({unreadCount?.unreadCount ?? 0})
         </DropdownMenuLabel>
         {/* <DropdownMenuSeparator /> */}

@@ -1,20 +1,22 @@
 import Image from "next/image";
 import BarTitle from "@/components/common/bar-title";
+import { useTranslations } from "next-intl";
 
 export default function Gallery() {
+  const t = useTranslations();
   return (
-    <section className="my-9">
+    <section className="mb-36">
       <div className="flex justify-center items-center flex-col">
         <h2 className="font-bold leading-8 tracking-title align-middle uppercase text-soft-pink-500">
-          Gallery
+          {t("gallery")}
         </h2>
         <BarTitle
-          title="Check Out our Wonderful Gallery"
+          title={t("check-out-our-wonderful-gallery")}
           highlightBarWidth="w-auto"
           mainBarWidth="w-3/4"
         />
       </div>
-      <div className="max-w-screen-2xl pt-11 px-4 sm:px-6 md:px-12 lg:px-20 mx-auto">
+      <div className=" pt-11 px-4 sm:px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-12 grid-rows-10 gap-3">
           {/* Left Column - Tall image with gift boxes */}
           <div className="col-span-4 row-span-6">
