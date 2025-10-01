@@ -361,5 +361,8 @@
   "check-out-our-wonderful-gallery": "Check Out our Wonderful Gallery",
   "stats": {
     "trusted": "Trusted by over <pink>4.5k+</pink> companies"
-  }
+  },
+  "logout": "Logout",
+  "my-orders": "My Orders",
+  "my-profile": "My Profile"
 }

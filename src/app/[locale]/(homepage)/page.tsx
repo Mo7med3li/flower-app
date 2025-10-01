@@ -15,7 +15,7 @@ export default function Home({
   searchParams?: { occasion?: string };
 }) {
   return (
-    <main>
+    <section>
       {/* Carousel section */}
       <CarouselSection />
 
@@ -42,6 +42,6 @@ export default function Home({
 
       {/* Companies section */}
       <CompaniesSection />
-    </main>
+    </section>
   );
 }

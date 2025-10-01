@@ -9,7 +9,7 @@ export default async function Layout({ children }: LayoutProps) {
       <Header />
 
       {/* Main children components */}
-      <main className="font-sarabun w-full px-5">{children}</main>
+      <main className="font-sarabun w-full">{children}</main>
 
       {/* Footer */}
       <Footer />
