@@ -3,10 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 export function useUnreadNotificationsCount() {
-  const { data: payload } = useQuery({
+  const { data: payload, isLoading: unreadCountLoading } = useQuery({
     queryKey: ["UnreadNotifications"],
     queryFn: async () => {
-      const response = await fetch("/unread-notifications");
+      const response = await fetch("http://localhost:3000/api/unread-notifications");
 
       const payload: APIResponse<UnreadNotificationsReadResponse> = await response.json();
 
@@ -18,5 +18,5 @@ export function useUnreadNotificationsCount() {
     },
   });
 
-  return { unreadCount: payload };
+  return { unreadCount: payload, unreadCountLoading };
 }

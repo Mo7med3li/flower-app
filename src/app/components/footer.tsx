@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import {
@@ -10,13 +12,17 @@ import {
   Twitter,
   Youtube,
 } from "lucide-react";
+import { useLocale, useFormatter, useTranslations } from "next-intl";
 import logo from "@assets/logo.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useLocale, useFormatter, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import useSubscribe from "@/hooks/subscribe/use-subscribe";
 
 export default function Footer() {
+  // Subscribing
+  const { subscribeMutate, isPending } = useSubscribe();
+
   // Translations
   const t = useTranslations();
   const format = useFormatter();
@@ -35,10 +41,19 @@ export default function Footer() {
     { title: t("faqs"), link: "/faqs" },
   ];
 
+  // Variables
   const mid = Math.ceil(navigation.length / 2);
   const leftLinks = navigation.slice(0, mid);
   const rightLinks = navigation.slice(mid);
   const legalLinks = navigation.slice(-3);
+
+  // Forms
+  const [email, setEmail] = React.useState("");
+
+  // Functions
+  const handleSubscribe = (email: string) => {
+    subscribeMutate({ email });
+  };
 
   return (
     <footer className="w-full flex flex-col bg-zinc-800 dark:bg-zinc-900 border-t border-zinc-700/50">
@@ -167,9 +182,17 @@ export default function Footer() {
                 <div className="hidden md:flex items-center justify-between gap-2 relative w-full">
                   <Input
                     placeholder={t("enter-your-email")}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="bg-zinc-600 text-white border-none ps-4 w-full h-10 rounded-[30px] pr-[130px]"
                   />
-                  <Button className="bg-maroon-50 absolute inset-y-0 h-10 w-[121px] right-0 text-maroon-700 font-medium text-sm hover:bg-soft-pink-400 rounded-full px-4">
+                  <Button
+                    className="bg-maroon-50 absolute inset-y-0 h-10 w-[121px] right-0 text-maroon-700 font-medium text-sm hover:bg-soft-pink-400 rounded-full px-4"
+                    onClick={() => handleSubscribe(email)}
+                    disabled={isPending}
+                    isLoading={isPending}
+                  >
                     {t("subscribe")} <ArrowRight />
                   </Button>
                 </div>

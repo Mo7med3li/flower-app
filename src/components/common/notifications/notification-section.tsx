@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, BrushCleaning, CheckCheck } from "lucide-react";
+import { Bell, BrushCleaning, CheckCheck, Loader } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -14,7 +14,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { useReadAllNotifications } from "@/hooks/notifications/use-read-all-notification";
 import { useDeleteAllNotifications } from "@/hooks/notifications/use-delete-all-notifications";
-import { useUnreadNotificationsCount } from "@/hooks/notifications/use-unread-notification-count";
 
 import { fetchUserNotification } from "@/lib/api/notifications";
 
@@ -26,8 +25,6 @@ export default function Notification() {
   // Translations
   const t = useTranslations();
 
-  // Queries
-  const { unreadCount } = useUnreadNotificationsCount();
   const {
     data: payload,
     isLoading,
@@ -51,6 +48,18 @@ export default function Notification() {
 
   // Variables
   const notificationsFetched = payload?.pages?.flatMap((page: any) => page.notifications) ?? [];
+  const unreadCount = payload?.pages[0].metadata.unreadCount;
+
+  if (isLoading) {
+    return (
+      <div className="relative">
+        <Bell className="cursor-pointer" />
+        <span className="absolute bottom-3/4 right-0 flex size-[14px] items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white dark:bg-red-500">
+          <Loader />
+        </span>
+      </div>
+    );
+  }
 
   return (
     <DropdownMenu>
@@ -59,11 +68,10 @@ export default function Notification() {
           <Bell className="cursor-pointer" />
           {/* UnRead Count */}
           {/* if count equal zero not display */}
-          {(unreadCount?.unreadCount ?? 0) > 0 && (
-            <span className="absolute bottom-3/4 right-0 flex size-[14px] items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white dark:bg-red-500">
-              {unreadCount?.unreadCount}
-            </span>
-          )}
+
+          <span className="absolute bottom-3/4 right-0 flex size-[14px] items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white dark:bg-red-500">
+            {unreadCount}
+          </span>
         </div>
       </DropdownMenuTrigger>
 
@@ -73,7 +81,7 @@ export default function Notification() {
       >
         {/* Heading */}
         <DropdownMenuLabel className="flex h-[58px] items-center bg-maroon-700 p-4 text-xl font-bold text-white dark:bg-soft-pink-200 dark:text-zinc-800">
-          {t("notifications")} ({unreadCount?.unreadCount ?? 0})
+          {t("notifications")} ({unreadCount})
         </DropdownMenuLabel>
         {/* <DropdownMenuSeparator /> */}
         {/* Actions */}
@@ -98,9 +106,7 @@ export default function Notification() {
                 className="text-xs font-semibold dark:text-zinc-50"
                 variant="ghost"
                 onClick={() => readAllNotificationsMutate()}
-                disabled={
-                  readPending || notificationsFetched.length === 0 || unreadCount?.unreadCount === 0
-                }
+                disabled={readPending || notificationsFetched.length === 0 || unreadCount === 0}
               >
                 <CheckCheck size={14} color="#71717A" />
                 {t("mark-all-as-read")}
