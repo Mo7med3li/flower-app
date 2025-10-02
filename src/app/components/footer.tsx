@@ -110,7 +110,7 @@ export default function Footer() {
                 <Phone className="w-4 h-4" />
                 <a href="tel:+201505748872" className="hover:text-soft-pink-300">
                   {locale === "ar" ? "٠" : "0"}
-                  {format.number("01505748872", {
+                  {format.number(1505748872, {
                     style: "decimal",
                     maximumFractionDigits: 0,
                     useGrouping: false,
@@ -163,7 +163,7 @@ export default function Footer() {
             <div className="rounded-2xl bg-zinc-700/50 p-4 md:p-5">
               <p className="font-semibold text-lg text-soft-pink-300 text-center md:text-left">
                 {t.rich("footer.discount", {
-                  pink: (chunk: string) => <span className="text-maroon-50">{chunk}</span>,
+                  pink: (chunk) => <span className="text-maroon-50">{chunk}</span>,
                 })}
               </p>
               <p className="text-zinc-300 text-sm mt-1 text-center md:text-left">
