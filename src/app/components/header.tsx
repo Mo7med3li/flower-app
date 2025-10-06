@@ -14,6 +14,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
+import { getTranslations } from "next-intl/server";
 import { getServerSession } from "next-auth";
 import logo from "@assets/logo.png";
 
@@ -35,11 +36,10 @@ import LocationHeader from "./location-header";
 // Locale Components
 import UserDropdown from "./user-dropdown";
 import MobileNav from "./mobile-nav";
-import { useTranslations } from "next-intl";
 
 export default async function Header() {
   // Translation
-  const t = useTranslations();
+  const t = await getTranslations();
 
   // Navbar object
   const navbar = [

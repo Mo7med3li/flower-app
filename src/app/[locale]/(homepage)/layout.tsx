@@ -2,7 +2,7 @@
 import Footer from "@/app/components/footer";
 import Header from "@/app/components/header";
 
-export default async function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <>
       {/* Header */}

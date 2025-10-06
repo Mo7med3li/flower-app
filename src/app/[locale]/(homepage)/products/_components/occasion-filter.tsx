@@ -10,6 +10,7 @@ import ResetComponent from "@/components/common/reset-button";
 import { cn } from "@/lib/utils";
 import { useRouter } from "@/i18n/navigation";
 import { occasion } from "@/lib/types/occasions";
+import OccasionSkeleton from "@/components/skeletons/occasion/occasion.skeleton";
 import { getOccasions } from "../_hooks/occasions.action";
 
 export default function OccasionFilter() {
@@ -39,18 +40,7 @@ export default function OccasionFilter() {
 
   // Handle error & loading ui
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-2 gap-2.5 pb-5">
-        {Array.from({ length: 6 }).map((_, index) => (
-          <div
-            key={index}
-            className="h-20 bg-gray-200 animate-pulse rounded-lg flex items-center justify-center"
-          >
-            <span className="text-gray-500">Loading...</span>
-          </div>
-        ))}
-      </div>
-    );
+    return <OccasionSkeleton />;
   }
   if (isError) return <p className="text-red-500">{t("error-message")}</p>;
 
@@ -65,7 +55,7 @@ export default function OccasionFilter() {
         dataLength={allOccasions.length}
         next={fetchNextPage}
         hasMore={hasNextPage || false}
-        loader={<h4>Loading more...</h4>}
+        loader={<OccasionSkeleton />}
         height={"277px"}
       >
         <div className="grid grid-cols-2 gap-3 overflow-hidden">

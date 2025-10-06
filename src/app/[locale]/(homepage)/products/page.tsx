@@ -6,11 +6,11 @@ import ProductList from "./_components/product-list";
 
 export default function Page({ searchParams }: { searchParams?: SearchParamProduct }) {
   return (
-    <div className="grid grid-cols-12 gap-6 mb-32 mt-16">
+    <div className="grid grid-cols-12 gap-6 mb-32 mt-16 px-4 lg:px-20">
       {/* Filters */}
       <Filter />
 
-      {/* Porduct list */}
+      {/* Product list */}
       <Suspense
         fallback={
           <SingleProductSkeleton
