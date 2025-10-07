@@ -387,5 +387,14 @@
   "nasr-city-cairo-egypt": "Nasr City ,Cairo, Egypt",
   "201505748872": "+201505748872",
   "email-is-required": "Email is required",
-  "enter-valid-email": "Enter Valid Email"
+  "enter-valid-email": "Enter Valid Email",
+  "reset-all": "Reset all",
+  "choose-a-price-range": "Choose a price range",
+  "showing-products": "Showing products",
+  "showing-products-rated": "Showing products rated",
+  "choose-a-minimum-rating": "Choose a minimum rating",
+  "products-not-available": "Products not available",
+  "no-products-found": "No products found",
+  "error-filter": "We couldn't load products at the moment. Please try again or adjust your filters.",
+  "product-filter": "Try adjusting or clearing some filters to discover more items."
 }

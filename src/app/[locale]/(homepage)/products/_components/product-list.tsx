@@ -1,13 +1,16 @@
+import { getTranslations } from "next-intl/server";
 import SingleProduct from "@/components/common/single-product";
 import { getProducts } from "@/lib/apis/products.api";
 import { SearchParamProduct } from "@/lib/types/products";
+import EmptyState from "@/components/common/empty-state";
 
 export default async function ProductList({ searchParams }: { searchParams?: SearchParamProduct }) {
+  const t = await getTranslations();
   // Functions
   const response = await getProducts(searchParams);
 
   if ("error" in response) {
-    return <p>products not found</p>;
+    return <EmptyState title={t("products-not-available")} subtitle={t("error-filter")} />;
   }
 
   const { products } = response;
@@ -15,7 +18,7 @@ export default async function ProductList({ searchParams }: { searchParams?: Sea
   return (
     <div className="col-span-9 grid grid-cols-9 gap-4">
       {products.length === 0 ? (
-        <p>No products found</p>
+        <EmptyState title={t("no-products-found")} subtitle={t("product-filter")} />
       ) : (
         products.map((product) => (
           <div key={product._id} className="col-span-3">

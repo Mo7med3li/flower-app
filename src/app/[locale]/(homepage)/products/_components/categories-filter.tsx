@@ -5,6 +5,7 @@ import Image from "next/image";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 import FilterCategorySkeleton from "@/components/skeletons/category/FilterCategorySkeleton";
@@ -16,6 +17,9 @@ export default function FilterCategories() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  // Translation
+  const t = useTranslations();
 
   // Variables
   const selectedCategory = searchParams.get("category");
@@ -40,7 +44,7 @@ export default function FilterCategories() {
     <div>
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-lg font-primary">Categories</h3>
+        <h3 className="font-semibold text-lg font-primary">{t("categories")}</h3>
         {selectedCategory && (
           <ResetComponent paramKey={["category"]} onResetFormValues={() => {}} />
         )}
@@ -82,7 +86,7 @@ export default function FilterCategories() {
                   onClick={() => handleClick(category._id)}
                   aria-pressed={selectedCategory === category._id}
                   className={cn(
-                    "flex w-full items-center gap-2 rounded-md border border-transparent p-1.5 pr-2.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maroon-500 hover:bg-maroon-50",
+                    "flex w-full items-center gap-2 rounded-md border border-transparent p-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maroon-500 hover:bg-maroon-50",
                     selectedCategory === category._id
                       ? "bg-maroon-50 dark:bg-soft-pink-100 dark:text-zinc-800"
                       : "bg-zinc-200 dark:bg-zinc-700 dark:hover:text-zinc-800",
@@ -117,7 +121,9 @@ export default function FilterCategories() {
         </InfiniteScroll>
       ) : (
         !isLoading && (
-          <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">No categories found</p>
+          <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+            {t("no-categories-found")}
+          </p>
         )
       )}
     </div>

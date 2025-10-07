@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import ResetComponent from "@/components/common/reset-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ type PriceForm = {
 export default function PriceFilter() {
   // Hooks
   const t = useTranslations();
+  const format = useFormatter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -64,7 +65,7 @@ export default function PriceFilter() {
       <div className="mt-2 grid grid-cols-2 gap-2">
         {/* from input  */}
         <div className="flex flex-col gap-2 col-span-1">
-          <Label htmlFor="price-from">from</Label>
+          <Label htmlFor="price-from">{t("from")}</Label>
           <Input
             id="price-from"
             aria-label="Price from"
@@ -78,13 +79,13 @@ export default function PriceFilter() {
             }}
             {...register("priceFrom")}
             type="number"
-            placeholder="0"
+            placeholder={format.number(0, "number-base")}
           />
         </div>
 
         {/* to input */}
         <div className="flex flex-col gap-2 col-span-1">
-          <Label htmlFor="price-to">to</Label>
+          <Label htmlFor="price-to">{t("to")}</Label>
           <Input
             id="price-to"
             aria-label="Price to"
@@ -98,16 +99,16 @@ export default function PriceFilter() {
             }}
             {...register("priceTo")}
             type="number"
-            placeholder="10000"
+            placeholder={format.number(10000, "number-base")}
           />
         </div>
       </div>
       <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
         {priceFrom || priceTo
-          ? `Showing products ${priceFrom ? `from ${priceFrom}` : ""}${
+          ? `${t("showing-products")} ${t("from")} ${priceFrom ? format.number(Number(priceFrom), "number-base") : ""}${
               priceFrom && priceTo ? " " : ""
-            }${priceTo ? `to ${priceTo}` : ""}`
-          : "Choose a price range"}
+            }${t("to")} ${priceTo ? format.number(Number(priceTo), "number-base") : ""}`
+          : t("choose-a-price-range")}
       </p>
     </div>
   );

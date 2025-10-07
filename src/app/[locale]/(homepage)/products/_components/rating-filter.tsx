@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Star, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { useFormatter, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 
@@ -10,6 +11,10 @@ const RatingFilter = () => {
   // Navigation
   const router = useRouter();
   const pathname = usePathname();
+
+  // Translation
+  const t = useTranslations();
+  const format = useFormatter();
 
   // Search params
   const searchParams = useSearchParams();
@@ -32,7 +37,7 @@ const RatingFilter = () => {
   return (
     <div className="mb-6 border-b-2 border-zinc-100 dark:border-zinc-700 pb-6">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-lg font-primary">Rating</h3>
+        <h3 className="font-semibold text-lg font-primary">{t("rating")}</h3>
         {selectedRating > 0 && (
           <button
             type="button"
@@ -40,7 +45,7 @@ const RatingFilter = () => {
             className="text-sm text-red-600 hover:text-red-700 dark:hover:text-red-500 flex items-center gap-1"
           >
             <X size={16} />
-            Reset
+            {t("reset")}
           </button>
         )}
       </div>
@@ -75,8 +80,8 @@ const RatingFilter = () => {
       </div>
       <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
         {selectedRating > 0
-          ? `Showing products rated ${selectedRating}+`
-          : "Choose a minimum rating"}
+          ? `${t("showing-products-rated")}${format.number(selectedRating, "number-base")}+`
+          : t("choose-a-minimum-rating")}
       </p>
     </div>
   );
