@@ -14,11 +14,15 @@ export default async function ProductList({ searchParams }: { searchParams?: Sea
 
   return (
     <div className="col-span-9 grid grid-cols-9 gap-4">
-      {products.map((product) => (
-        <div key={product._id} className="col-span-3">
-          <SingleProduct singleProduct={product} />
-        </div>
-      ))}
+      {products.length === 0 ? (
+        <p>No products found</p>
+      ) : (
+        products.map((product) => (
+          <div key={product._id} className="col-span-3">
+            <SingleProduct singleProduct={product} />
+          </div>
+        ))
+      )}
     </div>
   );
 }

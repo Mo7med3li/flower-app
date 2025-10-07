@@ -4,10 +4,13 @@ export type AllCategory = {
 };
 
 type Categories = {
+  _id: string;
   name: string;
   slug: string;
   image: string;
-  isSuperAdmin: true;
+  createdAt: string;
+  updatedAt: string;
+  isSuperAdmin: boolean;
   productsCount: number;
 } & DataBaseProbs;
 

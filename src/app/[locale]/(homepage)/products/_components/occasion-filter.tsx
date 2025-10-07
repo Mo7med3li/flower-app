@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import ResetComponent from "@/components/common/reset-button";
 import { cn } from "@/lib/utils";
-import { useRouter } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { occasion } from "@/lib/types/occasions";
 import OccasionSkeleton from "@/components/skeletons/occasion/occasion.skeleton";
 import { getOccasions } from "../_hooks/occasions.action";
@@ -23,18 +23,20 @@ export default function OccasionFilter() {
   // hook
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const value = searchParams.get("occasion");
 
   // useInfiniteQuery to fetch occasions
-  const { data, fetchNextPage, hasNextPage, isLoading, isError } = useInfiniteQuery({
-    queryKey: ["occasions"],
-    queryFn: ({ pageParam = 1 }) => getOccasions(pageParam),
-    getNextPageParam: (lastPage) => {
-      if (lastPage.metadata.currentPage === lastPage.metadata.totalPages) return undefined;
-      return lastPage.metadata.currentPage + 1;
-    },
-    initialPageParam: 1,
-  });
+  const { data, fetchNextPage, hasNextPage, isLoading, isError, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["occasions"],
+      queryFn: ({ pageParam = 1 }) => getOccasions(pageParam),
+      getNextPageParam: (lastPage) => {
+        if (lastPage.metadata.currentPage === lastPage.metadata.totalPages) return undefined;
+        return lastPage.metadata.currentPage + 1;
+      },
+      initialPageParam: 1,
+    });
 
   const allOccasions = data?.pages.flatMap((page) => page.occasions) ?? [];
 
@@ -43,11 +45,20 @@ export default function OccasionFilter() {
     return <OccasionSkeleton />;
   }
   if (isError) return <p className="text-red-500">{t("error-message")}</p>;
+  const handleClick = (id: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (id === value) {
+      newParams.delete("occasion");
+    } else {
+      newParams.set("occasion", id);
+    }
+    router.push(`${pathname}?${newParams.toString()}`);
+  };
 
   return (
     <div className="mb-6 border-b-2 border-zinc-100 dark:border-zinc-700 pb-6">
       {/* header occasion filter */}
-      <div className="flex justify-between ">
+      <div className="flex justify-between hide-scroll">
         <h3 className="font-semibold text-lg font-primary">{t("product.occasion")}</h3>
         <ResetComponent paramKey="occasion" />
       </div>
@@ -55,15 +66,22 @@ export default function OccasionFilter() {
         dataLength={allOccasions.length}
         next={fetchNextPage}
         hasMore={hasNextPage || false}
-        loader={<OccasionSkeleton />}
+        loader={
+          isFetchingNextPage ? (
+            <div className="mt-2">
+              <OccasionSkeleton />
+            </div>
+          ) : null
+        }
         height={"277px"}
+        className="overflow-hidden hide-scroll"
       >
-        <div className="grid grid-cols-2 gap-3 overflow-hidden">
+        <div className="grid grid-cols-2 gap-3">
           {allOccasions.map((occasion: occasion) => (
             <div
               key={occasion._id}
               className="relative flex items-center justify-center h-20 rounded-lg"
-              onClick={() => router.push(`?occasion=${occasion._id}`)}
+              onClick={() => handleClick(occasion._id)}
             >
               <Button
                 className={cn(
