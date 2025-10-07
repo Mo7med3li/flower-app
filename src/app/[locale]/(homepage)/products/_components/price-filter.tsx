@@ -52,7 +52,7 @@ export default function PriceFilter() {
   return (
     <div className="mb-6 border-b-2 border-zinc-100 dark:border-zinc-700 pb-6">
       {/* header occasion filter */}
-      <div className="flex justify-between ">
+      <div className="flex items-center justify-between">
         <h3 className="font-semibold text-lg font-primary">{t("product.price")}</h3>
         <ResetComponent
           paramKey={["price[gt]", "price[lt]"]}
@@ -61,19 +61,54 @@ export default function PriceFilter() {
       </div>
 
       {/* price filter component */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="mt-2 grid grid-cols-2 gap-2">
         {/* from input  */}
         <div className="flex flex-col gap-2 col-span-1">
-          <Label>from</Label>
-          <Input {...register("priceFrom")} type="number" placeholder="0" />
+          <Label htmlFor="price-from">from</Label>
+          <Input
+            id="price-from"
+            aria-label="Price from"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            min={0}
+            step={1}
+            onWheel={(e) => (e.currentTarget as HTMLInputElement).blur()}
+            onKeyDown={(e) => {
+              if (["e", "E", "+", "-", "."].includes(e.key)) e.preventDefault();
+            }}
+            {...register("priceFrom")}
+            type="number"
+            placeholder="0"
+          />
         </div>
 
         {/* to input */}
         <div className="flex flex-col gap-2 col-span-1">
-          <Label>to</Label>
-          <Input {...register("priceTo")} type="number" placeholder="10000" />
+          <Label htmlFor="price-to">to</Label>
+          <Input
+            id="price-to"
+            aria-label="Price to"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            min={0}
+            step={1}
+            onWheel={(e) => (e.currentTarget as HTMLInputElement).blur()}
+            onKeyDown={(e) => {
+              if (["e", "E", "+", "-", "."].includes(e.key)) e.preventDefault();
+            }}
+            {...register("priceTo")}
+            type="number"
+            placeholder="10000"
+          />
         </div>
       </div>
+      <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+        {priceFrom || priceTo
+          ? `Showing products ${priceFrom ? `from ${priceFrom}` : ""}${
+              priceFrom && priceTo ? " " : ""
+            }${priceTo ? `to ${priceTo}` : ""}`
+          : "Choose a price range"}
+      </p>
     </div>
   );
 }
