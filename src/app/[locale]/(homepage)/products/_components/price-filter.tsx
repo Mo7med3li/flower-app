@@ -64,13 +64,13 @@ export default function PriceFilter() {
       <div className="grid grid-cols-2 gap-2">
         {/* from input  */}
         <div className="flex flex-col gap-2 col-span-1">
-          <Label className="">from</Label>
+          <Label>from</Label>
           <Input {...register("priceFrom")} type="number" placeholder="0" />
         </div>
 
         {/* to input */}
         <div className="flex flex-col gap-2 col-span-1">
-          <Label className="">to</Label>
+          <Label>to</Label>
           <Input {...register("priceTo")} type="number" placeholder="10000" />
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
-import OccasionFilter from "./occasion-filter";
 import PriceFilter from "./price-filter";
+import OccasionFilter from "./occasion-filter";
+import RatingFilter from "./rating-filter";
 
 export default function Filter() {
   return (
@@ -15,9 +16,7 @@ export default function Filter() {
       <OccasionFilter />
 
       {/* Rating filter  */}
-      <div className="mb-6 border-b-2 border-zinc-100 dark:border-zinc-700 pb-6">
-        <h3 className="font-semibold text-lg font-primary">Rating</h3>
-      </div>
+      <RatingFilter />
 
       {/* Price filter */}
       <PriceFilter />
