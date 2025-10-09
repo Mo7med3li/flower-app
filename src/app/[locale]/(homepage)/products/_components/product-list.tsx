@@ -3,6 +3,7 @@ import SingleProduct from "@/components/common/single-product";
 import { getProducts } from "@/lib/apis/products.api";
 import { SearchParamProduct } from "@/lib/types/products";
 import EmptyState from "@/components/common/empty-state";
+import PaginationComponent from "@/components/common/Pagination-components";
 
 export default async function ProductList({ searchParams }: { searchParams?: SearchParamProduct }) {
   const t = await getTranslations();
@@ -26,6 +27,9 @@ export default async function ProductList({ searchParams }: { searchParams?: Sea
           </div>
         ))
       )}
+      <div className="col-span-9 mt-5">
+        <PaginationComponent metaData={response.metadata} />
+      </div>
     </div>
   );
 }

@@ -21,6 +21,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
         "currency-float": {
           style: "currency",
           currency: "EGP",
+          numberingSystem: locale === "ar" ? "arab" : "latn",
         },
         "percentage-int": {
           style: "percent",

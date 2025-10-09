@@ -3,7 +3,7 @@ import { ProductDetails, Products, RelatedProducts, SearchParamProduct } from ".
 // Get all products
 export const getProducts = async (params?: SearchParamProduct | undefined) => {
   // Declaring products API
-  const url = new URL(`${process.env.API}/Products`);
+  const url = new URL(`${process.env.API}/Products?limit=5`);
 
   // If no params are given (undefined)
   if (!params || params === undefined) {

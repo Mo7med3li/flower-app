@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ShoppingCart, Star } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
 import type { Product } from "@/lib/types/products";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
@@ -30,10 +31,15 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
   // Variables
   let title;
 
+  // Translations
+  const format = useFormatter();
+  const t = useTranslations();
+
+  // Dates
   const currentDate = Date.now();
   const productDate = new Date(singleProduct.createdAt).getTime();
-  const diffrence = currentDate - productDate;
-  const durationInDays = Math.floor(diffrence / 1000 / 60 / 60 / 24); // Making Time By Day Instead Of Api Format
+  const difference = currentDate - productDate;
+  const durationInDays = Math.floor(difference / 1000 / 60 / 60 / 24); // Making Time By Day Instead Of Api Format
 
   // Functions
   // Slice Title
@@ -90,10 +96,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
         </Link>
 
         {/* product title */}
-        <h3
-          // TODO Change Text Color
-          className="text-lg mt-4 mb-1 font-semibold text-[#741C21]"
-        >
+        <h3 className="text-lg mt-4 mb-1 font-semibold text-maroon-600 dark:text-soft-pink-200">
           {titleSliced()}
         </h3>
       </div>
@@ -115,20 +118,17 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
             </div>
 
             {/* Price */}
-            <span
-              // TODO Change Text Color
-              className="text-[#741C21]"
-            >
-              {singleProduct.priceAfterDiscount}.00 EGP{" "}
+            <span className="text-maroon-600 dark:text-soft-pink-200 me-1">
+              {format.number(singleProduct.priceAfterDiscount, "currency-float")}
             </span>
-            <span className="line-through text-zinc-400">{singleProduct.price}.00 EGP</span>
-            <span className="line-through text-zinc-400">{singleProduct.price}.00 EGP</span>
+            <span className="line-through text-zinc-400">
+              {format.number(singleProduct.price, "currency-float")}
+            </span>
           </div>
 
           {/* Cart Button */}
           <Button
-            // TODO Change bg Color
-            className="rounded-full [&_svg]:size-6 h-11 w-11 bg-[#A6252A] hover:bg-[#A6252A]"
+            className="rounded-full [&_svg]:size-6 h-11 w-11 bg-maroon-600 hover:bg-maroon-700 dark:bg-maroon-500 dark:text-white"
             size="icon"
           >
             <ShoppingCart strokeWidth={1} />
@@ -141,33 +141,32 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
         <Badge
           className={cn(
             showNew() ? "block" : "hidden",
-            "bg-zinc-100 text-zinc-700 hover:bg-zinc-100 py-1 px-2",
-            "bg-zinc-100 text-zinc-700 hover:bg-zinc-100 py-1 px-2",
+            "bg-zinc-100 dark:bg-zinc-100 text-zinc-700 hover:bg-zinc-100 py-1 px-2",
+            "bg-zinc-100 dark:bg-zinc-100 text-zinc-700 hover:bg-zinc-100 py-1 px-2",
           )}
         >
-          NEW
+          {t("new")}
         </Badge>
 
         <Badge
-          // TODO Change Text / Bg Color
           className={cn(
             showHot() ? "block" : "hidden",
-            "bg-[#FBEAEA] text-[#A6252A] hover:bg-[#FBEAEA] py-1 px-2",
-            "bg-[#FBEAEA] text-[#A6252A] hover:bg-[#FBEAEA] py-1 px-2",
+            "bg-soft-pink-50 text-maroon-600 hover:bg-soft-pink-300 py-1 px-2",
+            "bg-soft-pink-50 text-maroon-600 hover:bg-soft-pink-300 py-1 px-2",
           )}
         >
-          HOT
+          {t("hot")}
         </Badge>
 
         <Badge
           className={cn(
             showOutOfStock() ? "block" : "hidden",
-            // TODO Change Text Color
-            "text-[#FFF1F5] bg-red-600 hover:bg-red-600 py-1 px-2",
-            "text-[#FFF1F5] bg-red-600 hover:bg-red-600 py-1 px-2",
+
+            "text-soft-pink-200 bg-red-600 hover:bg-red-600 py-1 px-2",
+            "text-soft-pink-200 bg-red-600 hover:bg-red-600 py-1 px-2",
           )}
         >
-          OUT OF STOCK
+          {t("out-of-stock")}
         </Badge>
       </div>
     </div>

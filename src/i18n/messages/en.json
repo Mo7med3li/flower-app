@@ -396,5 +396,8 @@
   "products-not-available": "Products not available",
   "no-products-found": "No products found",
   "error-filter": "We couldn't load products at the moment. Please try again or adjust your filters.",
-  "product-filter": "Try adjusting or clearing some filters to discover more items."
+  "product-filter": "Try adjusting or clearing some filters to discover more items.",
+  "new": "NEW",
+  "hot": "HOT",
+  "out-of-stock": "OUT OF STOCK"
 }
