@@ -16,12 +16,12 @@ export default async function ProductList({ searchParams }: { searchParams?: Sea
   const { products } = response;
 
   return (
-    <div className="col-span-9 grid grid-cols-9 gap-4">
+    <div className="lg:col-span-9 col-span-12 grid grid-cols-9 gap-4">
       {products.length === 0 ? (
         <EmptyState title={t("no-products-found")} subtitle={t("product-filter")} />
       ) : (
         products.map((product) => (
-          <div key={product._id} className="col-span-3">
+          <div key={product._id} className="col-span-9 md:col-span-4 lg:col-span-3">
             <SingleProduct singleProduct={product} />
           </div>
         ))

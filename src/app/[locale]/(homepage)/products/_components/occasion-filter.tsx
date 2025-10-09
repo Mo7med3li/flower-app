@@ -80,7 +80,7 @@ export default function OccasionFilter() {
           {allOccasions.map((occasion: occasion) => (
             <div
               key={occasion._id}
-              className="relative flex items-center justify-center h-20 rounded-lg"
+              className="relative flex items-center justify-center h-20 rounded-lg col-span-2 md:col-span-1"
               onClick={() => handleClick(occasion._id)}
             >
               <Button
