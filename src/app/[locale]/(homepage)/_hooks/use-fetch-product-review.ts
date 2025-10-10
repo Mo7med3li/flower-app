@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchProductReviews } from "@/lib/apis/product-reviews.api";
+import { ReviewsResponse } from "@/lib/types/add-product-review";
 
 export function useFetchProductReview({ productId }: { productId: string }) {
   const {
@@ -8,10 +9,10 @@ export function useFetchProductReview({ productId }: { productId: string }) {
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["Product Reviewa", productId],
+  } = useInfiniteQuery<ReviewsResponse>({
+    queryKey: ["Product Review", productId],
     queryFn: async ({ pageParam }) => {
-      return await fetchProductReviews({ pageParam, productId });
+      return await fetchProductReviews({ pageParam: pageParam as number, productId });
     },
     initialPageParam: 1,
     getNextPageParam: (LastPage) => {

@@ -1,9 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { addProductReview } from "@/lib/actions/add-product-review/add-product-review.action";
 import { ProductReviewField } from "@/lib/schema/add-product-review.schema";
 
 export default function useAddProductReview() {
+  // Query Client
+  const queryClient = useQueryClient();
   const { error, isPending, mutate, data } = useMutation({
     mutationFn: async ({
       values,
@@ -15,9 +17,12 @@ export default function useAddProductReview() {
       return await addProductReview({ values, product: productId });
     },
 
-    onSuccess: () => {
+    onSuccess: ({ productId }) => {
       toast.success("Review added successfully");
       localStorage.removeItem("pendingReview");
+      queryClient.invalidateQueries({
+        queryKey: ["Product Review", productId],
+      });
     },
 
     onError: (error) => {

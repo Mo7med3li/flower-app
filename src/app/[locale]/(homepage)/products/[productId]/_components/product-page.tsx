@@ -56,12 +56,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
   });
 
   return (
-    <div className="grid grid-cols-2 gap-16 pt-16 pb-5">
-      {/* Product Image Section */}
-      <div className="w-full border-2 border-black rounded-3xl h-[600px] bg-gray-100 flex items-center justify-center">
-        <p>Product Image/Content Goes Here</p>
-      </div>
-
+    <div className="w-full gap-16 pt-16 pb-5">
       {/* Product Details Section */}
       <div className="w-full flex flex-col h-[600px]">
         {/* Product Title */}
@@ -126,7 +121,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
             </div>
           ) : (
             // Out of stock - show only wishlist button (extended)
-            <div className="">
+            <div>
               <AddToWishlist extend productId={product._id} check={payload} />
             </div>
           )}

@@ -3,8 +3,8 @@
 
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { useAddToCart } from "../hooks/use-add-to-cart";
 import { addToCartLocalStorage } from "../_actions/local-cart.actoin";
@@ -32,16 +32,9 @@ export default function AddToCartButton({
       setIsLocalPending(true);
       try {
         addToCartLocalStorage(productId, 1);
-        toast({
-          title: "Added to cart!",
-          description: "Item added to your cart",
-        });
+        toast.success("Added to cart!");
       } catch (error) {
-        toast({
-          title: "Failed to add to cart",
-          description: "Something went wrong",
-          variant: "destructive",
-        });
+        toast.error(`Failed to add to cart ${error}`);
       } finally {
         setIsLocalPending(false);
       }

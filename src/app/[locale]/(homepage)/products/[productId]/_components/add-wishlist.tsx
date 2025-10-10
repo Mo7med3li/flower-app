@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Heart, HeartPlus } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { toast } from "@/hooks/use-toast";
 import { useAddToWishlist } from "../hooks/use-add-to-wishlist";
 import { useRemoveFromWishlist } from "../hooks/use-delete-from-wishlist";
 
@@ -30,7 +30,7 @@ export default function FavoriteToggle({
 
   const handleClick = () => {
     if ("error" in check) {
-      toast({ title: "Please login to manage your wishlist." });
+      toast.error("Please login to manage your wishlist.");
       return;
     }
 
@@ -41,14 +41,10 @@ export default function FavoriteToggle({
       addToWishlist(productId, {
         onSuccess: () => {
           setIsFavorite(true);
-          toast({ title: "Added to wishlist!" });
+          toast.success("Added to wishlist!");
         },
         onError: (error: { message: string }) => {
-          toast({
-            title: "Failed to add to wishlist",
-            description: error.message,
-            variant: "destructive",
-          });
+          toast.error(`Failed to add to wishlist ${error.message}`);
         },
       });
     } else {
@@ -56,14 +52,10 @@ export default function FavoriteToggle({
       removeFromWishlist(productId, {
         onSuccess: () => {
           setIsFavorite(false);
-          toast({ title: "Removed from wishlist!" });
+          toast.success("Removed from wishlist!");
         },
         onError: (error: { message: string }) => {
-          toast({
-            title: "Failed to remove from wishlist",
-            description: error.message,
-            variant: "destructive",
-          });
+          toast.error(`Failed to remove from wishlist ${error.message}`);
         },
       });
     }
@@ -77,7 +69,7 @@ export default function FavoriteToggle({
       disabled={isPending}
       aria-label="Toggle Wishlist"
       className={cn(
-        "group flex items-center justify-center rounded-xl w-12 h-12 transition-colors",
+        "group w-full flex items-center justify-center rounded-xl h-12 transition-colors",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         isFavorite ? "bg-red-100 hover:bg-red-200" : "bg-zinc-100 hover:bg-zinc-200",
       )}

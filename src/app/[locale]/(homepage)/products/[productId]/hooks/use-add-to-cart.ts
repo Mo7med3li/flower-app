@@ -1,6 +1,6 @@
 // Libraries
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 // Actions
 import { addToCartAction } from "../_actions/cart.actoin";
@@ -17,17 +17,10 @@ export function useAddToCart() {
       return response;
     },
     onSuccess: (data) => {
-      toast({
-        title: "Added to cart!",
-        description: `${data.numOfCartItems} items in your cart`,
-      });
+      toast.success(`${data.numOfCartItems} items in your cart`);
     },
     onError: (error) => {
-      toast({
-        title: "Failed to add to cart",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error(`Failed to add to cart ${error.message}`);
     },
   });
 
