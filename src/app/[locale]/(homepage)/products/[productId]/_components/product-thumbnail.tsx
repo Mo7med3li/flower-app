@@ -81,7 +81,7 @@ export default function ProductThumbnail({ thumbnailImages }: ThumbnailImagesPro
 
       {/* secondary carousel */}
       <div>
-        <Carousel setApi={setSecondaryCarouselAPI} className="flex justify-center">
+        <Carousel opts={{ align: "end" }} setApi={setSecondaryCarouselAPI} className="flex">
           <CarouselContent className="mx-auto w-full">
             {thumbnailImages.map((image, index) => (
               <CarouselItem key={`${image}-${index}`} className="pl-2 flex-none">

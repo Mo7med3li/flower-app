@@ -72,7 +72,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
       <div className="w-full flex flex-col h-[600px]">
         {/* Product Title */}
         <div className="flex items-start justify-between gap-3">
-          <h2 className="font-semibold font-primary text-3xl text-zinc-800 dark:text-soft-pink-300">
+          <h2 className="font-semibold font-primary text-3xl text-zinc-800 dark:text-zinc-50">
             {product.title}
           </h2>
           {hasDiscount && (
@@ -93,7 +93,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
             )}
 
             {/* Current price with currency symbol */}
-            <span className="text-3xl font-primary font-bold text-zinc-800 flex items-baseline gap-1">
+            <span className="text-3xl font-primary font-bold text-zinc-800 dark:text-zinc-50 flex items-baseline gap-1">
               <span>{current.number}</span>
               <span className="text-xl">{current.symbol}</span>
             </span>
@@ -104,10 +104,10 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
             className={
               "flex items-center gap-1 py-1.5 px-3 rounded-3xl mt-2 ring-1 " +
               (product.quantity === 0
-                ? "bg-zinc-100 ring-zinc-200 text-zinc-600"
+                ? "bg-zinc-100 ring-zinc-200 text-zinc-800 dark:text-zinc-50"
                 : lowStock
                   ? "bg-amber-50 ring-amber-200 text-amber-700"
-                  : "bg-emerald-50 ring-emerald-200 text-emerald-700")
+                  : "bg-emerald-50 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-50 ")
             }
           >
             <Package className="size-5" />
@@ -128,14 +128,18 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
               ))}
               {product.rateAvg % 1 !== 0 && <StarHalf fill="#FFA500" className="text-[#FFA500]" />}
             </div>
-            <span className="font-primary font-semibold text-zinc-800">{product.rateAvg}/5</span>
-            <span className="text-sm text-blue-600 font-medium">({product.rateCount} ratings)</span>
+            <span className="font-primary font-semibold text-zinc-800 dark:text-zinc-50">
+              {product.rateAvg}/5
+            </span>
+            <span className="text-sm text-blue-600 font-medium ">
+              ({product.rateCount} ratings)
+            </span>
           </div>
         </div>
 
         {/* Product Description */}
         <ScrollArea className="h-32 rounded-md border-none mt-4 flex-1">
-          <p className="text-zinc-600 leading-relaxed">{product.description}</p>
+          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{product.description}</p>
         </ScrollArea>
 
         {/* Action Buttons */}

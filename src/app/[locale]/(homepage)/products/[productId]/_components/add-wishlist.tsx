@@ -69,9 +69,11 @@ export default function FavoriteToggle({
       disabled={isPending}
       aria-label="Toggle Wishlist"
       className={cn(
-        "group w-full flex items-center justify-center rounded-xl h-12 transition-colors",
+        "group w-full flex items-center justify-center dark:border-2 border-zinc-500 rounded-lg p-3 h-12 transition-colors",
         "disabled:opacity-50 disabled:cursor-not-allowed",
-        isFavorite ? "bg-red-100 hover:bg-red-200" : "bg-zinc-100 hover:bg-zinc-200",
+        isFavorite
+          ? "bg-red-100 hover:bg-red-200"
+          : "bg-zinc-100 dark:bg-soft-pink-300 dark:hover:bg-soft-pink-600 hover:bg-zinc-200",
       )}
     >
       {/* Icon */}

@@ -30,7 +30,6 @@ export default async function Page({ params }: ProductDetailsProps) {
   }
 
   const { product } = response;
-  // const thumbnailImages = [product.imgCover, ...product.images];
 
   return (
     <>
