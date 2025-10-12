@@ -1,4 +1,4 @@
-import { Package, Star } from "lucide-react";
+import { Package, Star, StarHalf } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth";
 import { Product } from "@/lib/types/products";
@@ -55,21 +55,39 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
     numberingSystem: locale === "ar" ? "arab" : "latn",
   });
 
+  const hasDiscount = Boolean(product.priceAfterDiscount);
+  const discountPercent = hasDiscount
+    ? Math.max(
+        0,
+        Math.round(
+          ((product.price - (product.priceAfterDiscount as number)) / product.price) * 100,
+        ),
+      )
+    : 0;
+  const lowStock = product.quantity > 0 && product.quantity <= 5;
+
   return (
-    <div className="w-full gap-16 pt-16 pb-5">
+    <div className="w-full gap-4 pt-10 pb-6">
       {/* Product Details Section */}
       <div className="w-full flex flex-col h-[600px]">
         {/* Product Title */}
-        <h2 className="font-semibold font-primary text-3xl text-zinc-800 dark:text-soft-pink-300">
-          {product.title}
-        </h2>
+        <div className="flex items-start justify-between gap-3">
+          <h2 className="font-semibold font-primary text-3xl text-zinc-800 dark:text-soft-pink-300">
+            {product.title}
+          </h2>
+          {hasDiscount && (
+            <span className="shrink-0 rounded-full bg-red-50 text-red-600 px-3 py-1 text-sm font-semibold ring-1 ring-red-200">
+              -{discountPercent}%
+            </span>
+          )}
+        </div>
 
         {/* Price and Stock Information */}
         <div className="flex items-center gap-4 mb-4">
-          <div className="mt-4 flex items-baseline">
+          <div className="mt-4 flex items-baseline gap-3">
             {/* Original price (crossed out if discounted) */}
             {discounted && (
-              <span className="text-3xl text-zinc-300 font-bold line-through">
+              <span className="text-2xl text-zinc-400 font-semibold line-through">
                 {discounted.number}
               </span>
             )}
@@ -82,24 +100,37 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           </div>
 
           {/* Stock quantity indicator */}
-          <div className="flex items-center gap-1 bg-zinc-100 py-1.5 px-3 rounded-3xl mt-2">
-            <Package className="size-5 text-zinc-600" />
+          <div
+            className={
+              "flex items-center gap-1 py-1.5 px-3 rounded-3xl mt-2 ring-1 " +
+              (product.quantity === 0
+                ? "bg-zinc-100 ring-zinc-200 text-zinc-600"
+                : lowStock
+                  ? "bg-amber-50 ring-amber-200 text-amber-700"
+                  : "bg-emerald-50 ring-emerald-200 text-emerald-700")
+            }
+          >
+            <Package className="size-5" />
             <div className="flex items-center gap-1 font-medium font-primary text-sm">
               <span>{product.quantity}</span>
-              <p>left in stock</p>
+              <p>{product.quantity === 0 ? "out of stock" : "left in stock"}</p>
             </div>
           </div>
         </div>
 
         {/* Product Rating */}
-        <div className="flex items-center gap-2 border-y border-zinc-100 py-4">
-          <span>
-            <Star fill="#FFA500" className="text-[#FFA500]" />
-          </span>
-          <p className="font-primary font-normal">
-            Rating: <span className="font-semibold mx-0.5 font-md">{product.rateAvg}/5</span>{" "}
-            <span className="font-semibold text-blue-600">{`(${product.rateCount} ratings)`}</span>
-          </p>
+        <div className="flex items-center justify-between border-y border-zinc-100 py-4">
+          <div className="flex items-center gap-2">
+            {/* Stars */}
+            <div className="flex items-center gap-1 text-orange-400">
+              {Array.from({ length: Math.floor(product.rateAvg) }).map((_, i) => (
+                <Star key={i} fill="#FFA500" className="text-[#FFA500]" />
+              ))}
+              {product.rateAvg % 1 !== 0 && <StarHalf fill="#FFA500" className="text-[#FFA500]" />}
+            </div>
+            <span className="font-primary font-semibold text-zinc-800">{product.rateAvg}/5</span>
+            <span className="text-sm text-blue-600 font-medium">({product.rateCount} ratings)</span>
+          </div>
         </div>
 
         {/* Product Description */}
@@ -108,11 +139,11 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
         </ScrollArea>
 
         {/* Action Buttons */}
-        <div className="mt-auto pt-4">
+        <div className="pt-4">
           {product.quantity > 0 ? (
             // In stock - show both wishlist and cart buttons
             <div className="flex gap-4 items-center">
-              <div className="">
+              <div>
                 <AddToWishlist productId={product._id} check={payload} />
               </div>
               <div className="flex-1">

@@ -53,5 +53,9 @@ export const getRelatedProduct = async (productId: string) => {
   // Returning the related products results
   const payload: APIResponse<RelatedProducts> = await response.json();
 
+  if ("error" in payload) {
+    return { error: payload.error };
+  }
+
   return payload;
 };

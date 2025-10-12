@@ -5,12 +5,12 @@ import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
-// Probs
-interface ThumbnailImagesProbs {
+// Props
+interface ThumbnailImagesProps {
   thumbnailImages: string[];
 }
 
-export default function ProductThumbnail({ thumbnailImages }: ThumbnailImagesProbs) {
+export default function ProductThumbnail({ thumbnailImages }: ThumbnailImagesProps) {
   // Hooks
   const [mainCarouselAPI, setMainCarouselAPI] = useState<CarouselApi | null>(null);
   const [secondaryCarouselAPI, setSecondaryCarouselAPI] = useState<CarouselApi | null>(null);
@@ -47,20 +47,31 @@ export default function ProductThumbnail({ thumbnailImages }: ThumbnailImagesPro
     mainCarouselAPI.on("select", onSelect).on("reInit", onSelect);
   }, [mainCarouselAPI, onSelect, secondaryCarouselAPI]);
 
+  // Empty state fallback
+  if (!thumbnailImages || thumbnailImages.length === 0) {
+    return (
+      <div className="w-full max-w-[605px] h-[402px] rounded-xl border border-dashed border-zinc-300 bg-zinc-50 flex items-center justify-center text-zinc-500">
+        No product images
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* main carousel */}
-      <Carousel opts={{ loop: true, align: "start" }} setApi={setMainCarouselAPI} className="mb-2">
+      <Carousel opts={{ loop: true, align: "start" }} setApi={setMainCarouselAPI} className="mb-3">
         <CarouselContent>
           {thumbnailImages.map((image, index) => (
             <CarouselItem key={index}>
-              <div className="relative max-w-[605px] h-[402px]">
+              <div className="group relative max-w-[605px] h-[450px] rounded-xl overflow-hidden bg-zinc-50 ring-1 ring-zinc-200 shadow-sm">
                 <Image
                   src={image}
-                  alt="Product Image"
-                  fill={true}
-                  className="object-cover rounded-xl"
+                  alt={`Product image ${index + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 605px"
+                  className="object-cover w-full h-full transition-transform duration-300 ease-out group-hover:scale-105"
                   quality={90}
+                  priority={index === 0}
                 />
               </div>
             </CarouselItem>
@@ -68,22 +79,25 @@ export default function ProductThumbnail({ thumbnailImages }: ThumbnailImagesPro
         </CarouselContent>
       </Carousel>
 
-      {/* secondry carousel */}
+      {/* secondary carousel */}
       <div>
         <Carousel setApi={setSecondaryCarouselAPI} className="flex justify-center">
-          <CarouselContent className="-ml-2">
+          <CarouselContent className="mx-auto w-full">
             {thumbnailImages.map((image, index) => (
-              <CarouselItem key={image} className="pl-2 flex-none ">
+              <CarouselItem key={`${image}-${index}`} className="pl-2 flex-none">
                 <Image
-                  alt="Product Image"
+                  alt={`Product thumbnail ${index + 1}`}
                   src={image}
                   width={91}
                   height={111}
                   className={cn(
-                    index === selectedIndex ? "brightness-100" : "brightness-75",
-                    "w-24 h-28 rounded-lg object-cover hover:brightness-90 ease-in-out duration-300",
+                    index === selectedIndex
+                      ? "brightness-100 ring-2 ring-maroon-500"
+                      : "brightness-75 ring-1 ring-transparent",
+                    "w-24 h-28 rounded-lg object-cover hover:brightness-95 transition-all duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-maroon-500",
                   )}
                   onClick={() => scrollTo(index)}
+                  aria-current={index === selectedIndex}
                 />
               </CarouselItem>
             ))}

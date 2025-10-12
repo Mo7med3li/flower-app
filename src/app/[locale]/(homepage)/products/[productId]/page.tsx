@@ -1,11 +1,12 @@
 import { Suspense } from "react";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { getProductDetails } from "@/lib/apis/products.api";
 import SingleProductSkeleton from "@/components/skeletons/single-product/single-product.skeleton";
-// import { RealatedProductsCarousel } from "./_components/related-products-carousel";
+import BarTitle from "@/components/common/bar-title";
 import ProductThumbnail from "./_components/product-thumbnail";
 import ProductPage from "./_components/product-page";
 import ProductReview from "../../_components/add-product-review/product-review";
+import { RelatedProductsCarousel } from "./_components/related-products-carousel";
 
 interface ProductDetailsProps {
   params: {
@@ -15,7 +16,7 @@ interface ProductDetailsProps {
 
 export default async function Page({ params }: ProductDetailsProps) {
   // Translation
-  // const t = await getTranslations();
+  const t = await getTranslations();
   const locale = await getLocale();
 
   // Extracting search params
@@ -51,13 +52,13 @@ export default async function Page({ params }: ProductDetailsProps) {
             rateCount={product.rateCount}
           />
         </section>
-        <div className="mt-12 col-span-12">
+        <div className="mt-2 col-span-12">
           {/* Title */}
-          {/* <BarTitle
+          <BarTitle
             title={t("related-products-heading")}
             highlightBarWidth="w-[27%]"
             mainBarWidth="w-9/12"
-          /> */}
+          />
 
           {/* Related products carousel */}
           <Suspense
@@ -71,7 +72,7 @@ export default async function Page({ params }: ProductDetailsProps) {
             }
             key={product._id}
           >
-            {/* <RelatedProductsCarousel productId={productId} /> */}
+            <RelatedProductsCarousel productId={productId} />
           </Suspense>
         </div>
       </div>

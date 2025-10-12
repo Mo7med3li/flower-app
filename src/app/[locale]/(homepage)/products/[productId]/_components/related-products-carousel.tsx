@@ -8,20 +8,23 @@ import {
 import SingleProduct from "@/components/common/single-product";
 import { getProductDetails, getRelatedProduct } from "@/lib/apis/products.api";
 
-interface ProductDetailsProbs {
+interface ProductDetailsProps {
   productId: string;
 }
 
-export async function RealatedProductsCarousel({ productId }: ProductDetailsProbs) {
+export async function RelatedProductsCarousel({ productId }: ProductDetailsProps) {
   // Functions
   const response = await getRelatedProduct(productId);
 
   if ("error" in response) {
     return <p>error</p>;
   }
+  if (!response) {
+    return <p>No similar products found</p>;
+  }
 
   // استخراج similarProducts من كل عنصر في المصفوفة
-  const similarProducts = response.map((item) => item.similarProducts);
+  const similarProducts = response.similarProducts.map((item) => item);
 
   // التأكد من أن المصفوفة ليست فارغة
   if (!Array.isArray(similarProducts) || similarProducts.length === 0) {
@@ -44,13 +47,10 @@ export async function RealatedProductsCarousel({ productId }: ProductDetailsProb
   return (
     <>
       <Carousel opts={{ align: "start" }} className="mt-4 mb-12">
-        <CarouselContent className="-ml-4">
+        <CarouselContent className="-ml-4 w-full flex">
           {relatedProductsDetails.map((product, index) =>
             product ? (
-              <CarouselItem
-                key={product._id}
-                className="basis-1/4 mx-auto flex justify-center pl-4"
-              >
+              <CarouselItem key={product._id} className="basis-1/4">
                 <SingleProduct singleProduct={product} />
               </CarouselItem>
             ) : (

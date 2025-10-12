@@ -15,6 +15,7 @@ export type Product = {
   isSuperAdmin: boolean;
   sold?: number;
   id: string;
+  inWishlist?: boolean;
 } & DataBaseProbs;
 
 // Product details
@@ -67,8 +68,10 @@ export type RelatedProducts = {
     price: number;
     priceAfterDiscount: number;
     similarityScore: number;
-  };
-}[];
+    rateAvg?: number;
+    rateCount?: number;
+  }[];
+};
 // Product details
 export type ProductDetails = {
   product: Product;
