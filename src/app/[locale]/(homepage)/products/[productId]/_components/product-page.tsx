@@ -4,7 +4,6 @@ import { authOptions } from "@/auth";
 import { Product } from "@/lib/types/products";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import AddToWishlist from "../../[productId]/_components/add-wishlist";
-import { checkWishlistAction } from "../_actions/wishlist.actoin";
 import AddToCartButton from "../../[productId]/_components/add-to-cart-button";
 
 function getCurrencyParts(
@@ -34,8 +33,6 @@ interface ProductPageProps {
 }
 
 export default async function ProductPage({ product, locale }: ProductPageProps) {
-  const payload = await checkWishlistAction(product._id); // Check if product is in user's wishlist
-
   // Session
   const session = await getServerSession(authOptions);
   const isLoggedIn = !!session?.user;
@@ -148,7 +145,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
             // In stock - show both wishlist and cart buttons
             <div className="flex gap-4 items-center">
               <div>
-                <AddToWishlist productId={product._id} check={payload} />
+                <AddToWishlist productId={product._id} />
               </div>
               <div className="flex-1">
                 <AddToCartButton productId={product._id} isLoggedIn={isLoggedIn} />
@@ -157,7 +154,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           ) : (
             // Out of stock - show only wishlist button (extended)
             <div>
-              <AddToWishlist extend productId={product._id} check={payload} />
+              <AddToWishlist extend productId={product._id} />
             </div>
           )}
         </div>

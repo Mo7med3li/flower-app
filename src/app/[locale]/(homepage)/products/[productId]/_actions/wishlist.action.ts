@@ -3,7 +3,7 @@
 import { getAuthHeader } from "@/lib/utils/auth-header";
 
 type WishlistCheckResult = {
-  inWishlist: boolean;
+  isInWishlist: boolean;
 };
 
 export async function checkWishlistAction(productId: string) {
@@ -17,6 +17,9 @@ export async function checkWishlistAction(productId: string) {
   });
 
   const payload: APIResponse<WishlistCheckResult> = await response.json();
+  if ("error" in payload) {
+    throw new Error(payload.error);
+  }
 
   return payload;
 }

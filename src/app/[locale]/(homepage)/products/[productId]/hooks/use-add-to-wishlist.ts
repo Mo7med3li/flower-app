@@ -1,6 +1,6 @@
 // Libraries
 import { useMutation } from "@tanstack/react-query";
-import { AddToWishlist } from "../_actions/wishlist.actoin";
+import { AddToWishlist } from "../_actions/wishlist.action";
 
 export function useAddToWishlist() {
   // Mutation
