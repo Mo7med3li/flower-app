@@ -33,25 +33,25 @@ export default async function Page({ params }: ProductDetailsProps) {
 
   return (
     <>
-      <div className="mt-16 grid grid-cols-12 gap-16 px-20">
+      <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 lg:gap-16 px-4 sm:px-6 md:px-10 lg:px-20">
         {/* Product thumbnail */}
-        <div className="col-span-6">
+        <div className="md:col-span-6 col-span-1">
           <ProductThumbnail thumbnailImages={product.images} />
         </div>
 
         {/* Product description */}
-        <div className="col-span-6">
+        <div className="md:col-span-6 col-span-1">
           <ProductPage locale={locale} product={product} />
         </div>
         {/* Reviews */}
-        <section className="col-span-12">
+        <section className="col-span-1 md:col-span-12">
           <ProductReview
             productId={productId}
             rateAvg={product.rateAvg}
             rateCount={product.rateCount}
           />
         </section>
-        <div className="mt-2 col-span-12">
+        <div className="mt-2 col-span-1 md:col-span-12">
           {/* Title */}
           <BarTitle
             title={t("related-products-heading")}

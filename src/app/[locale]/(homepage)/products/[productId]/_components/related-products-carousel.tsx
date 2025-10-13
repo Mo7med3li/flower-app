@@ -47,10 +47,10 @@ export async function RelatedProductsCarousel({ productId }: ProductDetailsProps
   return (
     <>
       <Carousel opts={{ align: "start" }} className="mt-4 mb-12">
-        <CarouselContent className="-ml-4 w-full flex">
+        <CarouselContent className="-ml-2 md:-ml-4 w-full flex">
           {relatedProductsDetails.map((product, index) =>
             product ? (
-              <CarouselItem key={product._id} className="basis-1/4">
+              <CarouselItem key={product._id} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-2 md:pl-4">
                 <SingleProduct singleProduct={product} />
               </CarouselItem>
             ) : (

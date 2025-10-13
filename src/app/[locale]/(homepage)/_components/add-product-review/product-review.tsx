@@ -159,9 +159,9 @@ export default function ProductReview({ productId, rateCount, rateAvg }: Product
         </div>
       </div>
 
-      <section className="grid grid-cols-2 border-t-2 pt-4 ">
+      <section className="grid grid-cols-1 md:grid-cols-2 border-t-2 pt-4 gap-4 md:gap-6">
         {/* Reviews List / Empty State */}
-        <div className="col-span-1  max-h-[367px] overflow-y-scroll  ">
+        <div className="col-span-1 max-h-[60vh] md:max-h-[367px] overflow-y-auto">
           {reviews.length === 0 ? (
             <div className="h-full min-h-[300px] flex items-center justify-center p-6">
               <div className="text-center space-y-2">
@@ -188,13 +188,13 @@ export default function ProductReview({ productId, rateCount, rateAvg }: Product
               {/* Product Reviews */}
               {reviews.map((review) => (
                 // <ProductReviewItem key={review._id} review={review} />
-                <section className="p-5 space-y-[10px]" key={review._id}>
+                <section className="p-4 md:p-5 space-y-[10px]" key={review._id}>
                   <RateUser rating={review.rating} user={review.user} />
                   <section className="space-y-[6px]">
                     <h6 className="text-base font-semibold text-black dark:text-white">
                       {review.title}
                     </h6>
-                    <p className="h-32  overflow-y-scroll border-b-2 py-1">{review.comment}</p>
+                    <p className="h-28 md:h-32 overflow-y-auto border-b-2 py-1">{review.comment}</p>
                   </section>
                   <RateUser rating={review.rating} user={review.user} />
                 </section>
@@ -202,7 +202,7 @@ export default function ProductReview({ productId, rateCount, rateAvg }: Product
             </InfiniteScroll>
           )}
         </div>
-        <div className="col-span-1 border-e-2 p-5 relative  ">
+        <div className="col-span-1 p-4 md:p-5 relative border-t-2 md:border-t-0 md:border-l-2 rtl:md:border-r-2">
           {/* Check if user or not */}
           {!session && (
             <div className="inset-0 absolute bg-white bg-opacity-50 flex items-center justify-center">

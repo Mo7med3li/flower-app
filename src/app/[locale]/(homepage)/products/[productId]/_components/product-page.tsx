@@ -71,9 +71,9 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
   const lowStock = product.quantity > 0 && product.quantity <= 5;
 
   return (
-    <div className="w-full gap-4 pt-10 pb-6">
+    <div className="w-full gap-4 pt-6 md:pt-10 pb-6">
       {/* Product Details Section */}
-      <div className="w-full flex flex-col h-[600px]">
+      <div className="w-full flex flex-col min-h-0">
         {/* Product Title */}
         <div className="flex items-start justify-between gap-3">
           <h2 className="font-semibold font-primary text-3xl text-zinc-800 dark:text-zinc-50">
@@ -87,7 +87,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
         </div>
 
         {/* Price and Stock Information */}
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex flex-wrap items-center gap-3 md:gap-4 mb-4">
           <div className="mt-4 flex items-baseline gap-3">
             {/* Original price (crossed out if discounted) */}
             {discounted && (
@@ -123,7 +123,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
         </div>
 
         {/* Product Rating */}
-        <div className="flex items-center justify-between border-y border-zinc-100 py-4">
+        <div className="flex items-center justify-between border-y border-zinc-100 py-3 md:py-4">
           <div className="flex items-center gap-2">
             {/* Stars */}
             <div className="flex items-center gap-1 text-orange-400">
@@ -142,7 +142,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
         </div>
 
         {/* Product Description */}
-        <ScrollArea className="h-32 rounded-md border-none mt-4 flex-1">
+        <ScrollArea className="h-32 md:h-40 rounded-md border-none mt-4">
           <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{product.description}</p>
         </ScrollArea>
 
@@ -150,11 +150,11 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
         <div className="pt-4">
           {product.quantity > 0 ? (
             // In stock - show both wishlist and cart buttons
-            <div className="flex gap-4 items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               <div>
                 <AddToWishlist productId={product._id} />
               </div>
-              <div className="flex-1">
+              <div className="sm:flex-1">
                 <AddToCartButton productId={product._id} isLoggedIn={isLoggedIn} />
               </div>
             </div>

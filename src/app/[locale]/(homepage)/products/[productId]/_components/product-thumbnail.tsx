@@ -50,25 +50,25 @@ export default function ProductThumbnail({ thumbnailImages }: ThumbnailImagesPro
   // Empty state fallback
   if (!thumbnailImages || thumbnailImages.length === 0) {
     return (
-      <div className="w-full max-w-[605px] h-[402px] rounded-xl border border-dashed border-zinc-300 bg-zinc-50 flex items-center justify-center text-zinc-500">
+      <div className="w-full h-60 sm:h-72 md:h-[402px] rounded-xl border border-dashed border-zinc-300 bg-zinc-50 flex items-center justify-center text-zinc-500">
         No product images
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="w-full">
       {/* main carousel */}
       <Carousel opts={{ loop: true, align: "start" }} setApi={setMainCarouselAPI} className="mb-3">
         <CarouselContent>
           {thumbnailImages.map((image, index) => (
             <CarouselItem key={index}>
-              <div className="group relative max-w-[605px] h-[450px] rounded-xl overflow-hidden bg-zinc-50 ring-1 ring-zinc-200 shadow-sm">
+              <div className="group relative w-full h-64 sm:h-80 md:h-[450px] rounded-xl overflow-hidden bg-zinc-50 ring-1 ring-zinc-200 shadow-sm">
                 <Image
                   src={image}
                   alt={`Product image ${index + 1}`}
                   fill
-                  sizes="(max-width: 768px) 100vw, 605px"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, 605px"
                   className="object-cover w-full h-full transition-transform duration-300 ease-out group-hover:scale-105"
                   quality={90}
                   priority={index === 0}
