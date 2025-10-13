@@ -30,9 +30,9 @@ export default function BarTitle({
         "font-inter relative font-bold text-maroon-700 dark:text-soft-pink-200",
         titleClassName,
         // Pseudo-element styles for decorative bars
-        "before:content-[''] before:absolute before:z-0 before:bg-maroon-50 dark:before:bg-soft-pink-50/20 before:h-4 before:w-40 before:rounded-e-full before:bottom-0 before:left-0",
-        mainBarWidth === "w-2/3" ? "before:w-2/3" : mainBarWidth,
-        "after:content-[''] after:absolute after:z-10 after:bg-maroon-500 dark:after:bg-soft-pink-200 after:h-0.5 after:w-16 after:bottom-0 after:left-0",
+        "before:content-[''] before:absolute before:z-0 before:bg-maroon-50 dark:before:bg-soft-pink-50/20 before:h-4 before:w-40 before:rounded-e-full before:bottom-0 ltr:before:left-0 rtl:before:right-0",
+        mainBarWidth === "w-2/3" ? "before:w-2/3 rtl:before:w-1/3" : mainBarWidth,
+        "after:content-[''] after:absolute after:z-10 after:bg-maroon-500 dark:after:bg-soft-pink-200 after:h-0.5 after:w-16 after:bottom-0 ltr:after:left-0 rtl:after:right-0",
         highlightBarWidth === "w-1/4" ? "after:w-1/4" : highlightBarWidth,
       )}
     >

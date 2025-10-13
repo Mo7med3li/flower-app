@@ -3,6 +3,7 @@
 import { Heart, HeartPlus } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAddToWishlist } from "../hooks/use-add-to-wishlist";
@@ -23,14 +24,20 @@ export default function FavoriteToggle({
 }: AddToWishlistProps) {
   const { data, isLoading } = useCheckWishlist(productId);
 
+  // query client
   const queryClient = useQueryClient();
 
+  // hooks
   const { isPending: isAdding, addToWishlist } = useAddToWishlist();
   const { isPending: isRemoving, removeFromWishlist } = useRemoveFromWishlist();
 
+  // translations
+  const t = useTranslations();
+
+  // functions
   const handleClick = () => {
     if ("error" in data!) {
-      toast.error("Please login to manage your wishlist.");
+      toast.error(t("please-login-to-manage-your-wishlist"));
       return;
     }
 
@@ -38,22 +45,22 @@ export default function FavoriteToggle({
       // Add to wishlist
       addToWishlist(productId, {
         onSuccess: () => {
-          toast.success("Added to wishlist!");
+          toast.success(t("added-to-wishlist"));
           queryClient.invalidateQueries({ queryKey: ["wishlist", productId] });
         },
         onError: (error: { message: string }) => {
-          toast.error(`Failed to add to wishlist ${error.message}`);
+          toast.error(`${t("failed-to-add-to-wishlist")} ${error.message}`);
         },
       });
     } else {
       // Remove from wishlist
       removeFromWishlist(productId, {
         onSuccess: () => {
-          toast.success("Removed from wishlist!");
+          toast.success(t("removed-from-wishlist"));
           queryClient.invalidateQueries({ queryKey: ["wishlist", productId] });
         },
         onError: (error: { message: string }) => {
-          toast.error(`Failed to remove from wishlist ${error.message}`);
+          toast.error(`${t("failed-to-remove-from-wishlist")} ${error.message}`);
         },
       });
     }
@@ -92,7 +99,7 @@ export default function FavoriteToggle({
               : "ml-2 opacity-100",
           )}
         >
-          {data?.isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+          {data?.isInWishlist ? t("remove-from-wishlist") : t("add-to-wishlist")}
         </span>
       )}
     </button>

@@ -401,5 +401,19 @@
   "product-filter": "Try adjusting or clearing some filters to discover more items.",
   "new": "NEW",
   "hot": "HOT",
-  "out-of-stock": "OUT OF STOCK"
+  "out-of-stock": "OUT OF STOCK",
+  "left-in-stock": "left in stock",
+  "ratings": "ratings",
+  "added-to-wishlist": "Added to wishlist!",
+  "failed-to-add-to-wishlist": "Failed to add to wishlist",
+  "removed-from-wishlist": "Removed from wishlist!",
+  "failed-to-remove-from-wishlist": "Failed to remove from wishlist",
+  "please-login-to-manage-your-wishlist": "Please login to manage your wishlist.",
+  "remove-from-wishlist": "Remove from wishlist",
+  "add-to-wishlist": "Add to wishlist",
+  "added-to-cart": "Added to cart",
+  "failed-to-add-to-cart": "Failed to add to cart",
+  "adding": "Adding...",
+  "add-to-cart": "Add to Cart",
+  "items-in-your-cart": "items in your cart"
 }

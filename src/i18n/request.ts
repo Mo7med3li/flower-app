@@ -30,6 +30,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
         },
         "percentage-float": {
           style: "percent",
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 0,
+          numberingSystem: locale === "ar" ? "arab" : "latn",
         },
         "number-base": {
           style: "decimal",

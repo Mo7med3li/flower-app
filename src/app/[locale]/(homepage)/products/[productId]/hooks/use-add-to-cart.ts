@@ -2,10 +2,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
+import { useFormatter, useTranslations } from "next-intl";
 // Actions
-import { addToCartAction } from "../_actions/cart.actoin";
+import { addToCartAction } from "../_actions/cart.action";
 
 export function useAddToCart() {
+  // translations
+  const t = useTranslations();
+  const format = useFormatter();
+
   // Mutation
   const { isPending, error, mutate } = useMutation({
     mutationFn: async ({ productId, quantity = 1 }: { productId: string; quantity?: number }) => {
@@ -17,10 +22,12 @@ export function useAddToCart() {
       return response;
     },
     onSuccess: (data) => {
-      toast.success(`${data.numOfCartItems} items in your cart`);
+      toast.success(
+        `${format.number(data.numOfCartItems, "number-base")} ${t("items-in-your-cart")}`,
+      );
     },
     onError: (error) => {
-      toast.error(`Failed to add to cart ${error.message}`);
+      toast.error(`${t("failed-to-add-to-cart")} ${error.message}`);
     },
   });
 

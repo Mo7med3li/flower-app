@@ -1,5 +1,6 @@
 import { Package, Star, StarHalf } from "lucide-react";
 import { getServerSession } from "next-auth";
+import { getFormatter, getTranslations } from "next-intl/server";
 import { authOptions } from "@/auth";
 import { Product } from "@/lib/types/products";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -35,7 +36,13 @@ interface ProductPageProps {
 export default async function ProductPage({ product, locale }: ProductPageProps) {
   // Session
   const session = await getServerSession(authOptions);
+
+  // Check if user is logged in
   const isLoggedIn = !!session?.user;
+
+  // translations
+  const format = await getFormatter();
+  const t = await getTranslations();
 
   const currency = "EGP";
 
@@ -74,7 +81,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           </h2>
           {hasDiscount && (
             <span className="shrink-0 rounded-full bg-red-50 text-red-600 px-3 py-1 text-sm font-semibold ring-1 ring-red-200">
-              -{discountPercent}%
+              -{format.number(discountPercent / 100, "percentage-float")}
             </span>
           )}
         </div>
@@ -109,8 +116,8 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           >
             <Package className="size-5" />
             <div className="flex items-center gap-1 font-medium font-primary text-sm">
-              <span>{product.quantity}</span>
-              <p>{product.quantity === 0 ? "out of stock" : "left in stock"}</p>
+              <span>{format.number(product.quantity, "number-base")}</span>
+              <p>{product.quantity === 0 ? t("out-of-stock") : t("left-in-stock")}</p>
             </div>
           </div>
         </div>
@@ -126,10 +133,10 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
               {product.rateAvg % 1 !== 0 && <StarHalf fill="#FFA500" className="text-[#FFA500]" />}
             </div>
             <span className="font-primary font-semibold text-zinc-800 dark:text-zinc-50">
-              {product.rateAvg}/5
+              {format.number(product.rateAvg, "number-base")}/{format.number(5, "number-base")}
             </span>
             <span className="text-sm text-blue-600 font-medium ">
-              ({product.rateCount} ratings)
+              ({format.number(product.rateCount, "number-base")} {t("ratings")})
             </span>
           </div>
         </div>
