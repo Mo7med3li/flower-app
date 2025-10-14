@@ -415,5 +415,7 @@
   "failed-to-add-to-cart": "Failed to add to cart",
   "adding": "Adding...",
   "add-to-cart": "Add to Cart",
-  "items-in-your-cart": "items in your cart"
+  "items-in-your-cart": "items in your cart",
+  "empty": "Empty",
+  "subtitle": "Explore our curated selection of our categories"
 }
