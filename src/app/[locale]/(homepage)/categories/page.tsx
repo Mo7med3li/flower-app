@@ -9,7 +9,6 @@ const CategoriesPage = async ({ params }: { params: { locale: string } }) => {
 
   // Translation
   const isRTL = params?.locale?.toLowerCase().startsWith("ar");
-
   const t = await getTranslations();
 
   if (!response || !response.categories || response.categories.length === 0) {
