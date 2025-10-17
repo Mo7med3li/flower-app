@@ -3,6 +3,7 @@ import Image from "next/image";
 import PaginationComponent from "@/components/common/Pagination-components";
 import { getOccasions } from "@/lib/api/occasions.api";
 import { SearchParamOcassion } from "@/lib/types/occasions";
+import { Link } from "@/i18n/navigation";
 
 const OccasionsPage = async ({ searchParams }: { searchParams: SearchParamOcassion }) => {
   const t = await getTranslations();
@@ -41,26 +42,30 @@ const OccasionsPage = async ({ searchParams }: { searchParams: SearchParamOcassi
               key={o._id}
               className="group relative overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 dark:border-zinc-700/60 dark:bg-zinc-800/60"
             >
-              <div className="relative h-36 w-full sm:h-40 md:h-44">
-                {o.image ? (
-                  <Image
-                    src={process.env.NEXT_PUBLIC_URL_IMAGE + o.image}
-                    alt={o.name}
-                    fill
-                    sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 50vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="h-full w-full bg-gradient-to-br from-pink-100 via-rose-100 to-amber-100 dark:from-pink-900/30 dark:via-rose-900/30 dark:to-amber-900/30" />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <h3 className="truncate text-sm font-medium text-white drop-shadow">{o.name}</h3>
-                  <p className="mt-0.5 text-xs text-white/90">
-                    {t("number-of-products", { count: o.productsCount ?? 0 })}
-                  </p>
+              <Link href={`/occasions/${o._id}`}>
+                <div className="relative h-36 w-full sm:h-40 md:h-44">
+                  {o.image ? (
+                    <Image
+                      src={process.env.NEXT_PUBLIC_URL_IMAGE + o.image}
+                      alt={o.name}
+                      fill
+                      sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 50vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-gradient-to-br from-pink-100 via-rose-100 to-amber-100 dark:from-pink-900/30 dark:via-rose-900/30 dark:to-amber-900/30" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <h3 className="truncate text-sm font-medium text-white drop-shadow">
+                      {o.name}
+                    </h3>
+                    <p className="mt-0.5 text-xs text-white/90">
+                      {t("number-of-products", { count: o.productsCount ?? 0 })}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </article>
           ))}
         </div>
