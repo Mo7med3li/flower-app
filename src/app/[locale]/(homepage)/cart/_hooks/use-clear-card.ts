@@ -1,8 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import clearCart from "../_actions/clear-cart";
 
 const useClearCart = () => {
+  // translations
+  const t = useTranslations();
+
   // query
   const queryClient = useQueryClient();
 
@@ -11,13 +15,13 @@ const useClearCart = () => {
     mutationFn: async () => await clearCart(),
     mutationKey: ["clear-cart"],
     onSuccess: () => {
-      toast.success("Cart cleared successfully");
+      toast.success(t("cart-cleared"));
       queryClient.invalidateQueries({
         queryKey: ["user-cart"],
       });
     },
     onError: (e) => {
-      toast.error(e.message || "Failed to clear cart");
+      toast.error(e.message || t("failed-to-clear-cart"));
     },
   });
   return { clearCartMutation, isPending };

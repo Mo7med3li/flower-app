@@ -420,5 +420,20 @@
   "items-in-your-cart": "عناصر الموجودة في سلة التسوق الخاصة بك",
   "empty": "فارغ",
   "subtitle": "استكشف مجموعتنا المختارة من فئاتنا",
-  "category-products": "منتجات الفئة"
+  "category-products": "منتجات الفئة",
+  "remove": "ازالة",
+  "ratings-1": "التقييمات",
+  "your-cart": "سلة التسوق الخاصة بك",
+  "is-empty": " فارغة",
+  "clear-cart": "افرغ العربة",
+  "continue-shopping": "مواصلة التسوق",
+  "itemslength-items": "{count} العناصر",
+  "removed-cart-successfully": "تمت إزالة المنتج من سلة التسوق بنجاح",
+  "failed-remove-cart": "فشل في إزالة المنتج من سلة التسوق",
+  "cart-cleared": "تم مسح سلة التسوق بنجاح",
+  "failed-to-clear-cart": "فشل في مسح سلة التسوق",
+  "cart-updated-successfully": "تم تحديث سلة التسوق بنجاح",
+  "failed-update-cart": "فشل تحديث كمية سلة التسوق",
+  "your-cart-is-empty": "سلة التسوق الخاصة بك فارغة",
+  "empty-card-p": "يبدو أنك لم تقم بإضافة أي عناصر بعد. \nاستكشف منتجاتنا وأضف منتجاتك المفضلة إلى سلة التسوق."
 }

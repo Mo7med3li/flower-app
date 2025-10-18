@@ -1,8 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import removeProductCart from "../_actions/remove-product-cart";
 
 const useDeleteItemCart = ({ cartItemId }: { cartItemId: string }) => {
+  // translations
+  const t = useTranslations();
+
   // query
   const queryClient = useQueryClient();
 
@@ -11,13 +15,13 @@ const useDeleteItemCart = ({ cartItemId }: { cartItemId: string }) => {
     mutationFn: async () => await removeProductCart(cartItemId),
     mutationKey: ["remove-product-cart"],
     onSuccess: () => {
-      toast.success("Product removed from cart successfully");
+      toast.success(t("removed-cart-successfully"));
       queryClient.invalidateQueries({
         queryKey: ["user-cart"],
       });
     },
     onError: (e) => {
-      toast.error(e.message || "Failed to remove product from cart");
+      toast.error(e.message || t("failed-remove-cart"));
     },
   });
   return { removeProductCartMutation, isPending };

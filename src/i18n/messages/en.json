@@ -418,5 +418,20 @@
   "items-in-your-cart": "items in your cart",
   "empty": "Empty",
   "subtitle": "Explore our curated selection of our categories",
-  "category-products": "Category Products"
+  "category-products": "Category Products",
+  "remove": "Remove",
+  "ratings-1": "Ratings",
+  "your-cart": "Your Cart",
+  "is-empty": "is empty",
+  "clear-cart": "Clear Cart",
+  "continue-shopping": "Continue Shopping",
+  "itemslength-items": "{count} items",
+  "removed-cart-successfully": "Product removed from cart successfully",
+  "failed-remove-cart": "Failed to remove product from cart",
+  "cart-cleared": "Cart cleared successfully",
+  "failed-to-clear-cart": "Failed to clear cart",
+  "cart-updated-successfully": "Cart updated successfully",
+  "failed-update-cart": "Failed to update cart quantity",
+  "your-cart-is-empty": "Your cart is empty",
+  "empty-card-p": "Looks like you haven’t added any items yet. Explore our products and add your favorites to the cart."
 }
