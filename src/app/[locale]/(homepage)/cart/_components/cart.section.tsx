@@ -7,11 +7,13 @@ import UserCartCardSkeleton from "@/components/skeletons/user-cart/cart-card.ske
 import useFetchCart from "../_hooks/use-fetch-cart";
 import UserCartCard from "./user-cart-card";
 import EmptyCart from "./empty-cart";
+import useClearCart from "../_hooks/use-clear-card";
 
 const CartSection = () => {
   const router = useRouter();
   // hooks
   const { payload, isLoading } = useFetchCart();
+  const { clearCartMutation, isPending } = useClearCart();
 
   // variables
   const items = payload?.cart?.cartItems ?? [];
@@ -26,7 +28,12 @@ const CartSection = () => {
           <p className="font-medium self-end text-zinc-400">{itemsLength} items</p>
         </div>
         {itemsLength > 0 && (
-          <Button variant={"secondary"} className="flex items-center gap-2">
+          <Button
+            variant={"secondary"}
+            className="flex items-center gap-2"
+            onClick={() => clearCartMutation()}
+            disabled={isPending}
+          >
             <BrushCleaning />
             Clear Cart
           </Button>
@@ -50,10 +57,12 @@ const CartSection = () => {
       </div>
 
       {/* Continue Shopping Button */}
-      <Button className="w-fit" onClick={() => router.back()}>
-        <MoveLeft />
-        Continue Shopping
-      </Button>
+      {itemsLength !== 0 && (
+        <Button className="w-fit" onClick={() => router.back()}>
+          <MoveLeft />
+          Continue Shopping
+        </Button>
+      )}
     </section>
   );
 };

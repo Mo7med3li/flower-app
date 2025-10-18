@@ -15,7 +15,7 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
   const [quantity, setQuantity] = useState(item.quantity);
 
   // debounced quantity
-  const [debouncedQuantity] = useDebounce(quantity, 600);
+  const [debouncedQuantity] = useDebounce(quantity, 400);
 
   // hooks
   const { updateCartQuantityMutation, isPending } = useUpdateCartQuantity({
@@ -111,7 +111,6 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
                 className="size-12 p-4"
                 onClick={() => {
                   setQuantity(quantity + 1);
-                  updateCartQuantityMutation();
                 }}
                 disabled={isPending}
               >
