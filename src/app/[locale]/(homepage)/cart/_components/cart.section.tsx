@@ -6,26 +6,31 @@ import { useRouter } from "@/i18n/navigation";
 import UserCartCardSkeleton from "@/components/skeletons/user-cart/cart-card.skeleton";
 import useFetchCart from "../_hooks/use-fetch-cart";
 import UserCartCard from "./user-cart-card";
+import EmptyCart from "./empty-cart";
 
 const CartSection = () => {
   const router = useRouter();
-  // Hooks
+  // hooks
   const { payload, isLoading } = useFetchCart();
+
+  // variables
+  const items = payload?.cart?.cartItems ?? [];
+  const itemsLength = items.length;
 
   return (
     <section className="space-y-6">
       {/* Cart Header */}
       <div className="flex items-center justify-between">
         <div className="flex gap-[10px]">
-          <h2 className="text-5xl font-bold">Your Cart</h2>
-          <p className="font-medium self-end text-zinc-400">
-            {payload?.cart.cartItems.length} items
-          </p>
+          <h2 className="text-5xl font-bold">Your Cart {itemsLength === 0 && "is empty"}</h2>
+          <p className="font-medium self-end text-zinc-400">{itemsLength} items</p>
         </div>
-        <Button variant={"secondary"} className="flex items-center gap-2">
-          <BrushCleaning />
-          Clear Cart
-        </Button>
+        {itemsLength > 0 && (
+          <Button variant={"secondary"} className="flex items-center gap-2">
+            <BrushCleaning />
+            Clear Cart
+          </Button>
+        )}
       </div>
       {/* Cart Items */}
       <div className="grid grid-cols-1 gap-4 border border-zinc-300 p-5 rounded-md">
@@ -35,8 +40,10 @@ const CartSection = () => {
               <UserCartCardSkeleton key={index} />
             ))}
           </div>
+        ) : itemsLength === 0 ? (
+          <EmptyCart />
         ) : (
-          payload?.cart.cartItems.map((item) => {
+          items.map((item) => {
             return <UserCartCard key={item._id} item={item} />;
           })
         )}
