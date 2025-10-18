@@ -2,17 +2,35 @@
 
 import Image from "next/image";
 import { Minus, Plus, Star, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 import { CartItem } from "@/lib/types/cart";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import useUpdateCartQuantity from "../_hooks/use-update-cart-quantity";
 
 const UserCartCard = ({ item }: { item: CartItem }) => {
+  // states
   const [quantity, setQuantity] = useState(item.quantity);
+
+  // debounced quantity
+  const [debouncedQuantity] = useDebounce(quantity, 600);
+
+  // hooks
+  const { updateCartQuantityMutation, isPending } = useUpdateCartQuantity({
+    productId: item.product._id,
+    quantity: debouncedQuantity,
+  });
+
+  // effects
+  useEffect(() => {
+    if (debouncedQuantity !== item.quantity) {
+      updateCartQuantityMutation();
+    }
+  }, [debouncedQuantity, item.quantity, updateCartQuantityMutation]);
   return (
     <div key={item._id} className="flex items-center gap-4 border-b pb-5">
       {/* Product image */}
-
       <div className="relative overflow-hidden rounded-lg">
         <Image
           alt="Product image"
@@ -47,7 +65,7 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
           <div className="self-end">
             {/* Product Price | Product Quantity*/}
             <p className="flex-1 text-2xl font-bold text-zinc-800">
-              <span className="text-sm font-medium text-maroon-500">(x1)</span>{" "}
+              <span className="text-sm font-medium text-maroon-500">(x{item.quantity})</span>{" "}
               <span>{item.product.price}</span> <span className="text-base font-medium">EGP</span>
             </p>
           </div>
@@ -59,13 +77,21 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
               <Button
                 variant="secondary"
                 className="size-12 p-4"
-                onClick={() => setQuantity(quantity - 1)}
+                onClick={() => {
+                  setQuantity((prev) => Math.max(1, prev - 1));
+                }}
+                disabled={isPending || quantity === 1}
               >
                 <Minus />
               </Button>
               <Input
-                onChange={(e) => setQuantity(Number(e.target.value))}
                 type="number"
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  if (val > 0) {
+                    setQuantity(val);
+                  }
+                }}
                 placeholder={item.quantity.toString()}
                 value={quantity}
                 className="h-12 max-w-28 p-4"
@@ -73,7 +99,11 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
               <Button
                 variant="secondary"
                 className="size-12 p-4"
-                onClick={() => setQuantity(quantity + 1)}
+                onClick={() => {
+                  setQuantity(quantity + 1);
+                  updateCartQuantityMutation();
+                }}
+                disabled={isPending}
               >
                 <Plus />
               </Button>
