@@ -1,5 +1,5 @@
 // Libraries
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { useFormatter, useTranslations } from "next-intl";
@@ -10,6 +10,7 @@ export function useAddToCart() {
   // translations
   const t = useTranslations();
   const format = useFormatter();
+  const queryClient = useQueryClient();
 
   // Mutation
   const { isPending, error, mutate } = useMutation({
@@ -25,6 +26,7 @@ export function useAddToCart() {
       toast.success(
         `${format.number(data.numOfCartItems, "number-base")} ${t("items-in-your-cart")}`,
       );
+      queryClient.invalidateQueries({ queryKey: ["user-cart"] });
     },
     onError: (error) => {
       toast.error(`${t("failed-to-add-to-cart")} ${error.message}`);
