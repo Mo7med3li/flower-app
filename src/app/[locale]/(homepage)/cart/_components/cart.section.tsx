@@ -3,6 +3,7 @@
 import { BrushCleaning, MoveLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
+import UserCartCardSkeleton from "@/components/skeletons/user-cart/cart-card.skeleton";
 import useFetchCart from "../_hooks/use-fetch-cart";
 import UserCartCard from "./user-cart-card";
 
@@ -10,11 +11,6 @@ const CartSection = () => {
   const router = useRouter();
   // Hooks
   const { payload, isLoading } = useFetchCart();
-
-  //   Loading
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <section className="space-y-6">
@@ -33,9 +29,17 @@ const CartSection = () => {
       </div>
       {/* Cart Items */}
       <div className="grid grid-cols-1 gap-4 border border-zinc-300 p-5 rounded-md">
-        {payload?.cart.cartItems.map((item) => {
-          return <UserCartCard key={item._id} item={item} />;
-        })}
+        {isLoading ? (
+          <div className="space-y-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <UserCartCardSkeleton key={index} />
+            ))}
+          </div>
+        ) : (
+          payload?.cart.cartItems.map((item) => {
+            return <UserCartCard key={item._id} item={item} />;
+          })
+        )}
       </div>
 
       {/* Continue Shopping Button */}
