@@ -15,3 +15,23 @@ export type Cart = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type CartResponse = {
+  message: string;
+  numOfCartItems: number;
+  cart: {
+    _id: string;
+    user: string;
+    cartItems: {
+      product: Product;
+      price: number;
+      quantity: number;
+      _id: string;
+    }[];
+    appliedCoupons: string[];
+    totalPrice: number;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
+};
