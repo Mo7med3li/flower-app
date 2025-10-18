@@ -8,6 +8,7 @@ import { CartItem } from "@/lib/types/cart";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useUpdateCartQuantity from "../_hooks/use-update-cart-quantity";
+import useDeleteItemCart from "../_hooks/use-delete-item-cart";
 
 const UserCartCard = ({ item }: { item: CartItem }) => {
   // states
@@ -20,6 +21,10 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
   const { updateCartQuantityMutation, isPending } = useUpdateCartQuantity({
     productId: item.product._id,
     quantity: debouncedQuantity,
+  });
+
+  const { removeProductCartMutation, isPending: isRemovePending } = useDeleteItemCart({
+    cartItemId: item.product._id,
   });
 
   // effects
@@ -54,7 +59,12 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
             </p>
           </div>
           {/* Remove product */}
-          <Button variant="destructive" className="w-fit">
+          <Button
+            variant="destructive"
+            className="w-fit"
+            onClick={() => removeProductCartMutation()}
+            disabled={isRemovePending}
+          >
             <Trash2 className="size-5" />
             Remove
           </Button>
