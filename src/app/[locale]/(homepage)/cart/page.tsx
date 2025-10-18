@@ -1,19 +1,10 @@
-"use client";
-import useFetchCart from "./_hooks/use-fetch-cart";
-import UserCartCard from "./_components/user-cart-card";
+import CartSection from "./_components/cart.section";
 
 const CartPage = () => {
-  const { payload, isLoading } = useFetchCart();
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="grid grid-cols-1 gap-4">
-      {payload?.cart.cartItems.map((item) => {
-        return <UserCartCard key={item._id} item={item} />;
-      })}
-    </div>
+    <section className="py-14 md:px-20 px-5">
+      <CartSection />
+    </section>
   );
 };
 export default CartPage;
