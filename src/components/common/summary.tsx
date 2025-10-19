@@ -1,11 +1,12 @@
 "use client";
 
-import { TicketPercent } from "lucide-react";
+import { MoveRight, TicketPercent } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormatter } from "use-intl";
 import React, { useState } from "react";
 import useFetchCart from "@/app/[locale]/(homepage)/cart/_hooks/use-fetch-cart";
 import useApplyCoupon from "@/app/[locale]/(homepage)/cart/_hooks/use-apply-coupons";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
@@ -13,6 +14,12 @@ export default function Summary() {
   // Translations and formatting
   const t = useTranslations();
   const format = useFormatter();
+
+  // router
+  const router = useRouter();
+
+  // pathname
+  const pathname = usePathname();
 
   // states
   const [couponValue, setCoPonValue] = useState("");
@@ -37,7 +44,7 @@ export default function Summary() {
           />
           {/* apply coupon button */}
           <Button
-            className="bg-maroon-500 text-white flex flex-nowrap h-full"
+            className="bg-maroon-600 text-white flex flex-nowrap h-full"
             onClick={() => applyCouponMutation()}
             disabled={isPending || couponValue === "" || payload?.cart?.totalPrice === 0}
           >
@@ -106,6 +113,18 @@ export default function Summary() {
           </>
         )}
       </div>
+
+      {/* checkout button */}
+      {pathname === "/cart" && payload && payload?.numOfCartItems > 0 && (
+        <Button
+          className="bg-maroon-600 w-full rounded-[10px] px-4 py-[10px] h-14"
+          disabled={payload?.numOfCartItems === 0}
+          onClick={() => router.push("/checkout")}
+        >
+          Checkout
+          <MoveRight />
+        </Button>
+      )}
     </div>
   );
 }
