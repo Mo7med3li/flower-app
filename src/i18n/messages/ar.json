@@ -191,8 +191,8 @@
     "coupon-code": "رمز القسيمة",
     "no-coupons-applied": "لم يتم تطبيق كوبونات",
     "subtotal": "المبلغ إجمالي",
-    "discount": "{number} خصم",
-    "total": "المجموع"
+    "discount": " خصم",
+    "total": "المجموع بعد القسيمة"
   },
   "number-discount": "{price} خصم",
   "price-number-currency-discount": "{price , number , percentage-int} خصم",
@@ -423,7 +423,7 @@
   "category-products": "منتجات الفئة",
   "remove": "ازالة",
   "ratings-1": "التقييمات",
-  "your-cart": "سلة التسوق الخاصة بك",
+  "your-cart": " سلة التسوق الخاصة بك",
   "is-empty": " فارغة",
   "clear-cart": "افرغ العربة",
   "continue-shopping": "مواصلة التسوق",

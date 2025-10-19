@@ -190,8 +190,8 @@
     "coupon-code": "Coupon Code",
     "no-coupons-applied": "No coupons applied",
     "subtotal": "Subtotal",
-    "discount": "{number} Discount",
-    "total": "Total"
+    "discount": "Discount",
+    "total": "Total after coupon"
   },
   "number-discount": "{price} Discount",
   "price-number-currency-discount": "{price , number , percentage-int} Discount",
@@ -422,7 +422,7 @@
   "remove": "Remove",
   "ratings-1": "Ratings",
   "your-cart": "Your Cart",
-  "is-empty": "is empty",
+  "is-empty": " is empty ",
   "clear-cart": "Clear Cart",
   "continue-shopping": "Continue Shopping",
   "itemslength-items": "{count} items",

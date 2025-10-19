@@ -26,7 +26,7 @@ const CartSection = () => {
   const itemsLength = items.length;
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 col-span-2">
       {/* Cart Header */}
       <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-baseline gap-2">

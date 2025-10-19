@@ -10,10 +10,21 @@ export type Cart = {
   _id: string;
   user: string;
   cartItems: CartItem[];
-  appliedCoupons: string[];
+  appliedCoupons: AppliedCoupon[];
   totalPrice: number;
   createdAt: string;
   updatedAt: string;
+};
+export type AppliedCoupon = {
+  coupon: {
+    _id: string;
+    code: string;
+    discountType: string;
+    discountValue: number;
+  };
+  discountAmount: number;
+  appliedAt: string;
+  _id: string;
 };
 
 export type CartResponse = {
@@ -28,10 +39,12 @@ export type CartResponse = {
       quantity: number;
       _id: string;
     }[];
-    appliedCoupons: string[];
+    appliedCoupons: AppliedCoupon[];
     totalPrice: number;
     createdAt: string;
     updatedAt: string;
     __v: number;
+    discount: number;
+    totalPriceAfterDiscount: number;
   };
 };
