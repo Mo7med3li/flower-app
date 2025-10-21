@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button";
 import { OrderItemType } from "@/lib/types/orders";
 import OrderItemCard from "./order-items-card";
 
-interface OrderItemContaienrParams {
+interface OrderItemContainerParams {
   orderItems: OrderItemType[];
 }
 
-export default function OrderItemsContainer({ orderItems }: OrderItemContaienrParams) {
+export default function OrderItemsContainer({ orderItems }: OrderItemContainerParams) {
   // Translations
   const t = useTranslations();
 

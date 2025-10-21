@@ -24,7 +24,7 @@ export default async function Page() {
   }
 
   return (
-    <>
+    <section className="px-4 md:px-20">
       {/* Heading */}
       <h2 className="text-5xl mt-16 font-bold text-zinc-800 mb-6 dark:text-zinc-100">
         {t("orders-page-title")}
@@ -36,6 +36,6 @@ export default async function Page() {
           <OrderCard order={order} key={order._id} />
         ))}
       </div>
-    </>
+    </section>
   );
 }

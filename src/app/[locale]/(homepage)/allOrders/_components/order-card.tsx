@@ -71,7 +71,7 @@ export default function OrderCard({ order }: orderCardProps) {
           }
           {
             // Done state
-            order.state === "delivered" && (
+            order.state === "completed" && (
               <Badge className="ms-2 bg-emerald-500 hover:bg-emerald-500 dark:bg-emerald-400 hover:dark:bg-emerald-400 text-white">
                 {t("done-satate")}
               </Badge>
@@ -127,7 +127,7 @@ export default function OrderCard({ order }: orderCardProps) {
           }
           {
             //  Delivered state
-            order.state === "delivered" && (
+            order.state === "completed" && (
               <>
                 <CheckCheck className="ms-2 me-1 text-emerald-600" size={20} />
                 <span className=" text-emerald-600 font-medium">

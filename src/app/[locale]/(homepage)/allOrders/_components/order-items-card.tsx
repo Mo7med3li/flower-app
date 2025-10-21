@@ -14,7 +14,7 @@ export default function OrderItemCard({ orderItem }: OrderItemParams) {
   const t = useTranslations();
 
   return (
-    <div className="col-span-1 flex bg-zinc-50 dark:bg-zinc-700 rounded-lg overflow-hidden">
+    <div className="col-span-2 lg:col-span-1 flex bg-zinc-50 dark:bg-zinc-700 rounded-lg overflow-hidden">
       {/* Cover Image */}
       <Link href={`/products/${orderItem.product._id}`}>
         <div className="h-36 w-28 relative">
@@ -37,13 +37,15 @@ export default function OrderItemCard({ orderItem }: OrderItemParams) {
             </p>
           </Link>
 
-          {/* Rateings */}
+          {/* Rate & Reviews */}
           <p className="flex items-center">
             <Star fill="#FBA707" size={20} strokeWidth={0} className="me-1" />
 
             {/* Rate */}
             <span className="me-1 font-medium">
-              <span className="font-normal">{t("rating")}</span> {orderItem.product.rateAvg}/5
+              <span className="font-normal">{t("rating")}</span>{" "}
+              {format.number(orderItem.product.rateAvg, "number-base")}/
+              {format.number(5, "number-base")}
             </span>
 
             {/* Reviews */}
@@ -51,7 +53,9 @@ export default function OrderItemCard({ orderItem }: OrderItemParams) {
               href={`/products/${orderItem.product._id}`}
               className="lowercase text-blue-500 dark:text-blue-300 font-medium"
             >
-              {t("ratings-count", { count: orderItem.product.rateCount })}
+              {t("ratings-count", {
+                count: format.number(orderItem.product.rateCount, "number-base"),
+              })}
             </Link>
           </p>
         </div>
@@ -59,7 +63,7 @@ export default function OrderItemCard({ orderItem }: OrderItemParams) {
         {/* Price & count */}
         <div>
           <span className="lowercase text-sm text-maroon-600 dark:text-soft-pink-200  font-medium me-1">
-            {t("quantity", { count: orderItem.quantity })}
+            {t("quantity", { count: format.number(orderItem.quantity, "number-base") })}
           </span>
           <span className="text-2xl font-bold me-1">
             {format.number(orderItem.price, "currency-int")}
