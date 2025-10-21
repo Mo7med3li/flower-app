@@ -102,7 +102,7 @@ export default async function Header() {
             <div className="relative">
               <ShoppingCart />
               <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                0
+                {/* 0 */}
               </span>
             </div>
             {/* Notifications */}

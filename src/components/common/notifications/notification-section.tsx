@@ -83,7 +83,7 @@ export default function Notification() {
         <DropdownMenuLabel className="flex h-[58px] items-center bg-maroon-700 p-4 text-xl font-bold text-white dark:bg-soft-pink-200 dark:text-zinc-800">
           {t("notifications")} ({unreadCount})
         </DropdownMenuLabel>
-        {/* <DropdownMenuSeparator /> */}
+
         {/* Actions */}
         <DropdownMenuGroup className="p-[10px] dark:bg-zinc-700">
           <div className="flex items-center justify-between">
@@ -91,7 +91,7 @@ export default function Notification() {
               {/* Clear All Notifications */}
               <Button
                 variant="ghost"
-                className="text-xs font-semibold dark:text-zinc-50"
+                className="text-xs font-semibold dark:text-zinc-500"
                 onClick={() => allNotificationsDelete()}
                 disabled={deletePending || notificationsFetched.length === 0}
               >
@@ -103,7 +103,7 @@ export default function Notification() {
             <div className="flex cursor-pointer items-center gap-[6px]">
               {/* Read All Notifications */}
               <Button
-                className="text-xs font-semibold dark:text-zinc-50"
+                className="text-xs font-semibold dark:text-zinc-500"
                 variant="ghost"
                 onClick={() => readAllNotificationsMutate()}
                 disabled={readPending || notificationsFetched.length === 0 || unreadCount === 0}
