@@ -5,7 +5,7 @@ import { useFormatter } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { Product } from "@/lib/types/products";
 import { useRemoveFromWishlist } from "@/app/[locale]/(homepage)/products/[productId]/hooks/use-delete-from-wishlist";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 const WishlistCard = ({ product }: { product: Product }) => {
   // translations

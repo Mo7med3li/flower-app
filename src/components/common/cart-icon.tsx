@@ -1,6 +1,6 @@
 "use client";
 
-import { ShoppingCart, Trash2 } from "lucide-react";
+import { Loader2, ShoppingCart, Trash2 } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import useFetchCart from "@/app/[locale]/(homepage)/cart/_hooks/use-fetch-cart";
 import UserCartCard from "@/app/[locale]/(homepage)/cart/_components/user-cart-card";
@@ -41,29 +41,36 @@ const CartIcon = () => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="relative w-[min(90vw,500px)] hide-scroll h-[400px] rounded-2xl border p-0 bg-white dark:bg-zinc-900 shadow-lg">
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 p-4 backdrop-blur bg-maroon-700 dark:bg-soft-pink-300">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 p-4 backdrop-blur bg-maroon-700 dark:bg-soft-pink-200">
           <h3 className="text-lg font-bold text-white dark:text-zinc-800">
             {t("cart-items")} ({format.number(count, "number-base")})
           </h3>
 
           <Button
-            variant="destructive"
-            className="flex rtl:flex-row-reverse gap-1"
             onClick={() => clearCartMutation()}
+            variant={"secondary"}
             disabled={isPending || count === 0}
           >
-            <Trash2 className="size-4" />
-            {t("clear")}
+            {isPending ? (
+              <Loader2 className="size-4" />
+            ) : (
+              <>
+                <Trash2 className="size-4" />
+                {t("clear")}
+              </>
+            )}
           </Button>
         </div>
-        <div className="flex items-center justify-center gap-3 rtl:flex-row-reverse p-1">
-          <span className="text-2xl font-medium dark:text-zinc-50">{t("total")}</span>
-          <span className="text-xl text-red-600 font-medium">
-            {format.number(totalPrice, "currency-int")}
-          </span>
-        </div>
+        {count > 0 && (
+          <div className="flex items-center justify-center gap-3 rtl:flex-row-reverse p-1">
+            <span className="text-2xl font-medium dark:text-zinc-50">{t("total")}</span>
+            <span className="text-xl text-red-600 font-medium">
+              {format.number(totalPrice, "currency-int")}
+            </span>
+          </div>
+        )}
         <Separator />
-        <ScrollArea className="h-[400px]">
+        <ScrollArea>
           <section className="p-4">
             {isLoading ? (
               <UserCartCardSkeleton />

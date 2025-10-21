@@ -14,9 +14,13 @@ const EmptyCart = () => {
       <div className="flex items-center justify-center rounded-full bg-zinc-100 p-4">
         <ShoppingCart className="size-10 text-zinc-500" />
       </div>
-      <p className="text-2xl font-semibold text-zinc-800">{t("your-cart-is-empty")}</p>
-      <p className="max-w-md text-sm text-zinc-500">{t("empty-card-p")}</p>
-      <Button className="mt-2 flex items-center rtl:flex-row-reverse" onClick={() => router.back()}>
+      <p className="text-2xl font-semibold text-zinc-800 dark:text-zinc-200">
+        {t("your-cart-is-empty")}
+      </p>
+      <Button
+        className="mt-2 flex items-center rtl:flex-row-reverse"
+        onClick={() => router.push("/")}
+      >
         <MoveLeft />
         {t("continue-shopping")}
       </Button>

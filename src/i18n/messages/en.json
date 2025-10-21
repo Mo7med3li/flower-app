@@ -424,7 +424,7 @@
   "your-cart": "Your Cart",
   "is-empty": " is empty ",
   "clear-cart": "Clear Cart",
-  "continue-shopping": "Continue Shopping",
+  "continue-shopping": "Continue Searching",
   "itemslength-items": "{count} items",
   "removed-cart-successfully": "Product removed from cart successfully",
   "failed-remove-cart": "Failed to remove product from cart",
@@ -438,9 +438,14 @@
   "open-cart": "Open cart",
   "cart-items": "Cart Items",
   "total": "Total price :",
-  "clear": "Clear",
+  "clear": "Clear cart",
   "open-notifications": "open notifications",
   "open-wishlist": "Open wishlist",
   "wishlist": "Wishlist",
-  "wishlist-empty": "Wishlist is empty"
+  "wishlist-empty": "Wishlist is empty",
+  "failed-to-clear-wishlist": "Failed to clear wishlist",
+  "wishlist-cleared": "Wishlist clear successfully",
+  "clear-wishlist": "Clear wishlist",
+  "continue-shearching": "Continue searching",
+  "continue-searching": "Continue searching"
 }

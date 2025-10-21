@@ -21,7 +21,7 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import ToggleLocale from "@/components/layout/header/components/toggle-locale";
 import Notification from "@/components/common/notifications/notification-section";
 import CartIcon from "@/components/common/cart-icon";
-import WishlistIcon from "@/components/common/wishlist-icon";
+import WishlistIcon from "@/components/common/wishlist/wishlist-icon";
 
 // Assets
 import LocationHeader from "./location-header";

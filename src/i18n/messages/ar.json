@@ -444,5 +444,9 @@
   "open-notifications": "فتح الإشعارات",
   "open-wishlist": "افتح قائمة الرغبات",
   "wishlist": "قائمة الرغبات",
-  "wishlist-empty": "قائمة الرغبات فارغة"
+  "wishlist-empty": "قائمة الرغبات فارغة",
+  "failed-to-clear-wishlist": "فشل في مسح قائمة الرغبات",
+  "wishlist-cleared": "تم مسح قائمة الرغبات بنجاح",
+  "clear-wishlist": "مسح قائمة الرغبات",
+  "continue-searching": "مواصلة البحث"
 }
