@@ -1,7 +1,7 @@
 "use client";
 
-import { Bell, BrushCleaning, CheckCheck, Loader } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { Bell, BrushCleaning, CheckCheck } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
@@ -20,10 +20,12 @@ import { fetchUserNotification } from "@/lib/api/notifications";
 import NotificationItemSkeleton from "@/components/skeletons/notifications/notification-item.skeleton";
 import NotificationCard from "./notification-card";
 import EmptyNotification from "./empty-notification";
+import TooltipCom from "../tooltip-com";
 
 export default function Notification() {
   // Translations
   const t = useTranslations();
+  const format = useFormatter();
 
   const {
     data: payload,
@@ -50,30 +52,25 @@ export default function Notification() {
   const notificationsFetched = payload?.pages?.flatMap((page: any) => page.notifications) ?? [];
   const unreadCount = payload?.pages[0].metadata.unreadCount;
 
-  if (isLoading) {
-    return (
-      <div className="relative">
-        <Bell className="cursor-pointer" />
-        <span className="absolute bottom-3/4 right-0 flex size-[14px] items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white dark:bg-red-500">
-          <Loader />
-        </span>
-      </div>
-    );
-  }
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="relative">
-          <Bell className="cursor-pointer" />
           {/* UnRead Count */}
           {/* if count equal zero not display */}
-
-          {unreadCount > 0 && (
-            <span className="absolute bottom-3/4 right-0 flex size-[14px] items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white dark:bg-red-500">
-              {unreadCount}
-            </span>
-          )}
+          <div className="relative">
+            <TooltipCom
+              title={t("open-notifications")}
+              icon={<Bell className="cursor-pointer size-6" />}
+              isLoading={isLoading}
+              count={unreadCount}
+            />
+            {unreadCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-medium leading-none text-white ring-2 ring-white dark:bg-red-500 dark:ring-zinc-900">
+                {format.number(unreadCount, "number-base")}
+              </span>
+            )}
+          </div>
         </div>
       </DropdownMenuTrigger>
 

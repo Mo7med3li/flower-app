@@ -1,13 +1,14 @@
 // Libraries
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { removeFromWishlist } from "../_actions/wishlist.action";
-
-// Actions
 
 export function useRemoveFromWishlist() {
   // translations
   const t = useTranslations();
+
+  // Query Client
+  const queryClient = useQueryClient();
 
   // Mutation
   const { isPending, error, mutate } = useMutation({
@@ -19,6 +20,9 @@ export function useRemoveFromWishlist() {
       }
 
       return response;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
     },
   });
 

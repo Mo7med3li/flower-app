@@ -438,5 +438,7 @@
   "open-cart": "Open cart",
   "cart-items": "Cart Items",
   "total": "Total:",
-  "clear": "Clear"
+  "clear": "Clear",
+  "open-notifications": "open notifications",
+  "open-wishlist": "Open wishlist"
 }

@@ -440,5 +440,7 @@
   "open-cart": "افتح العربة",
   "cart-items": "عناصر السلة",
   "total": ": المجموع",
-  "clear": "افرغ العربة"
+  "clear": "افرغ العربة",
+  "open-notifications": "فتح الإشعارات",
+  "open-wishlist": "افتح قائمة الرغبات"
 }

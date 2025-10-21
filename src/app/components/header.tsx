@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 
 // Icons
-import { ClipboardList, Gift, Headset, Heart, House, Info, PartyPopper } from "lucide-react";
+import { ClipboardList, Gift, Headset, House, Info, PartyPopper } from "lucide-react";
 
 import { getTranslations } from "next-intl/server";
 import { getServerSession } from "next-auth";
@@ -21,6 +21,7 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import ToggleLocale from "@/components/layout/header/components/toggle-locale";
 import Notification from "@/components/common/notifications/notification-section";
 import CartIcon from "@/components/common/cart-icon";
+import WishlistIcon from "@/components/common/wishlist-icon";
 
 // Assets
 import LocationHeader from "./location-header";
@@ -84,12 +85,7 @@ export default async function Header() {
           <div className="flex items-center gap-3">
             {/* Sign in hidden on mobile to reduce clutter */}
             {/* Favorites */}
-            <div className="relative">
-              <Heart />
-              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                0
-              </span>
-            </div>
+            <WishlistIcon />
             {/* Cart */}
             <CartIcon />
             {/* Notifications */}
@@ -128,12 +124,7 @@ export default async function Header() {
 
             {/* user data */}
             <div className=" flex items-center gap-2 border-r border-zinc-200 pr-4">
-              <div className="relative">
-                <Heart />
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                  0
-                </span>
-              </div>
+              <WishlistIcon />
               <CartIcon />
               {/* Notifications */}
               <Notification />

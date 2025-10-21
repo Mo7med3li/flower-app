@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader, ShoppingCart, Trash2 } from "lucide-react";
+import { ShoppingCart, Trash2 } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import useFetchCart from "@/app/[locale]/(homepage)/cart/_hooks/use-fetch-cart";
 import UserCartCard from "@/app/[locale]/(homepage)/cart/_components/user-cart-card";
@@ -8,10 +8,10 @@ import useClearCart from "@/app/[locale]/(homepage)/cart/_hooks/use-clear-card";
 import EmptyCart from "@/app/[locale]/(homepage)/cart/_components/empty-cart";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
-import { Skeleton } from "../ui/skeleton";
+import UserCartCardSkeleton from "../skeletons/user-cart/cart-card.skeleton";
+import TooltipCom from "./tooltip-com";
 
 const CartIcon = () => {
   // hooks
@@ -26,40 +26,17 @@ const CartIcon = () => {
   const count = payload?.numOfCartItems ?? 0;
   const totalPrice = payload?.cart?.totalPrice ?? 0;
   const items = payload?.cart?.cartItems ?? [];
-  if (isLoading) {
-    return (
-      <div className="relative">
-        <ShoppingCart className="cursor-pointer" />
-        <span className="absolute bottom-3/4 right-0 flex size-[14px] items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white dark:bg-red-500">
-          <Loader />
-        </span>
-      </div>
-    );
-  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="relative">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div
-                  aria-label="Open cart"
-                  className="rounded-md p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-                >
-                  <ShoppingCart className="cursor-pointer size-6" />
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{t("open-cart")}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          {count > 0 && (
-            <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-medium leading-none text-white ring-2 ring-white dark:bg-red-500 dark:ring-zinc-900">
-              {format.number(count, "number-base")}
-            </span>
-          )}
+          <TooltipCom
+            title={t("open-cart")}
+            icon={<ShoppingCart className="cursor-pointer size-6" />}
+            isLoading={isLoading}
+            count={count}
+          />
         </div>
       </DropdownMenuTrigger>
 
@@ -88,22 +65,7 @@ const CartIcon = () => {
         <ScrollArea className="h-[468px]">
           <section className="p-4">
             {isLoading ? (
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <Skeleton className="h-16 w-16 rounded-md" />
-                  <div className="flex-1 space-y-2">
-                    <Skeleton className="h-4 w-2/3" />
-                    <Skeleton className="h-4 w-1/3" />
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Skeleton className="h-16 w-16 rounded-md" />
-                  <div className="flex-1 space-y-2">
-                    <Skeleton className="h-4 w-1/2" />
-                    <Skeleton className="h-4 w-1/4" />
-                  </div>
-                </div>
-              </div>
+              <UserCartCardSkeleton />
             ) : count === 0 ? (
               <EmptyCart />
             ) : (
