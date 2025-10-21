@@ -69,9 +69,11 @@ export default function Notification() {
           {/* UnRead Count */}
           {/* if count equal zero not display */}
 
-          <span className="absolute bottom-3/4 right-0 flex size-[14px] items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white dark:bg-red-500">
-            {unreadCount}
-          </span>
+          {unreadCount > 0 && (
+            <span className="absolute bottom-3/4 right-0 flex size-[14px] items-center justify-center rounded-full bg-red-600 text-[10px] font-medium text-white dark:bg-red-500">
+              {unreadCount}
+            </span>
+          )}
         </div>
       </DropdownMenuTrigger>
 

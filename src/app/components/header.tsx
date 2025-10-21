@@ -3,16 +3,7 @@ import React from "react";
 import Image from "next/image";
 
 // Icons
-import {
-  ClipboardList,
-  Gift,
-  Headset,
-  Heart,
-  House,
-  Info,
-  PartyPopper,
-  ShoppingCart,
-} from "lucide-react";
+import { ClipboardList, Gift, Headset, Heart, House, Info, PartyPopper } from "lucide-react";
 
 import { getTranslations } from "next-intl/server";
 import { getServerSession } from "next-auth";
@@ -29,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import ToggleLocale from "@/components/layout/header/components/toggle-locale";
 import Notification from "@/components/common/notifications/notification-section";
+import CartIcon from "@/components/common/cart-icon";
 
 // Assets
 import LocationHeader from "./location-header";
@@ -99,12 +91,7 @@ export default async function Header() {
               </span>
             </div>
             {/* Cart */}
-            <div className="relative">
-              <ShoppingCart />
-              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                {/* 0 */}
-              </span>
-            </div>
+            <CartIcon />
             {/* Notifications */}
             <Notification />
           </div>
@@ -147,12 +134,7 @@ export default async function Header() {
                   0
                 </span>
               </div>
-              <div className="relative">
-                <ShoppingCart />
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                  0
-                </span>
-              </div>
+              <CartIcon />
               {/* Notifications */}
               <Notification />
             </div>

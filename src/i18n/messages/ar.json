@@ -436,5 +436,9 @@
   "failed-update-cart": "فشل تحديث كمية سلة التسوق",
   "your-cart-is-empty": "سلة التسوق الخاصة بك فارغة",
   "empty-card-p": "يبدو أنك لم تقم بإضافة أي عناصر بعد. \nاستكشف منتجاتنا وأضف منتجاتك المفضلة إلى سلة التسوق.",
-  "your-order-has-been-placed-successfully": "لقد تم تقديم طلبك بنجاح."
+  "your-order-has-been-placed-successfully": "لقد تم تقديم طلبك بنجاح.",
+  "open-cart": "افتح العربة",
+  "cart-items": "عناصر السلة",
+  "total": ": المجموع",
+  "clear": "افرغ العربة"
 }

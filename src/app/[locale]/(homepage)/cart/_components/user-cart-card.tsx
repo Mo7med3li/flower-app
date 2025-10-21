@@ -37,7 +37,7 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
     if (debouncedQuantity !== item.quantity) {
       updateCartQuantityMutation();
     }
-  }, [debouncedQuantity, item.quantity, updateCartQuantityMutation]);
+  }, [debouncedQuantity, updateCartQuantityMutation]);
   return (
     <div
       key={item._id}
@@ -113,12 +113,10 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
                 type="number"
                 onChange={(e) => {
                   const val = Number(e.target.value);
-                  if (val > 0) {
-                    setQuantity(val);
-                  }
+                  if (val > 0) setQuantity(val);
                 }}
                 placeholder={format.number(item.quantity, "number-base")}
-                value={format.number(quantity, "number-base")}
+                value={quantity}
                 className="h-10 sm:h-12 max-w-24 sm:max-w-28 p-3 sm:p-4 flex-1"
               />
               <Button
