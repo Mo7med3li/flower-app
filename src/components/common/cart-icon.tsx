@@ -40,17 +40,12 @@ const CartIcon = () => {
         </div>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="relative w-[min(90vw,500px)] h-[520px] rounded-2xl border p-0 bg-white dark:bg-zinc-900 shadow-lg">
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 p-4 backdrop-blur bg-zinc-900">
-          <h3 className="text-lg font-semibold text-white dark:text-zinc-300">
+      <DropdownMenuContent className="relative w-[min(90vw,500px)] hide-scroll h-[400px] rounded-2xl border p-0 bg-white dark:bg-zinc-900 shadow-lg">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 p-4 backdrop-blur bg-maroon-700 dark:bg-soft-pink-300">
+          <h3 className="text-lg font-bold text-white dark:text-zinc-800">
             {t("cart-items")} ({format.number(count, "number-base")})
           </h3>
-          <div className="flex items-center gap-3 rtl:flex-row-reverse">
-            <span className="text-sm text-white dark:text-zinc-300">{t("total")}</span>
-            <span className="text-base text-white dark:text-zinc-300 font-medium">
-              {format.number(totalPrice, "currency-int")}
-            </span>
-          </div>
+
           <Button
             variant="destructive"
             className="flex rtl:flex-row-reverse gap-1"
@@ -61,8 +56,14 @@ const CartIcon = () => {
             {t("clear")}
           </Button>
         </div>
+        <div className="flex items-center justify-center gap-3 rtl:flex-row-reverse p-1">
+          <span className="text-2xl font-medium dark:text-zinc-50">{t("total")}</span>
+          <span className="text-xl text-red-600 font-medium">
+            {format.number(totalPrice, "currency-int")}
+          </span>
+        </div>
         <Separator />
-        <ScrollArea className="h-[468px]">
+        <ScrollArea className="h-[400px]">
           <section className="p-4">
             {isLoading ? (
               <UserCartCardSkeleton />

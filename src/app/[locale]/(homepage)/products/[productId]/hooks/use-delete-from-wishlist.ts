@@ -1,6 +1,7 @@
 // Libraries
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { removeFromWishlist } from "../_actions/wishlist.action";
 
 export function useRemoveFromWishlist() {
@@ -23,6 +24,10 @@ export function useRemoveFromWishlist() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      toast.success(t("removed-from-wishlist"));
+    },
+    onError: () => {
+      toast.error(t("failed-to-remove-from-wishlist"));
     },
   });
 

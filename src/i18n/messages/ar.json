@@ -439,8 +439,10 @@
   "your-order-has-been-placed-successfully": "لقد تم تقديم طلبك بنجاح.",
   "open-cart": "افتح العربة",
   "cart-items": "عناصر السلة",
-  "total": ": المجموع",
+  "total": ": السعر الإجمالي ",
   "clear": "افرغ العربة",
   "open-notifications": "فتح الإشعارات",
-  "open-wishlist": "افتح قائمة الرغبات"
+  "open-wishlist": "افتح قائمة الرغبات",
+  "wishlist": "قائمة الرغبات",
+  "wishlist-empty": "قائمة الرغبات فارغة"
 }

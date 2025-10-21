@@ -437,8 +437,10 @@
   "your-order-has-been-placed-successfully": "Your order has been placed successfully.",
   "open-cart": "Open cart",
   "cart-items": "Cart Items",
-  "total": "Total:",
+  "total": "Total price :",
   "clear": "Clear",
   "open-notifications": "open notifications",
-  "open-wishlist": "Open wishlist"
+  "open-wishlist": "Open wishlist",
+  "wishlist": "Wishlist",
+  "wishlist-empty": "Wishlist is empty"
 }
