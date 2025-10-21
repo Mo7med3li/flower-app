@@ -433,5 +433,6 @@
   "cart-updated-successfully": "Cart updated successfully",
   "failed-update-cart": "Failed to update cart quantity",
   "your-cart-is-empty": "Your cart is empty",
-  "empty-card-p": "Looks like you haven’t added any items yet. Explore our products and add your favorites to the cart."
+  "empty-card-p": "Looks like you haven’t added any items yet. Explore our products and add your favorites to the cart.",
+  "your-order-has-been-placed-successfully": "Your order has been placed successfully."
 }

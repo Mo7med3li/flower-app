@@ -4,13 +4,14 @@ import { useLocale, useTranslations } from "next-intl";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import CashImg from "@assets/Cash-on-Delivery.png";
 import CreditImg from "@assets/Credit-Card.png";
 import { Address } from "@/lib/types/addresses";
-import { useToast } from "@/hooks/use-toast";
 import { CheckoutSessionTS } from "@/lib/types/checkout-session";
+import { useRouter } from "@/i18n/navigation";
 import CheckCreditOrder from "../_actions/checkout-session.action";
 import CheckCashOrder from "../_actions/cash-order.action";
 // Types
@@ -27,11 +28,12 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
   const [data, setData] = useState<APIResponse<CheckoutSessionTS> | APIResponse<ErrorResponse>>();
   const [isActive, setIsActive] = useState<boolean>(false);
 
+  // router
+  const router = useRouter();
+
   // Formatter and translations
   const t = useTranslations();
   const locale = useLocale();
-
-  const { toast } = useToast();
 
   useEffect(() => {
     // Fetch checkout session data
@@ -77,10 +79,16 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
               setChecked("cash");
               setIsActive(true);
             }}
-            className="col-span-1 flex flex-col justify-center items-center gap-3 border rounded-xl p-4 hover:bg-zinc-50 group"
+            className={cn(
+              "col-span-1 flex flex-col justify-center items-center gap-3 border rounded-xl p-4 hover:bg-zinc-50 group",
+              isActive && checked === "cash" && "bg-maroon-600 dark:bg-soft-pink-200",
+            )}
           >
             <Image
-              className="dark:bg-slate-500 dark:group-hover:bg-zinc-50 dark:rounded-2xl"
+              className={cn(
+                "dark:bg-slate-500 dark:group-hover:bg-zinc-50 dark:rounded-2xl",
+                isActive && checked === "cash" && "bg-maroon-600 dark:bg-soft-pink-200",
+              )}
               src={CashImg}
               alt="Cash on Delivery"
             />
@@ -103,12 +111,18 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
               setChecked("credit");
               setIsActive(true);
             }}
-            className="col-span-1 flex flex-col  justify-center items-center gap-3 border rounded-xl p-4 hover:bg-zinc-50 group"
+            className={cn(
+              "col-span-1 flex flex-col justify-center items-center gap-3 border rounded-xl p-4 hover:bg-zinc-50 group",
+              isActive && checked === "credit" && "bg-maroon-600 dark:bg-soft-pink-200",
+            )}
           >
             <Image
               src={CreditImg}
               alt="Cash on Delivery"
-              className="dark:bg-slate-500 dark:group-hover:bg-zinc-50 dark:rounded-2xl"
+              className={cn(
+                "dark:bg-slate-500 dark:group-hover:bg-zinc-50 dark:rounded-2xl",
+                isActive && checked === "credit" && "bg-maroon-600 dark:bg-soft-pink-200",
+              )}
             />
             <h3
               className={cn(
@@ -137,11 +151,8 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
                   CheckCashOrder(address).then((response) => {
                     if ("error" in response) {
                     } else {
-                      toast({
-                        variant: "default",
-                        title: "Order Placed",
-                        description: "Your order has been placed successfully.",
-                      });
+                      toast.success(t("your-order-has-been-placed-successfully"));
+                      router.push("/allOrders");
                     }
                   });
                 }

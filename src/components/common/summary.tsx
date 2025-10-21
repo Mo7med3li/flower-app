@@ -121,12 +121,12 @@ export default function Summary() {
       {/* checkout button */}
       {pathname === "/cart" && payload?.numOfCartItems > 0 && (
         <Button
-          className="bg-maroon-600 w-full rounded-[10px] px-4 py-[10px] h-14"
+          className="bg-maroon-600 w-full flex items-center justify-center rounded-[10px] px-4 py-[10px] h-14"
           disabled={payload?.numOfCartItems === 0}
           onClick={() => router.push("/checkout")}
         >
-          Checkout
-          <MoveRight />
+          {t("checkout.checkout")}
+          <MoveRight className="rtl:rotate-180" />
         </Button>
       )}
     </div>

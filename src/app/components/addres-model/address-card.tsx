@@ -1,6 +1,5 @@
 import { LocationEdit, PenLine, Phone, Trash2 } from "lucide-react";
 import React from "react";
-import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -25,17 +24,9 @@ export default function Addresscard({
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
   address: Address;
 }) {
-  // Translations
-  const t = useTranslations();
-
   return (
     <section>
       <div className="border border-zinc-300 pt-6 pb-5 pe-9 ps-4 space-y-4 rounded-xl relative ">
-        <div className="bg-white dark:bg-zinc-950 w-fit absolute -translate-y-1/2 top-0">
-          <span className="font-semibold text-2xl text-maroon-600 dark:text-soft-pink-300">
-            {t("work")}
-          </span>
-        </div>
         <div className="absolute start-full space-y-2 -translate-x-1/2 rtl:translate-x-1/2">
           <Dialog>
             {/* Edit Dialog */}
@@ -91,7 +82,7 @@ export default function Addresscard({
               {address.city}
             </span>
           </div>
-          <div className="flex items-center gap-[10px] col-span-1">
+          <div className="flex items-center rtl:flex-row-reverse gap-[10px] col-span-1">
             <Phone width={33} height={33} className="p-1" />
             <span className="font-medium text-lg text-zinc-600 dark:text-zinc-50">
               {address.phone}

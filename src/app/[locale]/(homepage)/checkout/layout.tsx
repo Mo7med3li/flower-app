@@ -8,9 +8,9 @@ export default async function Layout({
 }) {
   return (
     <>
-      <main className="flex flex-col gap-24">
+      <main className="flex flex-col py-2">
         {/* Cart */}
-        <div className="flex justify-between gap-10 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-10 pt-10 md:px-20 px-4">
           {children}
           {summary}
         </div>

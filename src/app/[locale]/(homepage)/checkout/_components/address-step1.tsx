@@ -1,14 +1,25 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { MoveRight, Phone } from "lucide-react";
+// import { useQuery } from "@tanstack/react-query";
+import { MoveRight } from "lucide-react";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Address } from "@/lib/types/addresses";
 import { cn } from "@/lib/utils";
 import LoadingSpin from "@/components/common/loading-spin";
 import { Button } from "@/components/ui/button";
-import getAddresses from "../_actions/addresses.action";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import FormSteps from "@/app/components/addres-model/form-steps";
+import AdrdessForm from "@/app/components/addres-model/address-form";
+import useFetchAddresses from "@/hooks/address/use-fetch-addresses";
+import Addresscard from "@/app/components/addres-model/address-card";
 
 // Types
 interface AddressStep1Props {
@@ -23,14 +34,15 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
   const [isActive, setIsActive] = useState<boolean>(false);
 
   // Query to fetch addresses
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["addresses"],
-    queryFn: getAddresses,
-  });
+  const { isLoading, payload: data, error } = useFetchAddresses();
 
   // Formatter and translations
   const t = useTranslations();
   const locale = useLocale();
+
+  // States
+  const [steps, setSteps] = useState(1);
+  const [openDialog, setOpenDialog] = useState(false);
 
   // Handle loading and error states
   if (isLoading) return <LoadingSpin />;
@@ -42,7 +54,7 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
       <h3 className="font-primary font-semibold text-3xl">{t("checkout.shipping-address")}</h3>
 
       {/* content  */}
-      <div className="flex flex-col gap-3 h-[675px] overflow-y-scroll">
+      <div className="flex flex-col gap-2 h-[675px] overflow-y-scroll">
         {/* address list */}
         {data?.addresses.map((addressMap: Address) => (
           // Address check button
@@ -53,53 +65,18 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
               setIsActive(true);
             }}
             className={cn(
-              "w-full flex flex-col gap-2 rounded-xl border border-zinc-300 relative p-4 hover:dark:bg-maroon-600",
+              " flex flex-col gap-2 p-5 rounded-xl relative hover:dark:bg-maroon-600 transition-colors",
               isActive && address._id === addressMap._id
-                ? "bg-maroon-600 text-white"
+                ? "bg-maroon-600 text-white dark:bg-soft-pink-500"
                 : "hover:bg-zinc-50",
             )}
           >
-            {/* Header */}
-            <div className={cn("flex justify-between items-center")}>
-              <h4
-                className={cn(
-                  "text-zinc-800 font-primary font-semibold text-2xl dark:text-white",
-                  isActive && address._id === addressMap._id && "text-white",
-                )}
-              >
-                {addressMap.city}
-              </h4>
-              <div className="flex justify-between items-center gap-2">
-                <span
-                  className={cn(
-                    "bg-maroon-600 rounded-full flex justify-center items-center gap-3 w-8 h-8 text-white ",
-                    isActive && address._id === addressMap._id && "bg-white text-maroon-600",
-                  )}
-                >
-                  <Phone className="w-5 h-5 " />
-                </span>
-                <span
-                  className={cn(
-                    "text-zinc-500 font-primary font-medium text-lg",
-                    isActive && address._id === addressMap._id && "text-white",
-                  )}
-                >
-                  {addressMap.phone}
-                </span>
-              </div>
-            </div>
-
-            {/* full address */}
-            <span
-              className={cn(
-                "bg-zinc-100 py-1 px-3 max-w-min whitespace-nowrap rounded-xl text-primary text-zinc-800 font-medium text-base   ",
-                isActive &&
-                  address._id === addressMap._id &&
-                  "bg-zinc-800 text-white dark:bg-zinc-800",
-              )}
-            >
-              {addressMap.street}
-            </span>
+            <Addresscard
+              address={addressMap}
+              steps={steps}
+              setSteps={setSteps}
+              setOpenDialog={setOpenDialog}
+            />
           </button>
         ))}
       </div>
@@ -114,9 +91,21 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
         </div>
 
         {/* Button add address */}
-        <Button variant={"secondary"} className="w-full">
-          {t("checkout.add-new-address")}
-        </Button>
+        <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+          <DialogTrigger asChild className="w-full">
+            <Button variant="secondary">{t("add-a-new-address")}</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[850px] ">
+            <DialogHeader>
+              <DialogTitle></DialogTitle>
+              <DialogDescription></DialogDescription>
+            </DialogHeader>
+            <FormSteps steps={steps} />
+            <section>
+              <AdrdessForm setSteps={setSteps} steps={steps} setOpenDialog={setOpenDialog} />
+            </section>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Next Button */}
