@@ -6,6 +6,7 @@ import useFetchCart from "@/app/[locale]/(homepage)/cart/_hooks/use-fetch-cart";
 import UserCartCard from "@/app/[locale]/(homepage)/cart/_components/user-cart-card";
 import useClearCart from "@/app/[locale]/(homepage)/cart/_hooks/use-clear-card";
 import EmptyCart from "@/app/[locale]/(homepage)/cart/_components/empty-cart";
+import { useRouter } from "@/i18n/navigation";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
@@ -21,6 +22,9 @@ const CartIcon = () => {
   // translations
   const t = useTranslations();
   const format = useFormatter();
+
+  // router
+  const router = useRouter();
 
   // variables
   const count = payload?.numOfCartItems ?? 0;
@@ -83,6 +87,20 @@ const CartIcon = () => {
                 </div>
               ))
             )}
+            <Button
+              onClick={() => router.push("/cart")}
+              className="w-full"
+              disabled={isPending || count === 0}
+            >
+              {isPending ? (
+                <Loader2 className="size-4" />
+              ) : (
+                <>
+                  <ShoppingCart className="size-4" />
+                  {t("go-to-cart")}
+                </>
+              )}
+            </Button>
           </section>
         </ScrollArea>
       </DropdownMenuContent>
