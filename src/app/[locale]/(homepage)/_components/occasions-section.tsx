@@ -32,7 +32,7 @@ export default function OccasionsSection() {
     <section className="my-10 lg:px-20 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white">
       {OCCASIONS_IMAGES.map((occasion, index) => {
         return (
-          <Link href="/occasion" key={index} className="w-full col-span-1">
+          <Link href="/occasions" key={index} className="w-full col-span-1">
             <div className="relative h-[271px] w-full overflow-hidden rounded-2xl">
               {/* Image */}
               <Image src={occasion.image} alt={t(occasion.alt)} fill className="object-cover" />

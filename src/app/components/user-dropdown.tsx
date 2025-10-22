@@ -9,6 +9,8 @@ import { ChevronDown, User, LogOut, ScrollText, MapPinHouse, Settings } from "lu
 
 // Libraries
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 // UI Components
 import {
@@ -17,9 +19,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "@/i18n/navigation";
-import { Separator } from "@radix-ui/react-dropdown-menu";
-import { useTranslations } from "next-intl";
 
 // Types
 type UserProps = {

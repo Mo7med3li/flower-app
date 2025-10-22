@@ -450,5 +450,7 @@
   "continue-searching": "Continue searching",
   "something-went-wrong": "Some thing went wrong",
   "update-address": "Update address",
-  "go-to-cart": "Go to cart"
+  "go-to-cart": "Go to cart",
+  "my-account": "My account",
+  "change-password": "Change password"
 }
