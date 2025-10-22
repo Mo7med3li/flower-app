@@ -14,9 +14,10 @@ import {
 } from "@/components/ui/dialog";
 import useFetchAddresses from "@/hooks/address/use-fetch-addresses";
 import AddressSkeleton from "@/components/skeletons/address/address.skeleton";
-import AdrdessForm from "./addres-model/address-form";
-import Addresscard from "./addres-model/address-card";
-import FormSteps from "./addres-model/form-steps";
+
+import FormSteps from "./address-model/form-steps";
+import AddressForm from "./address-model/address-form";
+import AddressCard from "./address-model/address-card";
 
 export default function LocationHeader() {
   // Hooks
@@ -65,7 +66,7 @@ export default function LocationHeader() {
               </DialogHeader>
               <FormSteps steps={steps} />
               <section>
-                <AdrdessForm setSteps={setSteps} steps={steps} setOpenDialog={setOpenDialog} />
+                <AddressForm setSteps={setSteps} steps={steps} setOpenDialog={setOpenDialog} />
               </section>
             </DialogContent>
           </Dialog>
@@ -90,7 +91,7 @@ export default function LocationHeader() {
             </div>
           ) : (
             payload?.addresses?.map((address) => (
-              <Addresscard
+              <AddressCard
                 key={address._id}
                 address={address}
                 setSteps={setSteps}

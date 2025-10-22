@@ -48,7 +48,7 @@ interface MapMouseEvent {
 // Variables
 const GOOGLE_MAPS_API_KEY = "AIzaSyA9WBTeIarf_WTg_STfDRLahYDgxLLMyRQ";
 
-export default function AdrdessForm({
+export default function AddressForm({
   steps,
   setSteps,
   setOpenDialog,

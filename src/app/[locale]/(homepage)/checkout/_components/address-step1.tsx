@@ -16,10 +16,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import FormSteps from "@/app/components/addres-model/form-steps";
-import AdrdessForm from "@/app/components/addres-model/address-form";
+import FormSteps from "@/app/components/address-model/form-steps";
 import useFetchAddresses from "@/hooks/address/use-fetch-addresses";
-import Addresscard from "@/app/components/addres-model/address-card";
+import AddressCard from "@/app/components/address-model/address-card";
+import AddressForm from "@/app/components/address-model/address-form";
 
 // Types
 interface AddressStep1Props {
@@ -71,7 +71,7 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
                 : "hover:bg-zinc-50",
             )}
           >
-            <Addresscard
+            <AddressCard
               address={addressMap}
               steps={steps}
               setSteps={setSteps}
@@ -102,7 +102,7 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
             </DialogHeader>
             <FormSteps steps={steps} />
             <section>
-              <AdrdessForm setSteps={setSteps} steps={steps} setOpenDialog={setOpenDialog} />
+              <AddressForm setSteps={setSteps} steps={steps} setOpenDialog={setOpenDialog} />
             </section>
           </DialogContent>
         </Dialog>

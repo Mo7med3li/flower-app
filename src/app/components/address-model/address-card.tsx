@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import AddressDeleteModel from "./address-delete-model";
-import AdrdessForm from "./address-form";
 import FormSteps from "./form-steps";
+import AddressForm from "./address-form";
 
-export default function Addresscard({
+export default function AddressCard({
   steps,
   setSteps,
   setOpenDialog,
@@ -42,7 +42,7 @@ export default function Addresscard({
               </DialogHeader>
               {/* Form */}
               <FormSteps steps={steps} address={address} />
-              <AdrdessForm
+              <AddressForm
                 setOpenDialog={setOpenDialog}
                 setSteps={setSteps}
                 steps={steps}
