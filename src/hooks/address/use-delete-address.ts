@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { deleteAddress } from "@/lib/actions/address/delete-address";
-import { toast } from "../use-toast";
 
 export default function useDeleteAddress() {
   // Translations
@@ -14,17 +14,11 @@ export default function useDeleteAddress() {
       return await deleteAddress(id);
     },
     onSuccess: () => {
-      toast({
-        title: t("address-deleted-successfully"),
-        variant: "default",
-      });
+      toast.success(t("address-deleted-successfully"));
       queryClient.invalidateQueries({ queryKey: ["user-addresses"] });
     },
     onError: (error) => {
-      toast({
-        title: error.message,
-        variant: "destructive",
-      });
+      toast.error(error.message || t("something-went-wrong"));
     },
   });
   return {

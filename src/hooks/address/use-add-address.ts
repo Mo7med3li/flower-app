@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { addAddress } from "@/lib/actions/address/add-address.action";
 import { AddDressFormType } from "@/lib/schema/address-model/address-form.schema";
-import { toast } from "../use-toast";
 
 export default function useAddAddress() {
   // Translations
@@ -15,17 +15,11 @@ export default function useAddAddress() {
       return await addAddress({ values });
     },
     onSuccess: () => {
-      toast({
-        title: t("address-added-successfully"),
-        variant: "default",
-      });
+      toast.success(t("address-added-successfully"));
       queryClient.invalidateQueries({ queryKey: ["user-addresses"] });
     },
     onError: (error) => {
-      toast({
-        title: error.message,
-        variant: "destructive",
-      });
+      toast.error(error.message || t("something-went-wrong"));
     },
   });
   return {

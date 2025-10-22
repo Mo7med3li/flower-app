@@ -329,13 +329,14 @@ export default function AddressForm({
             <div className="pt-4">
               <Button
                 className="w-full"
+                type="submit"
                 disabled={
                   isPending ||
                   updateAddressPending ||
                   (form.formState.isSubmitted && !form.formState.isValid)
                 }
               >
-                {t("add-address")}
+                {address ? t("update-address") : t("add-address")}
               </Button>
             </div>
           </>

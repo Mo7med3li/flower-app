@@ -96,7 +96,6 @@ export default function LocationHeader() {
                 address={address}
                 setSteps={setSteps}
                 steps={steps}
-                setOpenDialog={setOpenDialog}
               />
             ))
           )}

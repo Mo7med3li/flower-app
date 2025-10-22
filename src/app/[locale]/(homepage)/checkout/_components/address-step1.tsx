@@ -75,7 +75,6 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
               address={addressMap}
               steps={steps}
               setSteps={setSteps}
-              setOpenDialog={setOpenDialog}
             />
           </button>
         ))}

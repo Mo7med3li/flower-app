@@ -447,5 +447,7 @@
   "wishlist-cleared": "Wishlist clear successfully",
   "clear-wishlist": "Clear wishlist",
   "continue-shearching": "Continue searching",
-  "continue-searching": "Continue searching"
+  "continue-searching": "Continue searching",
+  "something-went-wrong": "Some thing went wrong",
+  "update-address": "Update address"
 }

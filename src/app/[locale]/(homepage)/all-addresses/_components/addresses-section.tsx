@@ -74,7 +74,6 @@ export default function AddressesSection() {
               address={address}
               setSteps={setSteps}
               steps={steps}
-              setOpenDialog={setOpenDialog}
             />
           ))
         )}

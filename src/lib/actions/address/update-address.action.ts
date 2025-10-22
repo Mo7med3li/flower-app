@@ -6,7 +6,7 @@ import { getTokenHeader } from "@/lib/utils/token-header";
 export async function updateAddress({ values, id }: { values: AddDressFormType; id: string }) {
   const token = await getTokenHeader();
 
-  const respone = await fetch(`${process.env.API}/addresses/${id}`, {
+  const response = await fetch(`${process.env.API}/addresses/${id}`, {
     method: "PATCH",
     headers: {
       ...JSON_HEADER,
@@ -15,7 +15,7 @@ export async function updateAddress({ values, id }: { values: AddDressFormType; 
     body: JSON.stringify(values),
   });
 
-  const payload: APIResponse<UserAddresses> = await respone.json();
+  const payload: APIResponse<UserAddresses> = await response.json();
 
   if ("error" in payload) {
     throw new Error(payload.error);

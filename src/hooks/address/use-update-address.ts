@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { updateAddress } from "@/lib/actions/address/update-address.action";
 import { AddDressFormType } from "@/lib/schema/address-model/address-form.schema";
-import { toast } from "../use-toast";
 
 export default function useUpdateAddress() {
   // Translations
@@ -15,18 +15,12 @@ export default function useUpdateAddress() {
       return await updateAddress({ values, id });
     },
     onSuccess: () => {
-      toast({
-        title: t("address-updated-successfully"),
-        variant: "default",
-      });
+      toast.success(t("address-updated-successfully"));
       queryClient.invalidateQueries({ queryKey: ["user-addresses"] });
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
-      toast({
-        title: error.message,
-        variant: "destructive",
-      });
+      toast.error(error.message);
     },
   });
   return {

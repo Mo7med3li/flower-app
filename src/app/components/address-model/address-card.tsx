@@ -1,5 +1,5 @@
 import { LocationEdit, PenLine, Phone, Trash2 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -16,19 +16,18 @@ import AddressForm from "./address-form";
 export default function AddressCard({
   steps,
   setSteps,
-  setOpenDialog,
   address,
 }: {
   steps: number;
   setSteps: React.Dispatch<React.SetStateAction<number>>;
-  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
   address: Address;
 }) {
+  const [openEdit, setOpenEdit] = useState(false);
   return (
     <section>
       <div className="border border-zinc-300 pt-6 pb-5 pe-9 ps-4 space-y-4 rounded-xl relative ">
         <div className="absolute start-full space-y-2 -translate-x-1/2 rtl:translate-x-1/2">
-          <Dialog>
+          <Dialog open={openEdit} onOpenChange={setOpenEdit}>
             {/* Edit Dialog */}
             <DialogTrigger>
               <Button className=" bg-zinc-50 size-9 rounded-full flex items-center justify-center border border-zinc-400 cursor-pointer">
@@ -43,7 +42,7 @@ export default function AddressCard({
               {/* Form */}
               <FormSteps steps={steps} address={address} />
               <AddressForm
-                setOpenDialog={setOpenDialog}
+                setOpenDialog={setOpenEdit}
                 setSteps={setSteps}
                 steps={steps}
                 address={address}
