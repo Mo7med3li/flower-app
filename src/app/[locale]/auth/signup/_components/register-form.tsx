@@ -57,7 +57,7 @@ export default function RegisterForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-9">
         <div className="grid grid-cols-2 gap-3">
-          {/* frist name */}
+          {/* first name */}
           <div className="col-span-1">
             <FormField
               control={form.control}

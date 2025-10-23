@@ -1,4 +1,5 @@
 "use client";
+import UpdateUserForm from "./_components/update-user-form";
 import { useFetchUserData } from "./_hooks/use-fetch-user-data";
 
 const ProfilePage = () => {
@@ -6,7 +7,11 @@ const ProfilePage = () => {
   if (!data) {
     return <div>not found</div>;
   }
-  return <div>{data.user.email}</div>;
+  return (
+    <div>
+      <UpdateUserForm user={data.user} />
+    </div>
+  );
 };
 
 export default ProfilePage;
