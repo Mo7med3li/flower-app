@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -20,21 +21,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { RegistrationFields, useRegisterSchema } from "@/lib/schemes/auth.schema";
+import { useRegisterSchema } from "@/lib/schemes/auth.schema";
+import useUpdateProfile from "../_hooks/use-update-profile";
 
 const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
+  // forms
   const form = useForm({
     defaultValues: {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       phone: user.phone,
-      gender: user.gender as "male" | "female",
     },
     resolver: zodResolver(useRegisterSchema()),
   });
-  function onSubmit(values: RegistrationFields) {
-    console.log(values);
+
+  // hooks
+  const { updateProfileMutation, isPending, error } = useUpdateProfile();
+
+  // functions handlers
+  function onSubmit(values: UpdateProfileFields) {
+    updateProfileMutation(values);
   }
   return (
     <div className="w-full">
@@ -53,7 +60,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
 
                     {/* Field */}
                     <FormControl>
-                      <Input placeholder="First Name" {...field} value={user.firstName} />
+                      <Input placeholder="First Name" {...field} />
                     </FormControl>
 
                     {/* Feedback */}
@@ -75,7 +82,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
 
                     {/* Field */}
                     <FormControl>
-                      <Input placeholder="Last Name" {...field} value={user.lastName} />
+                      <Input placeholder="Last Name" {...field} />
                     </FormControl>
 
                     {/* Feedback */}
@@ -97,7 +104,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
 
                     {/* Field */}
                     <FormControl>
-                      <Input placeholder="user@example.com" {...field} value={user.email} />
+                      <Input placeholder="user@example.com" {...field} />
                     </FormControl>
 
                     {/* Feedback */}
@@ -119,7 +126,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
 
                     {/* Field */}
                     <FormControl>
-                      <PhoneInput placeholder="(123) 456-7890" {...field} value={user.phone} />
+                      <PhoneInput placeholder="(123) 456-7890" {...field} />
                     </FormControl>
 
                     {/* Feedback */}
@@ -137,11 +144,10 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                 render={({ field }) => (
                   <FormItem>
                     {/* Label */}
-
                     <FormLabel>Gender</FormLabel>
 
                     {/* Field */}
-                    <Select onValueChange={field.onChange} defaultValue={user.gender}>
+                    <Select onValueChange={field.onChange} disabled defaultValue={user.gender}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select Gender" />
@@ -159,14 +165,20 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                 )}
               />
             </div>
+            {/* error */}
+            {error && <p className="text-red-500">{error.message}</p>}
           </div>
         </form>
       </Form>
+
+      {/* Actions */}
       <div className="flex justify-between pt-16">
         <Button type="button" variant="outline" className="border-none shadow-none">
           Delete Account
         </Button>
-        <Button onClick={form.handleSubmit(onSubmit)}>Save Changes</Button>
+        <Button type="submit" onClick={() => onSubmit(form.getValues())}>
+          {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save Changes"}
+        </Button>
       </div>
     </div>
   );

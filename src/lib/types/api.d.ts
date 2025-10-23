@@ -61,4 +61,10 @@ declare type CommonSearchParams = {
   search?: string; // for searching
 };
 
+declare type UpdateProfileFields = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+};
 declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
