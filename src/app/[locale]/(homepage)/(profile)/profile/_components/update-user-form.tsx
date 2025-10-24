@@ -25,6 +25,7 @@ import { useRegisterSchema } from "@/lib/schemes/auth.schema";
 import DeleteModel from "@/app/[locale]/dashboard/_components/delete-model";
 import useUpdateProfile from "../_hooks/use-update-profile";
 import UserPhotoSection from "./user-photo-section";
+import useDeleteAccount from "../_hooks/use-delete-account";
 
 const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
   // forms
@@ -40,6 +41,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
 
   // hooks
   const { updateProfileMutation, isPending, error } = useUpdateProfile();
+  const { deleteAccountMutation, isPending: isDeletePending } = useDeleteAccount();
 
   // functions handlers
   function onSubmit(values: UpdateProfileFields) {
@@ -47,7 +49,10 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
   }
   return (
     <div className="w-full space-y-6">
+      {/* user photo section */}
       <UserPhotoSection user={user} />
+
+      {/* form */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-9">
           <div className="grid grid-cols-2 gap-3">
@@ -176,7 +181,12 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
 
       {/* Actions */}
       <div className="flex justify-between pt-16">
-        <DeleteModel deleteFn={() => {}} name="Account" isPending={isPending} />
+        <DeleteModel
+          deleteFn={() => deleteAccountMutation()}
+          name="Account"
+          isPending={isDeletePending}
+        />
+
         <Button type="submit" onClick={() => onSubmit(form.getValues())}>
           {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save Changes"}
         </Button>

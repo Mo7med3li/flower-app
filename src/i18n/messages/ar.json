@@ -454,5 +454,8 @@
   "go-to-cart": "اذهب إلى العربة",
   "my-account": "حسابي",
   "change-password": "تغيير كلمة المرور",
-  "update-profile": "تحديث الملف الشخصي"
+  "update-profile": "تحديث الملف الشخصي",
+  "delete-account": "حذف الحساب",
+  "account-deleted-successfully": "تم حذف الحساب بنجاح",
+  "failed-delete-account": "فشل في حذف الحساب"
 }

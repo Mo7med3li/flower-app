@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function DeleteModel({
   id,
@@ -20,7 +21,7 @@ export default function DeleteModel({
 }: {
   id?: string;
   // eslint-disable-next-line no-unused-vars
-  deleteFn: (id: string) => void;
+  deleteFn: (id?: string) => void;
   name: string;
   isPending: boolean;
 }) {
@@ -34,9 +35,14 @@ export default function DeleteModel({
     <Dialog onOpenChange={setClose} open={close}>
       {/* Dialog Trigger */}
       <DialogTrigger asChild>
-        <Button className="flex items-center gap-1 rounded-md py-1 px-2 bg-red-600/10 text-red-600 text-[12px] font-medium w-20">
+        <Button
+          className={cn(
+            "flex items-center gap-1 rounded-md py-1 px-2 bg-red-600/10 text-red-600 text-[12px] font-medium",
+            id ? "w-20" : "",
+          )}
+        >
           <Trash2 width={14} height={14} />
-          {t("delete")}
+          {id ? t("delete") : t("delete-account")}
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[500px] h-[373px] dark:bg-zinc-600 ">
@@ -71,10 +77,17 @@ export default function DeleteModel({
             <Button
               className="bg-red-600 text-white hover:bg-red-700 w-full"
               onClick={() => {
-                deleteFn(id!);
-                setTimeout(() => {
-                  setClose(false);
-                }, 1000);
+                if (id) {
+                  deleteFn(id);
+                  setTimeout(() => {
+                    setClose(false);
+                  }, 1000);
+                } else {
+                  deleteFn();
+                  setTimeout(() => {
+                    setClose(false);
+                  }, 1000);
+                }
               }}
               disabled={isPending}
             >

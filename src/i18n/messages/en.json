@@ -453,5 +453,8 @@
   "go-to-cart": "Go to cart",
   "my-account": "My account",
   "change-password": "Change password",
-  "update-profile": "Update Profile"
+  "update-profile": "Update Profile",
+  "delete-account": "Delete Account",
+  "account-deleted-successfully": "Account deleted successfully",
+  "failed-delete-account": "Failed to delete account"
 }
