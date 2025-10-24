@@ -22,7 +22,9 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useRegisterSchema } from "@/lib/schemes/auth.schema";
+import DeleteModel from "@/app/[locale]/dashboard/_components/delete-model";
 import useUpdateProfile from "../_hooks/use-update-profile";
+import UserPhotoSection from "./user-photo-section";
 
 const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
   // forms
@@ -44,7 +46,8 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
     updateProfileMutation(values);
   }
   return (
-    <div className="w-full">
+    <div className="w-full space-y-6">
+      <UserPhotoSection user={user} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-9">
           <div className="grid grid-cols-2 gap-3">
@@ -173,9 +176,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
 
       {/* Actions */}
       <div className="flex justify-between pt-16">
-        <Button type="button" variant="outline" className="border-none shadow-none">
-          Delete Account
-        </Button>
+        <DeleteModel deleteFn={() => {}} name="Account" isPending={isPending} />
         <Button type="submit" onClick={() => onSubmit(form.getValues())}>
           {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save Changes"}
         </Button>

@@ -18,7 +18,7 @@ export default function DeleteModel({
   name,
   isPending,
 }: {
-  id: string;
+  id?: string;
   // eslint-disable-next-line no-unused-vars
   deleteFn: (id: string) => void;
   name: string;
@@ -28,10 +28,10 @@ export default function DeleteModel({
   const t = useTranslations();
 
   // States
-  const [close, setclose] = useState(false);
+  const [close, setClose] = useState(false);
 
   return (
-    <Dialog onOpenChange={setclose} open={close}>
+    <Dialog onOpenChange={setClose} open={close}>
       {/* Dialog Trigger */}
       <DialogTrigger asChild>
         <Button className="flex items-center gap-1 rounded-md py-1 px-2 bg-red-600/10 text-red-600 text-[12px] font-medium w-20">
@@ -40,7 +40,7 @@ export default function DeleteModel({
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[500px] h-[373px] dark:bg-zinc-600 ">
-        {/* Dialg Header */}
+        {/* Dialog Header */}
         <DialogHeader>
           <DialogTitle></DialogTitle>
           <DialogDescription></DialogDescription>
@@ -71,9 +71,9 @@ export default function DeleteModel({
             <Button
               className="bg-red-600 text-white hover:bg-red-700 w-full"
               onClick={() => {
-                deleteFn(id);
+                deleteFn(id!);
                 setTimeout(() => {
-                  setclose(false);
+                  setClose(false);
                 }, 1000);
               }}
               disabled={isPending}
