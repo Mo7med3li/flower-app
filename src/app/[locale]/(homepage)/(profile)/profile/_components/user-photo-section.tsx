@@ -47,7 +47,7 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
     <section className="flex items-center gap-4">
       <Form {...form}>
         <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className="space-y-9">
-          <div className="relative ">
+          <div className="relative">
             {isPending && (
               <div className="w-full h-full rounded-full overflow-hidden bg-maroon-600 dark:bg-soft-pink-300 absolute top-0 left-0 flex items-center justify-center animate-spin">
                 <Loader className="size-5" />
@@ -62,7 +62,7 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
             />
             <div
               onClick={handleUploadClick}
-              className=" absolute bottom-0 end-0 rounded-full border bg-zinc-50 border-zinc-200 p-2"
+              className=" absolute bottom-0 end-0 rounded-full border bg-zinc-50 border-zinc-200 p-2 dark:bg-zinc-800"
             >
               <CloudUpload size={20} />
               <FormField

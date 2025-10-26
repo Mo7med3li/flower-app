@@ -17,7 +17,7 @@ const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
           </section>
         </SidebarProvider>
 
-        <section className="col-span-3 bg-white">
+        <section className="col-span-3 bg-white dark:bg-zinc-800">
           {/* Profile Pages */}
           {children}
         </section>

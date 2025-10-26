@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function UpdateUserFormSkeleton() {
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full space-y-6 dark:bg-zinc-800">
       {/* ===== User Photo Section ===== */}
       <section className="flex items-center gap-4">
         {/* Profile image skeleton */}
