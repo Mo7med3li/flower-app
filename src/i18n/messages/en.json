@@ -456,5 +456,15 @@
   "update-profile": "Update Profile",
   "delete-account": "Delete Account",
   "account-deleted-successfully": "Account deleted successfully",
-  "failed-delete-account": "Failed to delete account"
+  "failed-delete-account": "Failed to delete account",
+  "first-name": "First Name",
+  "save-changes": "Save Changes",
+  "profile-updated-successfully": "Profile updated successfully",
+  "failed-to-update-profile": "Failded to update profile",
+  "profile-photo-updated-successfully": "Profile photo updated successfully",
+  "failed-to-update-profile-photo": "Failed to update profile photo",
+  "upload-photo": "Upload Photo",
+  "update-photo": "Update Photo",
+  "image-indtructs": "You can upload a .jpg, .png, or .gif photo with max size of 4MB.",
+  "image-instructions": "You can upload a .jpg, .png, or .gif photo with max size of 4MB."
 }

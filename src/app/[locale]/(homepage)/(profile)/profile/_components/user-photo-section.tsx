@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { CloudUpload, Loader } from "lucide-react";
 import Image from "next/image";
@@ -15,20 +16,29 @@ import {
 import useUpdateProfilePhoto from "../_hooks/use-update-profile-photo";
 
 const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
+  // translations
+  const t = useTranslations();
+
+  // refs
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // handlers
   const handleUploadClick = () => {
     fileInputRef.current?.click();
   };
 
+  // form
   const form = useForm({
     defaultValues: {
       photo: user.photo,
     },
   });
 
+  // hooks
   const { updateProfilePhotoMutation, isPending, error } = useUpdateProfilePhoto();
+
+  // handlers
   const onSubmit = async () => {
     const formData = new FormData(formRef.current ?? undefined);
     updateProfilePhotoMutation(formData);
@@ -52,7 +62,7 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
             />
             <div
               onClick={handleUploadClick}
-              className=" absolute bottom-0 end-0 rounded-full border bg-zinc-50  border-zinc-200 p-2"
+              className=" absolute bottom-0 end-0 rounded-full border bg-zinc-50 border-zinc-200 p-2"
             >
               <CloudUpload size={20} />
               <FormField
@@ -61,7 +71,7 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
                 render={({}) => (
                   <FormItem>
                     {/* Label */}
-                    <FormLabel className="sr-only">Upload Photo</FormLabel>
+                    <FormLabel className="sr-only">{t("upload-photo")}</FormLabel>
 
                     {/* Field */}
                     <FormControl>
@@ -86,10 +96,8 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
       </Form>
 
       <div className="flex flex-col gap-4 text-zinc-800 dark:text-zinc-200">
-        <p className="font-semibold text-xl">Update Photo</p>
-        <p className="text-zinc-500">
-          You can upload a .jpg, .png, or .gif photo with max size of 4MB.
-        </p>
+        <p className="font-semibold text-xl">{t("update-photo")}</p>
+        <p className="text-zinc-500">{t("image-instructions")}</p>
 
         {error && <p className="text-red-500 text-xl font-semibold">{error.message}</p>}
       </div>

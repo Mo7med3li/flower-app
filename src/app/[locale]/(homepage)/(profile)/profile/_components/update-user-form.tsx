@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -28,6 +29,9 @@ import UserPhotoSection from "./user-photo-section";
 import useDeleteAccount from "../_hooks/use-delete-account";
 
 const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
+  // translations
+  const t = useTranslations();
+
   // forms
   const form = useForm({
     defaultValues: {
@@ -64,11 +68,11 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                 render={({ field }) => (
                   <FormItem>
                     {/* Label */}
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>{t("first-name")}</FormLabel>
 
                     {/* Field */}
                     <FormControl>
-                      <Input placeholder="First Name" {...field} />
+                      <Input placeholder={t("first-name")} {...field} />
                     </FormControl>
 
                     {/* Feedback */}
@@ -86,11 +90,11 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                 render={({ field }) => (
                   <FormItem>
                     {/* Label */}
-                    <FormLabel>Last Name</FormLabel>
+                    <FormLabel>{t("last-name")}</FormLabel>
 
                     {/* Field */}
                     <FormControl>
-                      <Input placeholder="Last Name" {...field} />
+                      <Input placeholder={t("last-name")} {...field} />
                     </FormControl>
 
                     {/* Feedback */}
@@ -108,11 +112,11 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                 render={({ field }) => (
                   <FormItem>
                     {/* Label */}
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t("email")}</FormLabel>
 
                     {/* Field */}
                     <FormControl>
-                      <Input placeholder="user@example.com" {...field} />
+                      <Input placeholder={t("email")} {...field} />
                     </FormControl>
 
                     {/* Feedback */}
@@ -130,7 +134,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                 render={({ field }) => (
                   <FormItem>
                     {/* Label */}
-                    <FormLabel>Phone</FormLabel>
+                    <FormLabel>{t("phone")}</FormLabel>
 
                     {/* Field */}
                     <FormControl>
@@ -152,18 +156,22 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                 render={({ field }) => (
                   <FormItem>
                     {/* Label */}
-                    <FormLabel>Gender</FormLabel>
+                    <FormLabel>{t("gender")}</FormLabel>
 
                     {/* Field */}
                     <Select onValueChange={field.onChange} disabled defaultValue={user.gender}>
-                      <FormControl>
+                      <FormControl dir="ltr">
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Gender" />
+                          <SelectValue placeholder={t("select-gender")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem dir="ltr" value="male">
+                          {t("male")}
+                        </SelectItem>
+                        <SelectItem dir="ltr" value="female">
+                          {t("female")}
+                        </SelectItem>
                       </SelectContent>
                     </Select>
 
@@ -183,12 +191,12 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
       <div className="flex justify-between pt-16">
         <DeleteModel
           deleteFn={() => deleteAccountMutation()}
-          name="Account"
+          name={t("account")}
           isPending={isDeletePending}
         />
 
         <Button type="submit" onClick={() => onSubmit(form.getValues())}>
-          {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save Changes"}
+          {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : t("save-changes")}
         </Button>
       </div>
     </div>

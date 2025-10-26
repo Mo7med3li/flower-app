@@ -42,7 +42,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
       },
       "number-format": {
         style: "decimal",
-        maximumFractionDigits: 0,
+        maximumFractionDigits: 1,
+        numberingSystem: locale === "ar" ? "arab" : "latn",
       },
       dateTime: {
         //^ --- SHORT YEAR FORMATS (year: '2-digit') ---

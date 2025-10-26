@@ -8,7 +8,6 @@ const updateUserPhoto = async (formData: FormData) => {
   const response = await fetch(`${process.env.API}/auth/upload-photo`, {
     method: "PUT",
     headers: {
-      // ...JSON_HEADER,
       Authorization: `Bearer ${token.token}`,
     },
     body: formData,
