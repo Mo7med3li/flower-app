@@ -2,9 +2,9 @@ import ChangePasswordForm from "./_components/change-password-form";
 
 const ChangePasswordPage = () => {
   return (
-    <div>
+    <section>
       <ChangePasswordForm />
-    </div>
+    </section>
   );
 };
 

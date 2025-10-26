@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -19,6 +20,9 @@ import { Button } from "@/components/ui/button";
 import useChangePassword from "../_hooks/use-change-password";
 
 const ChangePasswordForm = () => {
+  // translations
+  const t = useTranslations();
+
   // hooks
   const { changePasswordMutation, isPending, isError } = useChangePassword();
 
@@ -41,6 +45,7 @@ const ChangePasswordForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-16">
           <section className="flex flex-col gap-8">
+            {/* Password */}
             <FormField
               name="password"
               control={form.control}
@@ -48,7 +53,7 @@ const ChangePasswordForm = () => {
                 return (
                   <FormItem>
                     {/* Label */}
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t("password")}</FormLabel>
 
                     {/* Field */}
                     <FormControl>
@@ -62,6 +67,7 @@ const ChangePasswordForm = () => {
               }}
             />
 
+            {/* New Password */}
             <FormField
               name="newPassword"
               control={form.control}
@@ -69,7 +75,7 @@ const ChangePasswordForm = () => {
                 return (
                   <FormItem>
                     {/* Label */}
-                    <FormLabel>New Password</FormLabel>
+                    <FormLabel>{t("new-password")}</FormLabel>
 
                     {/* Field */}
                     <FormControl>
@@ -82,10 +88,15 @@ const ChangePasswordForm = () => {
                 );
               }}
             />
+
+            {/* Error */}
+            {isError && (
+              <p className="text-red-500">{form.formState.errors.newPassword?.message}</p>
+            )}
           </section>
 
           <Button type="submit" className="self-end" disabled={isPending} isLoading={isPending}>
-            Change Password
+            {t("change-password")}
           </Button>
         </form>
       </Form>

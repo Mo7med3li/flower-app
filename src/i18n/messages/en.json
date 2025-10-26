@@ -466,5 +466,6 @@
   "upload-photo": "Upload Photo",
   "update-photo": "Update Photo",
   "image-indtructs": "You can upload a .jpg, .png, or .gif photo with max size of 4MB.",
-  "image-instructions": "You can upload a .jpg, .png, or .gif photo with max size of 4MB."
+  "image-instructions": "You can upload a .jpg, .png, or .gif photo with max size of 4MB.",
+  "new-password": "New Password"
 }
