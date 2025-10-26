@@ -54,7 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
             type="button"
             variant="ghost"
             size="icon"
-            className="absolute right-0 rtl:right-auto rtl:left-0 top-0  h-full px-3"
+            className="absolute right-0 rtl:right-auto rtl:left-0 top-0 bg-transparent  h-full px-3"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
