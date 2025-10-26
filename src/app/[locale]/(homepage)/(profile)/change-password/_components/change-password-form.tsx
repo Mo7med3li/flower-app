@@ -16,8 +16,13 @@ import {
   changePasswordSchema,
 } from "@/lib/schema/change-password/change-password.schema";
 import { Button } from "@/components/ui/button";
+import useChangePassword from "../_hooks/use-change-password";
 
 const ChangePasswordForm = () => {
+  // hooks
+  const { changePasswordMutation, isPending, isError } = useChangePassword();
+
+  // form
   const form = useForm<ChangePasswordFormType>({
     defaultValues: {
       password: "",
@@ -26,8 +31,9 @@ const ChangePasswordForm = () => {
     resolver: zodResolver(changePasswordSchema),
   });
 
+  //   submit handler
   const onSubmit = (data: ChangePasswordFormType) => {
-    console.log(data);
+    changePasswordMutation(data);
   };
 
   return (
@@ -78,7 +84,7 @@ const ChangePasswordForm = () => {
             />
           </section>
 
-          <Button type="submit" className="self-end">
+          <Button type="submit" className="self-end" disabled={isPending} isLoading={isPending}>
             Change Password
           </Button>
         </form>
