@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { getOrders } from "@/lib/apis/orders.api";
 import OrderCard from "./_components/order-card";
+import EmptyOrders from "./_components/empty-orders";
 
 export default async function Page() {
   // Translations
@@ -16,11 +17,7 @@ export default async function Page() {
 
   // If there are no orders
   if (orders.length === 0) {
-    return (
-      <div className="text-maroon-500 font-semibold text-center text-2xl mt-16 dark:text-soft-pink-300">
-        {t("no-orders")}
-      </div>
-    );
+    return <EmptyOrders />;
   }
 
   return (

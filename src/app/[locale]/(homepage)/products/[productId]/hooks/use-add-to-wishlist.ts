@@ -1,6 +1,7 @@
 // Libraries
 import { useTranslations } from "next-intl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { AddToWishlist } from "../_actions/wishlist.action";
 
 export function useAddToWishlist() {
@@ -21,7 +22,11 @@ export function useAddToWishlist() {
       return response;
     },
     onSuccess: () => {
+      toast.success(t("added-to-wishlist"));
       queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+    },
+    onError: (error: { message: string }) => {
+      toast.error(`${t("failed-to-add-to-wishlist")} ${error.message}`);
     },
   });
 

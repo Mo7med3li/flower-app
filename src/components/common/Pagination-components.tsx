@@ -63,7 +63,7 @@ export default function PaginationComponent({ metaData }: PaginationComponentPro
   return (
     <div className="py-5">
       <Pagination>
-        <PaginationContent>
+        <PaginationContent className="space-x-2">
           {/* First Page */}
           <PaginationItem>
             <PaginationLink
@@ -76,7 +76,7 @@ export default function PaginationComponent({ metaData }: PaginationComponentPro
               }}
               className={cn(currentPage === 1 && "pointer-events-none opacity-50")}
             >
-              <ChevronFirst className="h-4 w-4 rtl:rotate-180" />
+              <ChevronFirst className="h-4 w-4 rtl:rotate-180 dark:text-zinc-700" />
             </PaginationLink>
           </PaginationItem>
 
@@ -93,6 +93,7 @@ export default function PaginationComponent({ metaData }: PaginationComponentPro
               className={cn(
                 currentPage === 1 && "pointer-events-none opacity-50",
                 "rtl:rotate-180",
+                "dark:text-zinc-700",
               )}
             />
           </PaginationItem>
@@ -119,7 +120,7 @@ export default function PaginationComponent({ metaData }: PaginationComponentPro
                   className={cn(
                     page === currentPage &&
                       "bg-maroon-600 text-white hover:bg-maroon-600/90 hover:text-white",
-                    "transition-colors",
+                    "transition-colors  dark:text-zinc-700",
                   )}
                 >
                   {format.number(Number(page), "number-base")}
@@ -141,6 +142,7 @@ export default function PaginationComponent({ metaData }: PaginationComponentPro
               className={cn(
                 currentPage === totalPages && "pointer-events-none opacity-50",
                 "rtl:rotate-180",
+                "dark:text-zinc-700",
               )}
             />
           </PaginationItem>
@@ -158,7 +160,7 @@ export default function PaginationComponent({ metaData }: PaginationComponentPro
               }}
               className={cn(currentPage === totalPages && "pointer-events-none opacity-50")}
             >
-              <ChevronLast className="h-4 w-4 rtl:rotate-180" />
+              <ChevronLast className="h-4 w-4 rtl:rotate-180 dark:text-zinc-700" />
             </PaginationLink>
           </PaginationItem>
         </PaginationContent>
