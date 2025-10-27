@@ -467,5 +467,9 @@
   "update-photo": "Update Photo",
   "image-indtructs": "You can upload a .jpg, .png, or .gif photo with max size of 4MB.",
   "image-instructions": "You can upload a .jpg, .png, or .gif photo with max size of 4MB.",
-  "new-password": "New Password"
+  "new-password": "New Password",
+  "there-are-no-orders-yet": "There are no orders yet",
+  "ordrs-empty": "It looks like you have not made any orders yet, start shopping now and enjoy your first experience!",
+  "orders-empty": "\tIt looks like you have not made any orders yet, start shopping now and enjoy your first experience!",
+  "browse-products": "Browse Products"
 }
