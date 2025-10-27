@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { ShoppingCart, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import type { Product } from "@/lib/types/products";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
 import { Link } from "@/i18n/navigation";
-import { Button } from "../ui/button";
 import ProductCardWishlist from "./product-card-wishlist";
+import ProductCardCart from "./product-card-cart";
 /**
  * SingleProduct Component
  *
@@ -128,12 +128,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
           </div>
 
           {/* Cart Button */}
-          <Button
-            className="rounded-full [&_svg]:size-6 h-11 w-11 bg-maroon-600 hover:bg-maroon-700 dark:bg-maroon-500 dark:text-white"
-            size="icon"
-          >
-            <ShoppingCart strokeWidth={1} />
-          </Button>
+          <ProductCardCart productId={singleProduct._id} />
         </div>
       </div>
 
