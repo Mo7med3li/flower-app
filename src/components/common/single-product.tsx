@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
 import { Link } from "@/i18n/navigation";
 import { Button } from "../ui/button";
+import ProductCardWishlist from "./product-card-wishlist";
 /**
  * SingleProduct Component
  *
@@ -137,37 +138,40 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
       </div>
 
       {/* Badges */}
-      <div className="absolute top-0 flex end-0 gap-2 p-2">
-        <Badge
-          className={cn(
-            showNew() ? "block" : "hidden",
-            "bg-zinc-100 dark:bg-zinc-100 text-zinc-700 hover:bg-zinc-100 py-1 px-2",
-            "bg-zinc-100 dark:bg-zinc-100 text-zinc-700 hover:bg-zinc-100 py-1 px-2",
-          )}
-        >
-          {t("new")}
-        </Badge>
+      <div className="absolute top-0 flex end-0 gap-2 p-2 justify-between items-center start-0">
+        <ProductCardWishlist productId={singleProduct._id} />
+        <div className="flex gap-2">
+          <Badge
+            className={cn(
+              showNew() ? "block" : "hidden",
+              "bg-zinc-100 dark:bg-zinc-100 text-zinc-700 hover:bg-zinc-100 py-1 px-2",
+              "bg-zinc-100 dark:bg-zinc-100 text-zinc-700 hover:bg-zinc-100 py-1 px-2",
+            )}
+          >
+            {t("new")}
+          </Badge>
 
-        <Badge
-          className={cn(
-            showHot() ? "block" : "hidden",
-            "bg-soft-pink-50 text-maroon-600 hover:bg-soft-pink-300 py-1 px-2",
-            "bg-soft-pink-50 text-maroon-600 hover:bg-soft-pink-300 py-1 px-2",
-          )}
-        >
-          {t("hot")}
-        </Badge>
+          <Badge
+            className={cn(
+              showHot() ? "block" : "hidden",
+              "bg-soft-pink-50 text-maroon-600 hover:bg-soft-pink-300 py-1 px-2",
+              "bg-soft-pink-50 text-maroon-600 hover:bg-soft-pink-300 py-1 px-2",
+            )}
+          >
+            {t("hot")}
+          </Badge>
 
-        <Badge
-          className={cn(
-            showOutOfStock() ? "block" : "hidden",
+          <Badge
+            className={cn(
+              showOutOfStock() ? "block" : "hidden",
 
-            "text-soft-pink-200 bg-red-600 hover:bg-red-600 py-1 px-2",
-            "text-soft-pink-200 bg-red-600 hover:bg-red-600 py-1 px-2",
-          )}
-        >
-          {t("out-of-stock")}
-        </Badge>
+              "text-soft-pink-200 bg-red-600 hover:bg-red-600 py-1 px-2",
+              "text-soft-pink-200 bg-red-600 hover:bg-red-600 py-1 px-2",
+            )}
+          >
+            {t("out-of-stock")}
+          </Badge>
+        </div>
       </div>
     </div>
   );
