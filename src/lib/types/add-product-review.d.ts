@@ -1,4 +1,4 @@
-declare type AddProductReviewResponse = {
+export type AddProductReviewResponse = {
   _id: string;
   product: string; // ID of the product
   user: string; // ID of the user

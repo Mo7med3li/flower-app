@@ -61,7 +61,7 @@ export function AppSidebar() {
   return (
     <Sidebar
       side={locale === "ar" ? "right" : "left"}
-      className="w-[360px] p-6 dark:bg-zinc-800 dark:border-zinc-600 border-none"
+      className="w-[300px] p-3 dark:bg-zinc-800 dark:border-zinc-600 border-none"
     >
       <SidebarContent className="bg-white dark:bg-zinc-800">
         <SidebarHeader className=" justify-center items-center">

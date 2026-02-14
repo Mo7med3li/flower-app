@@ -10,19 +10,19 @@ import HeaderOccasionDashboard from "./header-occasion-dashboard";
 import TableOccasionDashboard from "./table-occasion-dashboard";
 
 export default function OccasionDashboard() {
-  const [page, setPage] = useState(1);
   const [occasion, setOccasion] = useState<APIResponse<PaginatedResponse<occasions>>>();
 
   const searchParams = useSearchParams();
-  const nameParam = searchParams.get("search") ?? undefined; // phone
+  const pageParam = Number(searchParams.get("page") || 1);
+  const nameParam = searchParams.get("search") ?? undefined;
 
   useEffect(() => {
     async function fetchData() {
-      const response = await getOccasions({ limit: 10, page: page, search: nameParam });
+      const response = await getOccasions({ limit: 10, page: pageParam, search: nameParam });
       setOccasion(response);
     }
     fetchData();
-  }, [nameParam, page]);
+  }, [nameParam, pageParam]);
 
   if (occasion && "error" in occasion) {
     return <p>error while fetching data</p>;
@@ -44,11 +44,9 @@ export default function OccasionDashboard() {
       </section>
 
       {/*Pagination */}
-      <PaginationComponents
-        setPage={setPage}
-        page={page}
-        metadata={occasion?.metadata ?? undefined}
-      />
+      {occasion?.metadata && (
+        <PaginationComponents metaData={occasion.metadata} />
+      )}
     </div>
   );
 }

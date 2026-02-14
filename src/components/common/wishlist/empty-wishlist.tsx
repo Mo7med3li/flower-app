@@ -1,10 +1,9 @@
 "use client";
 
-import { HeartCrack } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { Button } from "../../ui/button";
-import { MoveLeft } from "lucide-react";
+import { HeartCrack, MoveLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
+import { Button } from "../../ui/button";
 
 const EmptyWishlist = () => {
   // translations

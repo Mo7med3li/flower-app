@@ -167,7 +167,7 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
             </Button>
           ) : (
             <Button disabled className="w-[200px] flex flex-nowrap">
-              {data && "error" in data ? data.error : "Loading..."}
+              {data && "error" in data ? data.error : t("checkout.loading")}
             </Button>
           )}
         </div>

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import BarTitle from "@/components/common/bar-title";
 import { useTranslations } from "next-intl";
+import BarTitle from "@/components/common/bar-title";
 
 export default function Gallery() {
   const t = useTranslations();
