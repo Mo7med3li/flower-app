@@ -12,12 +12,20 @@ import { useDeleteNotification } from "@/hooks/notifications/use-delete-notifica
 import { Button } from "@/components/ui/button";
 import { useReadNotification } from "@/hooks/notifications/use-read-notification";
 
-export default function NotificationCard({ notification }: { notification: any }) {
+type Notification = {
+  id?: string;
+  _id?: string;
+  title: string;
+  description: string;
+  isRead: boolean;
+};
+
+export default function NotificationCard({ notification }: { notification: Notification }) {
   const t = useTranslations();
-  // Mutation
-  //todo:when know notification return
-  const { readNotificationMutate, readPending } = useReadNotification(notification.id);
-  const { deleteNOtificationMutate, deletePending } = useDeleteNotification(notification.id);
+  const notificationId = notification.id ?? notification._id ?? "";
+
+  const { readNotificationMutate, readPending } = useReadNotification({ id: notificationId });
+  const { deleteNOtificationMutate, deletePending } = useDeleteNotification(notificationId);
   return (
     <div
       className={cn(

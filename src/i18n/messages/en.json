@@ -177,6 +177,7 @@
     "add-new-address": "Add a New Address",
     "next": "Next",
     "back": "Back",
+    "loading": "Loading...",
     "payment-method": "Payment Method",
     "cash-delivery": "Cash on Delivery",
     "cash-title": "You'll pay in cash when your order is delivered.",

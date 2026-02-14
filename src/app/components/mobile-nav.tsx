@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Link } from "@/i18n/navigation";
 import { Menu, X, House, Gift, ClipboardList, PartyPopper, Headset, Info } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function MobileNav() {
   // Translation

@@ -3,7 +3,9 @@ import Credentials from "next-auth/providers/credentials";
 import { JSON_HEADER } from "./lib/constants/api.constant";
 
 export const authOptions: NextAuthOptions = {
-  //todo pages
+  pages: {
+    signIn: "/auth/login",
+  },
 
   // Authentication providers
   providers: [

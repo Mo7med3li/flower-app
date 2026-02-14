@@ -30,7 +30,12 @@ export default function TableBtnActions({ id, name }: { id: string; name: string
         <Pencil width={14} height={14} /> {t("edit")}
       </Button>
 
-      <DeleteModel deleteFn={deleteCategoryFn} id={id} name={t("category")} isPending={isPending} />
+      <DeleteModel
+        deleteFn={() => deleteCategoryFn(id)}
+        id={id}
+        name={t("category")}
+        isPending={isPending}
+      />
     </>
   );
 }

@@ -17,11 +17,11 @@ export default function useAddProductReview() {
       return await addProductReview({ values, product: productId });
     },
 
-    onSuccess: ({ productId }) => {
+    onSuccess: () => {
       toast.success("Review added successfully");
       localStorage.removeItem("pendingReview");
       queryClient.invalidateQueries({
-        queryKey: ["Product Review", productId],
+        queryKey: ["Product Review"],
       });
     },
 

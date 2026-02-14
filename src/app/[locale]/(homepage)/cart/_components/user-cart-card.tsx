@@ -37,7 +37,7 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
     if (debouncedQuantity !== item.quantity) {
       updateCartQuantityMutation();
     }
-  }, [debouncedQuantity, updateCartQuantityMutation]);
+  }, [debouncedQuantity, item.quantity, updateCartQuantityMutation]);
   return (
     <div
       key={item._id}

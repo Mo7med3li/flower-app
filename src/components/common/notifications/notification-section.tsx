@@ -49,8 +49,8 @@ export default function Notification() {
   const { readPending, readAllNotificationsMutate } = useReadAllNotifications();
 
   // Variables
-  const notificationsFetched = payload?.pages?.flatMap((page: any) => page.notifications) ?? [];
-  const unreadCount = payload?.pages[0].metadata.unreadCount;
+  const notificationsFetched = payload?.pages?.flatMap((page) => page.notifications) ?? [];
+  const unreadCount = payload?.pages?.[0]?.metadata?.unreadCount ?? 0;
 
   return (
     <DropdownMenu>
@@ -135,8 +135,17 @@ export default function Notification() {
               loader={<NotificationItemSkeleton />}
               dataLength={notificationsFetched.length}
             >
-              {notificationsFetched.map((notification: any) => (
-                <NotificationCard key={notification.id} notification={notification} />
+              {notificationsFetched.map((notification: {
+                  id?: string;
+                  _id?: string;
+                  title: string;
+                  description: string;
+                  isRead: boolean;
+                }) => (
+                <NotificationCard
+                  key={notification.id ?? notification._id ?? notification.title}
+                  notification={notification}
+                />
               ))}
             </InfiniteScroll>
           )}
