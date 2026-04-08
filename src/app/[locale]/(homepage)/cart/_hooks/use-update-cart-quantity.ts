@@ -20,12 +20,14 @@ const useUpdateCartQuantity = ({
     mutationKey: ["update-cart-quantity"],
     onSuccess: () => {
       toast.success(t("cart-updated-successfully"));
-      queryClient.invalidateQueries({
-        queryKey: ["user-cart"],
-      });
     },
     onError: (e) => {
       toast.error(e.message || t("failed-update-cart"));
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user-cart"],
+      });
     },
   });
   return { updateCartQuantityMutation, isPending };

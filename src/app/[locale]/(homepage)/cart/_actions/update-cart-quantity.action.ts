@@ -7,14 +7,14 @@ import { getTokenHeader } from "@/lib/utils/tokenHeader";
 const updateCartQuantity = async (productId: string, quantity: number) => {
   const token = await getTokenHeader();
   const response = await fetch(`${process.env.API}/cart/${productId}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       ...JSON_HEADER,
       Authorization: `Bearer ${token.token}`,
     },
     body: JSON.stringify({ quantity }),
   });
-  if (!response.ok) {
+  if (!response.status) {
     throw new Error("Failed to update cart quantity");
   }
   const payload: APIResponse<SuccessfulResponse<CartResponse>> = await response.json();

@@ -13,7 +13,7 @@ const clearCart = async () => {
       Authorization: `Bearer ${token.token}`,
     },
   });
-  if (!response.ok) {
+  if (!response.status) {
     throw new Error("Failed to clear cart");
   }
   const payload: APIResponse<SuccessfulResponse<CartResponse>> = await response.json();

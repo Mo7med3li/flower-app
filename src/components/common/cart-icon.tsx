@@ -27,9 +27,8 @@ const CartIcon = () => {
   const router = useRouter();
 
   // variables
-  const count = payload?.numOfCartItems ?? 0;
-  const totalPrice = payload?.cart?.totalPrice ?? 0;
-  const items = payload?.cart?.cartItems ?? [];
+  const count = payload?.payload?.cartItems?.length ?? 0;
+  const items = payload?.payload?.cartItems ?? [];
 
   return (
     <DropdownMenu>
@@ -65,14 +64,7 @@ const CartIcon = () => {
             )}
           </Button>
         </div>
-        {count > 0 && (
-          <div className="flex items-center justify-center gap-3 rtl:flex-row-reverse p-1">
-            <span className="text-2xl font-medium dark:text-zinc-50">{t("total")}</span>
-            <span className="text-xl text-red-600 font-medium">
-              {format.number(totalPrice, "currency-int")}
-            </span>
-          </div>
-        )}
+
         <Separator />
         <ScrollArea>
           <section className="p-4">
@@ -82,7 +74,7 @@ const CartIcon = () => {
               <EmptyCart />
             ) : (
               items.map((item) => (
-                <div key={item._id} className="mb-3 last:mb-0">
+                <div key={item.id} className="mb-3 last:mb-0">
                   <UserCartCard item={item} />
                 </div>
               ))

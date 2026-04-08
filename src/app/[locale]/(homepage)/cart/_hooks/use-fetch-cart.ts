@@ -14,10 +14,10 @@ export default function useFetchCart() {
     queryFn: async () => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API}/user-cart`);
       const payload: APIResponse<CartResponse> = await response.json();
-      if ("error" in payload) {
-        throw new Error(payload.error);
+      if (!payload.status) {
+        throw new Error(payload.message || "Something went wrong");
       }
-      return payload;
+      return payload as SuccessfulResponse<CartResponse>;
     },
   });
   return {

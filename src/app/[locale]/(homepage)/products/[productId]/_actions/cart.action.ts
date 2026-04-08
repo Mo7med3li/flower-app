@@ -1,12 +1,22 @@
 "use server";
 
-import { Cart } from "@/lib/types/cart";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 
-type AddToCartResult = {
+import { Product } from "@/lib/types/products";
+
+export type AddToCartResult = {
   message: string;
-  numOfCartItems: number;
-  cart: Cart;
+  payload: {
+    cartItem: {
+      id: string;
+      userId: string;
+      productId: string;
+      quantity: number;
+      createdAt: string;
+      updatedAt: string;
+      product: Product;
+    };
+  };
 };
 
 export async function addToCartAction(productId: string, quantity: number = 1) {
@@ -20,12 +30,15 @@ export async function addToCartAction(productId: string, quantity: number = 1) {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      product: productId,
-      quantity: quantity,
+      productId,
+      quantity,
     }),
   });
 
   const payload: APIResponse<AddToCartResult> = await response.json();
+  if (!payload.status) {
+    throw new Error(payload.message);
+  }
 
   return payload;
 }

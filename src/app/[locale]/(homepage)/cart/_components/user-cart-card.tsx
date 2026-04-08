@@ -12,24 +12,25 @@ import useUpdateCartQuantity from "../_hooks/use-update-cart-quantity";
 import useDeleteItemCart from "../_hooks/use-delete-item-cart";
 
 const UserCartCard = ({ item }: { item: CartItem }) => {
+  const { product, quantity: itemQuantity } = item;
   // transition
   const t = useTranslations();
   const format = useFormatter();
 
   // states
-  const [quantity, setQuantity] = useState(item.quantity);
+  const [quantity, setQuantity] = useState(itemQuantity);
 
   // debounced quantity
   const [debouncedQuantity] = useDebounce(quantity, 400);
 
   // hooks
   const { updateCartQuantityMutation, isPending } = useUpdateCartQuantity({
-    productId: item.product._id,
+    productId: item.id,
     quantity: debouncedQuantity,
   });
 
   const { removeProductCartMutation, isPending: isRemovePending } = useDeleteItemCart({
-    cartItemId: item.product._id,
+    cartItemId: item.id,
   });
 
   // effects
@@ -40,14 +41,14 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
   }, [debouncedQuantity, item.quantity, updateCartQuantityMutation]);
   return (
     <div
-      key={item._id}
+      key={item.id}
       className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b dark:border-zinc-900 pb-5"
     >
       {/* Product image */}
       <div className="relative overflow-hidden rounded-lg w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
         <Image
           alt="Product image"
-          src={item.product.imgCover}
+          src={product.cover}
           className="object-cover object-center w-full h-full"
           width={128}
           height={128}
@@ -59,15 +60,15 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
           <div>
             {/* Product name */}
             <h2 className="text-base sm:text-lg font-semibold text-maroon-700 dark:text-maroon-200">
-              {item.product.title}
+              {product.title}
             </h2>
 
             {/* Product rating */}
             <p className="flex items-center rtl:flex-row-reverse w-fit gap-2 font-medium text-zinc-950 dark:text-zinc-200">
               <Star className="size-5 fill-yellow-500 stroke-yellow-500" /> {t("rating")}{" "}
-              {format.number(item.product.rateAvg, "number-base")}/{format.number(5, "number-base")}{" "}
+              {format.number(product.rating, "number-base")}/{format.number(5, "number-base")}{" "}
               <span className="text-blue-600">
-                ({format.number(item.product.rateCount, "number-base")} {t("ratings-1")})
+                ({format.number(product.ratings, "number-base")} {t("ratings-1")})
               </span>
             </p>
           </div>
@@ -91,7 +92,14 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
               <span className="text-xs sm:text-sm font-medium text-maroon-500 dark:text-maroon-100">
                 (x{format.number(item.quantity, "number-base")})
               </span>
-              <span>{format.number(item.product.price, "currency-int")}</span>
+              <span>
+                {format.number(
+                  product.discountType === "PERCENT"
+                    ? product.price - product.price * (product.discountValue / 100)
+                    : product.price - product.discountValue,
+                  "currency-int",
+                )}
+              </span>
             </p>
           </div>
 

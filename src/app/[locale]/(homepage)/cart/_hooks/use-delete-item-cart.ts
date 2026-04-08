@@ -16,12 +16,14 @@ const useDeleteItemCart = ({ cartItemId }: { cartItemId: string }) => {
     mutationKey: ["remove-product-cart"],
     onSuccess: () => {
       toast.success(t("removed-cart-successfully"));
-      queryClient.invalidateQueries({
-        queryKey: ["user-cart"],
-      });
     },
     onError: (e) => {
       toast.error(e.message || t("failed-remove-cart"));
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user-cart"],
+      });
     },
   });
   return { removeProductCartMutation, isPending };

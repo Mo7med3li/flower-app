@@ -16,7 +16,7 @@ const removeProductCart = async (cartItemId: string) => {
       Authorization: `Bearer ${token.token}`,
     },
   });
-  if (!response.ok) {
+  if (!response.status) {
     throw new Error("Failed to remove product from cart");
   }
   const payload: APIResponse<SuccessfulResponse<CartResponse>> = await response.json();
