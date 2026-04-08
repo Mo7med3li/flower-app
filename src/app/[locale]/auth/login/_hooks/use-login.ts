@@ -29,8 +29,8 @@ export default function useLogin() {
     onSuccess: () => {
       toast.success("Login Successful");
     },
-    onError: () => {
-      toast.error("Login Failed");
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 
