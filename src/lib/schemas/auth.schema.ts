@@ -20,10 +20,7 @@ export const useLoginSchema = () => {
   const t = useTranslations();
 
   return z.object({
-    email: z
-      .string()
-      .min(1, { message: t("email_required") || "Email is required" })
-      .email({ message: t("email_invalid") || "Please enter a valid email address" }),
+    username: z.string().min(1, { message: t("username_required") || "Username is required" }),
     password: z
       .string()
       .min(1, { message: t("password_required") || "Password is required" })

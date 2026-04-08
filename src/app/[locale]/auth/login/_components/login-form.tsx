@@ -32,7 +32,7 @@ export default function LoginForm() {
   const form = useForm<LoginFields>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -70,15 +70,15 @@ export default function LoginForm() {
         {/* Email Input field */}
         <FormField
           control={form.control}
-          name="email"
+          name="username"
           render={({ field, fieldState }) => (
             <FormItem>
-              <FormLabel>{t("email")}</FormLabel>
+              <FormLabel>UserName</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder={t("email_placeholder")}
-                  autoComplete="email"
+                  placeholder={t("username_placeholder")}
+                  autoComplete="username"
                   className={cn(
                     fieldState.error ? "border-red-500 focus:border-none" : "border-borderGray",
                     "rounded-lg h-12 placeholder:text-neutralGray bg-lightGray shadow-secondary",

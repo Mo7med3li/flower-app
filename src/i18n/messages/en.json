@@ -21,6 +21,8 @@
     "occasion": "Occasion",
     "price": "Price"
   },
+  "username_required": "Username is required",
+  "username_placeholder": "Enter your username",
   "messages": {
     "success": "Success!",
     "error": "Error!",

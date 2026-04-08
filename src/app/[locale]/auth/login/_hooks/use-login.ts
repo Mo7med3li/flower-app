@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 // Libraries
 import { useMutation } from "@tanstack/react-query";
 
+import { toast } from "sonner";
 // Schemas
 import { LoginFields } from "@/lib/schemas/auth.schema";
 
@@ -13,9 +14,9 @@ export default function useLogin() {
 
   // Mutation
   const { isPending, error, mutate } = useMutation({
-    mutationFn: async ({ email, password }: LoginFields) => {
+    mutationFn: async ({ username, password }: LoginFields) => {
       const response = await signIn("credentials", {
-        email,
+        username,
         password,
         redirect: false,
         callbackUrl: decodeURIComponent(searchParams.get("callbackUrl") || "/"),
@@ -24,6 +25,12 @@ export default function useLogin() {
       if (response?.error) throw new Error(response.error);
 
       return response;
+    },
+    onSuccess: () => {
+      toast.success("Login Successful");
+    },
+    onError: () => {
+      toast.error("Login Failed");
     },
   });
 

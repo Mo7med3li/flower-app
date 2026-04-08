@@ -13,39 +13,57 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         // Input fields expected from the login form
-        email: {},
+        username: {},
         password: {},
       },
       authorize: async (credentials) => {
-        const response = await fetch(`${process.env.API}/auth/signin`, {
+        // Validate credentials before API request to avoid unnecessary network calls
+        if (!credentials?.username) {
+          throw new Error("username is not allowed to be empty");
+        }
+        if (!credentials?.password) {
+          throw new Error("password is not allowed to be empty");
+        }
+
+        const response = await fetch(`${process.env.API}/auth/login`, {
           method: "POST",
           body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password,
+            username: credentials.username,
+            password: credentials.password,
           }),
           headers: {
             ...JSON_HEADER,
           },
         });
 
-        const payload: APIResponse<LoginResponse> = await response.json();
+        const data = await response.json();
 
-        // Validate credentials before API request to avoid unnecessary network calls
-        if (!credentials?.email) {
-          throw new Error("email is not allowed to be empty");
-        }
-        if (!credentials?.password) {
-          throw new Error("password is not allowed to be empty");
+        // Success condition: check if user exists inside data.payload
+        if (data?.payload?.user) {
+          const userObj = data.payload.user;
+          return {
+            id: userObj.id || userObj._id,
+            user: userObj,
+            token: data.payload.token,
+          };
         }
 
-        if ("error" in payload) {
-          throw new Error(payload.error);
+        // Handle error responses dynamically
+        let errorMessage = "Invalid credentials";
+
+        if (data?.error) {
+          errorMessage = typeof data.error === "string" ? data.error : JSON.stringify(data.error);
+        } else if (data?.message) {
+          if (data?.errors && data.errors.length > 0) {
+            errorMessage = data.errors[0].message;
+          } else {
+            errorMessage = data.message;
+          }
+        } else if (data) {
+          errorMessage = JSON.stringify(data); // generic fallback to see what the payload actually is
         }
-        return {
-          id: payload.user._id,
-          user: payload.user,
-          token: payload.token,
-        };
+
+        throw new Error(errorMessage);
       },
     }),
   ],

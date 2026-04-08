@@ -86,6 +86,8 @@
   "forgot-password-descreption": "لا تقلق، سنرسل إليك تعليمات لمساعدتك في إعادة تعيينه.",
   "do-not-have-an-account": "ليس لديك حساب حتى الآن؟",
   "sign-up-link": "أنشئ واحدا الآن!",
+  "username_required": "اسم المستخدم مطلوب",
+  "username_placeholder": "أدخل اسم المستخدم الخاص بك",
   "continue": "المتابعة",
   "title-reset-passwprd": "إنشاء كلمة مرور جديدة",
   "descreption-reset-password": "قم بتعيين كلمة مرور قوية لتأمين حسابك.",
