@@ -14,15 +14,19 @@ import { useReadNotification } from "@/hooks/notifications/use-read-notification
 
 type Notification = {
   id?: string;
-  _id?: string;
+  message: string;
   title: string;
-  description: string;
+  link: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  type: string[];
   isRead: boolean;
 };
 
 export default function NotificationCard({ notification }: { notification: Notification }) {
   const t = useTranslations();
-  const notificationId = notification.id ?? notification._id ?? "";
+  const notificationId = notification.id ?? "";
 
   const { readNotificationMutate, readPending } = useReadNotification({ id: notificationId });
   const { deleteNOtificationMutate, deletePending } = useDeleteNotification(notificationId);
@@ -81,7 +85,7 @@ export default function NotificationCard({ notification }: { notification: Notif
       </div>
       {/* Notification Description */}
       <p className="line-clamp-3 text-sm font-normal text-zinc-500 dark:text-zinc-400">
-        {notification.description}
+        {notification.message}
       </p>
     </div>
   );

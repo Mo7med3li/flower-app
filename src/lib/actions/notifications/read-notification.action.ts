@@ -7,15 +7,12 @@ import { getAuthHeader } from "@/lib/utils/auth-header";
 export async function readNotification({ id }: { id: string }) {
   const token = await getAuthHeader();
 
-  const response = await fetch(`${process.env.API}/notifications/mark-all-read`, {
+  const response = await fetch(`${process.env.API}/notifications/${id}`, {
     method: "POST",
     headers: {
       ...JSON_HEADER,
       Authorization: `Bearer ${token.token} `,
     },
-    body: JSON.stringify({
-      notificationIds: [id],
-    }),
   });
 
   const payload = await response.json();

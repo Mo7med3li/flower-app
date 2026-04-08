@@ -14,9 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useReadAllNotifications } from "@/hooks/notifications/use-read-all-notification";
 import { useDeleteAllNotifications } from "@/hooks/notifications/use-delete-all-notifications";
-
 import { fetchUserNotification } from "@/lib/api/notifications";
-
 import NotificationItemSkeleton from "@/components/skeletons/notifications/notification-item.skeleton";
 import NotificationCard from "./notification-card";
 import EmptyNotification from "./empty-notification";
@@ -39,8 +37,8 @@ export default function Notification() {
     },
     initialPageParam: 1,
     getNextPageParam: (LastPage) => {
-      if (LastPage.metadata.currentPage === LastPage.metadata.totalPages) return undefined;
-      return LastPage.metadata.currentPage + 1;
+      if (LastPage.payload.metadata.page === LastPage.payload.metadata.totalPages) return undefined;
+      return LastPage.payload.metadata.page + 1;
     },
   });
 
@@ -49,15 +47,13 @@ export default function Notification() {
   const { readPending, readAllNotificationsMutate } = useReadAllNotifications();
 
   // Variables
-  const notificationsFetched = payload?.pages?.flatMap((page) => page.notifications) ?? [];
-  const unreadCount = payload?.pages?.[0]?.metadata?.unreadCount ?? 0;
+  const notificationsFetched = payload?.pages?.flatMap((page) => page.payload.data) ?? [];
+  const unreadCount = payload?.pages?.[0]?.metadata?.total ?? 0;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="relative">
-          {/* UnRead Count */}
-          {/* if count equal zero not display */}
           <div className="relative">
             <TooltipCom
               title={t("open-notifications")}
@@ -135,18 +131,21 @@ export default function Notification() {
               loader={<NotificationItemSkeleton />}
               dataLength={notificationsFetched.length}
             >
-              {notificationsFetched.map((notification: {
+              {notificationsFetched.map(
+                (notification: {
                   id?: string;
-                  _id?: string;
+                  message: string;
                   title: string;
-                  description: string;
+                  link: string;
+                  userId: string;
+                  createdAt: string;
+                  updatedAt: string;
+                  type: string[];
                   isRead: boolean;
                 }) => (
-                <NotificationCard
-                  key={notification.id ?? notification._id ?? notification.title}
-                  notification={notification}
-                />
-              ))}
+                  <NotificationCard key={notification.id} notification={notification} />
+                ),
+              )}
             </InfiniteScroll>
           )}
         </DropdownMenuGroup>

@@ -6,7 +6,7 @@ import { JSON_HEADER } from "@/lib/constants/api.constant";
 
 export async function readAllNotifications() {
   const token = await getAuthHeader();
-  const response = await fetch(`${process.env.API}/notifications/mark-read`, {
+  const response = await fetch(`${process.env.API}/notifications/mark-all-read`, {
     method: "POST",
     headers: {
       ...JSON_HEADER,
