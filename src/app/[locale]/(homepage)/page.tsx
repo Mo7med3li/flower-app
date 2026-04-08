@@ -20,16 +20,16 @@ export default function Home({
       <CarouselSection />
 
       {/* Occasions section */}
-      <OccasionsSection />
+      {/* <OccasionsSection /> */}
 
       {/* Features section */}
       <FeaturesSection />
 
       {/*Best selling section*/}
-      <BestSelling />
+      {/* <BestSelling /> */}
 
       {/*Most Popular section*/}
-      <MostPopular searchParams={searchParams || {}} />
+      {/* <MostPopular searchParams={searchParams || {}} /> */}
 
       {/*About section*/}
       <AboutUs />

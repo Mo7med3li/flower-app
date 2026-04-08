@@ -5,9 +5,12 @@ declare type DataBaseProbs = {
   __v?: number;
 };
 declare type ErrorResponse = {
-  error: string;
+  status: boolean;
   code?: string;
   message?: string;
+  errors?: {
+    message: string;
+  }[];
 };
 
 declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
@@ -35,6 +38,8 @@ declare type LoginResponse = {
 
 declare type ErrorResponse = {
   error: string;
+  code?: string;
+  message?: string;
 };
 
 declare type SuccessfulResponse<T> = {

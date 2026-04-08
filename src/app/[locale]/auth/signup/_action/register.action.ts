@@ -5,7 +5,7 @@ import { RegistrationFields } from "@/lib/schemes/auth.schema";
 import { RegisterResponse } from "@/lib/types/auth";
 
 export const registerAction = async (registrationFields: RegistrationFields) => {
-  const respones = await fetch(`${process.env.API}/auth/signup`, {
+  const response = await fetch(`${process.env.API}/auth/register`, {
     method: "POST",
     body: JSON.stringify(registrationFields),
     headers: {
@@ -13,7 +13,16 @@ export const registerAction = async (registrationFields: RegistrationFields) => 
     },
   });
 
-  const payload: APIResponse<RegisterResponse> = await respones.json();
+  const payload: RegisterResponse = await response.json();
+
+  if (payload.status === false || payload.code >= 400) {
+    let errorMessage = payload.message || "Failed to register.";
+
+    if (payload.errors && payload.errors.length > 0) {
+      errorMessage = payload.errors[0].message;
+    }
+    throw new Error(errorMessage);
+  }
 
   return payload;
 };
