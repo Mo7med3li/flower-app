@@ -1,21 +1,32 @@
 // Single Product
 export type Product = {
-  rateAvg: number;
-  rateCount: number;
-  title: string;
-  slug: string;
-  description: string;
-  imgCover: string;
-  images: string[];
-  price: number;
-  priceAfterDiscount: number;
-  quantity: number;
-  category: string;
-  occasion: string;
-  isSuperAdmin: boolean;
-  sold?: number;
   id: string;
-  inWishlist?: boolean;
+  title: string;
+  description: string;
+  rating: number;
+  ratings: number;
+  stock: number;
+  price: number;
+  discountType: string;
+  discountValue: number;
+  cover: string;
+  gallery: string[];
+  categoryId: string;
+  subCategoryId: string;
+  createdAt: string;
+  updatedAt: string;
+  immutable: boolean;
+  category: {
+    id: string;
+    title: string;
+  };
+  subCategory: null;
+  occasions: [];
+  _count: {
+    reviews: number;
+    cartItems: number;
+    wishlistItems: number;
+  };
 } & DataBaseProbs;
 
 // Product details

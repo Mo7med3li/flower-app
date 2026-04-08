@@ -3,11 +3,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // next.config.mjs
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "flower.elevateegy.com",
-        pathname: "/uploads/**",
+        hostname: "rose-app.elevate-bootcamp.cloud",
+        pathname: "**", // This covers all paths including double slashes
       },
     ],
   },

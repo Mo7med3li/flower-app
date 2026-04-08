@@ -64,7 +64,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
 
   // Show Hot Badge
   const showHot = () => {
-    if (singleProduct.sold) {
+    if (singleProduct.ratings > 100) {
       return true;
     } else {
       return false;
@@ -73,7 +73,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
 
   // Show Out Of Stock Badge
   const showOutOfStock = () => {
-    if (singleProduct.quantity === 0) {
+    if (singleProduct.stock === 0) {
       return true;
     } else {
       return false;
@@ -85,15 +85,15 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
       {/* Cover & title */}
       <div>
         {/* Product cover */}
-        <Link href={`/products/${singleProduct._id}`}>
+        <Link href={`/products/${singleProduct.id}`}>
           <Image
-            src={singleProduct.imgCover}
+            src={singleProduct.cover}
             width={302}
             height={0}
             style={{ objectFit: "cover" }}
             alt={singleProduct.title}
             className="h-72 w-full rounded-xl"
-          ></Image>
+          />
         </Link>
 
         {/* product title */}
@@ -110,7 +110,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
             {/* Review */}
             <div className="flex mb-1">
               {Array.from({ length: 5 }, (_, i) =>
-                i < singleProduct.rateAvg ? (
+                i < singleProduct.rating ? (
                   <Star fill="#FBA707" size={16} strokeWidth={0} key={i} />
                 ) : (
                   <Star color="#FBA707" size={16} key={i} />
@@ -120,7 +120,12 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
 
             {/* Price */}
             <span className="text-maroon-600 dark:text-soft-pink-200 me-1">
-              {format.number(singleProduct.priceAfterDiscount, "currency-float")}
+              {format.number(
+                singleProduct.discountType === "percentage"
+                  ? singleProduct.price - (singleProduct.price * singleProduct.discountValue) / 100
+                  : singleProduct.price - singleProduct.discountValue,
+                "currency-float",
+              )}
             </span>
             <span className="line-through text-zinc-400">
               {format.number(singleProduct.price, "currency-float")}
@@ -128,13 +133,13 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
           </div>
 
           {/* Cart Button */}
-          <ProductCardCart productId={singleProduct._id} />
+          <ProductCardCart productId={singleProduct.id} />
         </div>
       </div>
 
       {/* Badges */}
       <div className="absolute top-0 flex end-0 gap-2 p-2 justify-between items-center start-0">
-        <ProductCardWishlist productId={singleProduct._id} />
+        <ProductCardWishlist productId={singleProduct.id} />
         <div className="flex gap-2">
           <Badge
             className={cn(

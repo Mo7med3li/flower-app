@@ -4,13 +4,24 @@ declare type DataBaseProbs = {
   updatedAt: string;
   __v?: number;
 };
+
 declare type ErrorResponse = {
-  status: boolean;
-  code?: string;
+  status: false;
+  code?: string | number;
   message?: string;
+  error?: string;
   errors?: {
     message: string;
+    path?: string;
   }[];
+};
+
+declare type SuccessfulResponse<T> = {
+  status: true;
+  code: string | number;
+  message: string;
+  payload?: T; // For endpoints using "payload" wrapper (like login)
+  data?: T; // For endpoints using "data" wrapper (like products)
 };
 
 declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
@@ -38,19 +49,6 @@ declare type LoginResponse = {
   message?: string;
   user: ApplicationUser;
   token: string;
-};
-
-declare type ErrorResponse = {
-  error: string;
-  code?: string;
-  message?: string;
-};
-
-declare type SuccessfulResponse<T> = {
-  status: boolean;
-  code: string;
-  message: string;
-  payload: T;
 };
 
 declare type PaginatedResponse<T> = {

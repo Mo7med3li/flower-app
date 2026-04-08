@@ -3,13 +3,16 @@ import BestSellingSection from "./best-selling-section";
 
 export default async function BestSelling() {
   // Functions
-  const response = await getProducts({ limit: 10, sort: "-sold" });
+  const response = await getProducts({ limit: 10 });
 
-  if ("error" in response) {
-    return <p>error</p>;
+  if (!response.status) {
+    return <p>Error loading products</p>;
   }
 
-  const { products } = response;
+  const result = response.data || response.payload;
+  if (result?.data.length === 0) {
+    return <p>No products available</p>;
+  }
 
-  return <BestSellingSection products={products} />;
+  return <BestSellingSection products={result?.data} />;
 }

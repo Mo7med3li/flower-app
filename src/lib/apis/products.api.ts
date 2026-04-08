@@ -1,51 +1,50 @@
+import { BASE_URL } from "../constants/api.constant";
 import { ProductDetails, Products, RelatedProducts, SearchParamProduct } from "../types/products";
 
 // Get all products
 export const getProducts = async (params?: SearchParamProduct | undefined) => {
-  // Declaring products API
-  const url = new URL(`${process.env.API}/Products?limit=5`);
+  // Declaring products API (base URL only)
+  const url = new URL(`${BASE_URL}/products`);
 
-  // If no params are given (undefined)
-  if (!params || params === undefined) {
-    const response = await fetch(url.toString());
-
-    const payload: APIResponse<PaginatedResponse<Products>> = await response.json();
-
-    return payload;
+  // Default parameters
+  if (!params?.limit) {
+    url.searchParams.append("limit", "5");
   }
 
-  // If params are given (this handle any given params included in the type)
-  Object.entries(params).forEach((param) => {
-    url.searchParams.append(param[0].toString(), param[1].toString());
-  });
+  // If params are given, append them all
+  if (params) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        url.searchParams.append(key, value.toString());
+      }
+    });
+  }
 
   // Extracting only the API link
   const response = await fetch(url.toString());
 
   // Returning the products results
   const payload: APIResponse<PaginatedResponse<Products>> = await response.json();
-
   return payload;
 };
 
 // Get product details
 export const getProductDetails = async (productId: string) => {
   // Declaring product details API
-  const url = new URL(`${process.env.API}/Products/${productId}`);
+  const url = new URL(`${BASE_URL}/products/${productId}`);
 
   // Extracting only the API link
   const response = await fetch(url.toString());
 
   // Returning the product details results
   const payload: APIResponse<ProductDetails> = await response.json();
-
   return payload;
 };
 
 // Get related products
 export const getRelatedProduct = async (productId: string) => {
   // Declaring related products API
-  const url = new URL(`${process.env.API}/related/similar/${productId}`);
+  const url = new URL(`${BASE_URL}/related/similar/${productId}`);
 
   // Extracting only the API link
   const response = await fetch(url.toString());
@@ -59,3 +58,4 @@ export const getRelatedProduct = async (productId: string) => {
 
   return payload;
 };
+
