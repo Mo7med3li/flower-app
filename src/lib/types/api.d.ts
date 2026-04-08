@@ -75,6 +75,7 @@ declare type UpdateProfileFields = {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
+  gender?: "male" | "female" | "MALE" | "FEMALE";
 };
 declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
