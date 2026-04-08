@@ -1,10 +1,10 @@
 "use server";
 
-import { JSON_HEADER } from "@/lib/constants/api.constant";
+import { JSON_HEADER, BASE_URL } from "@/lib/constants/api.constant";
 import { SendVerificationFields } from "@/lib/schemes/auth.schema";
 
 export const sendEmailVerificationAction = async (fields: SendVerificationFields) => {
-  const response = await fetch(`${process.env.API}/auth/send-email-verification`, {
+  const response = await fetch(`${BASE_URL}/auth/send-email-verification`, {
     method: "POST",
     body: JSON.stringify(fields),
     headers: {

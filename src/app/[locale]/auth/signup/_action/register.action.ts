@@ -1,11 +1,11 @@
 "use server";
 
-import { JSON_HEADER } from "@/lib/constants/api.constant";
+import { JSON_HEADER, BASE_URL } from "@/lib/constants/api.constant";
 import { RegistrationFields } from "@/lib/schemes/auth.schema";
 import { RegisterResponse } from "@/lib/types/auth";
 
 export const registerAction = async (registrationFields: RegistrationFields) => {
-  const response = await fetch(`${process.env.API}/auth/register`, {
+  const response = await fetch(`${BASE_URL}/auth/register`, {
     method: "POST",
     body: JSON.stringify(registrationFields),
     headers: {

@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { JSON_HEADER } from "./lib/constants/api.constant";
+import { JSON_HEADER, BASE_URL } from "./lib/constants/api.constant";
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("password is not allowed to be empty");
         }
 
-        const response = await fetch(`${process.env.API}/auth/login`, {
+        const response = await fetch(`${BASE_URL}/auth/login`, {
           method: "POST",
           body: JSON.stringify({
             username: credentials.username,

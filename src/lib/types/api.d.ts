@@ -17,17 +17,21 @@ declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
 
 //^ the user response after a successful login
 declare type ApplicationUser = {
-  _id: string;
+  id: string;
+  username: string;
+  email: string;
+  phone: string;
   firstName: string;
   lastName: string;
-  email: string;
   gender: string;
-  phone: string;
   photo?: string;
+  emailVerified: boolean;
+  phoneVerified: boolean;
   role: string;
   wishlist: string[];
   addresses: string[];
   createdAt: string;
+  updatedAt: string;
 };
 
 declare type LoginResponse = {
@@ -43,8 +47,11 @@ declare type ErrorResponse = {
 };
 
 declare type SuccessfulResponse<T> = {
+  status: boolean;
+  code: string;
   message: string;
-} & T;
+  payload: T;
+};
 
 declare type PaginatedResponse<T> = {
   metadata: {
