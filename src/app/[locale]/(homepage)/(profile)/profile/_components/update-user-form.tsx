@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useRegisterSchema } from "@/lib/schemes/auth.schema";
+import { useUpdateProfileSchema } from "@/lib/schemes/profile.schema";
 import DeleteModel from "@/app/[locale]/dashboard/_components/delete-model";
 import useUpdateProfile from "../_hooks/use-update-profile";
 import UserPhotoSection from "./user-photo-section";
@@ -38,9 +38,9 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      phone: user.phone,
+      phone: user.phone || "",
     },
-    resolver: zodResolver(useRegisterSchema()),
+    resolver: zodResolver(useUpdateProfileSchema()),
   });
 
   // hooks
