@@ -54,6 +54,9 @@ export async function removeFromWishlist(productId: string) {
   });
 
   const payload: APIResponse<WishlistCheckResult> = await response.json();
+  if (!response.status) {
+    throw new Error(payload.message);
+  }
 
   return payload;
 }

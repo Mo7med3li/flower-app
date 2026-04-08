@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const response = await fetch(`${process.env.API}/notifications/user?limit=6&page=${pageParam}`, {
+  const response = await fetch(`${process.env.API}/notifications?limit=6&page=${pageParam}`, {
     headers: {
       ...JSON_HEADER,
       Authorization: `Bearer ${token?.token}`,

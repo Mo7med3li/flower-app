@@ -11,11 +11,11 @@ export function useFetchWishlist() {
     queryFn: async () => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API}/wishlist`);
 
-      const payload: APIResponse<SuccessfulResponse<WishlistResponse>> = await response.json();
-      if ("error" in payload) {
-        throw new Error(payload.error);
+      const payload: APIResponse<WishlistResponse> = await response.json();
+      if (!payload.status) {
+        throw new Error(payload.error || payload.message || "Failed to fetch wishlist");
       }
-      return payload;
+      return payload.payload;
     },
   });
 

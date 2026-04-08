@@ -1,16 +1,15 @@
 import { Product } from "./products";
 
 export type Wishlist = {
-  _id: string;
-  user: string;
-  products: Product[];
+  id: string;
+  userId: string;
+  productId: string;
   createdAt: string;
-  updatedAt: string;
-  __v: number;
+  product: Product;
 };
 
 export type WishlistResponse = {
   message: string;
   count: number;
-  wishlist: Wishlist;
+  wishlistItems: WishlistItem[];
 };
