@@ -28,9 +28,7 @@ export default function RateUser({ rating, user }: RateUserProps) {
           <h4 className="text-base font-semibold text-gray-900 dark:text-white leading-tight">
             {user.username}
           </h4>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {format.dateTime(new Date(), "medium")}
-          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{format.dateTime(new Date())}</p>
         </div>
       </div>
 
