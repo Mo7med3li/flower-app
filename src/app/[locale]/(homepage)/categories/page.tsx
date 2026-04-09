@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import type { AllCategory } from "@/lib/types/category";
+import type { CategoryType } from "@/lib/types/category";
 import { getAllCategory } from "./_api/get-categories";
 import CategoriesCard from "./_components/categories-card";
 
@@ -11,7 +11,18 @@ const CategoriesPage = async ({ params }: { params: { locale: string } }) => {
   const isRTL = params?.locale?.toLowerCase().startsWith("ar");
   const t = await getTranslations();
 
-  if (!response || !response.categories || response.categories.length === 0) {
+  if (!response.status) {
+    return (
+      <div dir={isRTL ? "rtl" : "ltr"} className="min-h-[60vh] flex items-center justify-center">
+        <p className="text-gray-700 dark:text-gray-300 text-lg">{t("error-while-fetching-data")}</p>
+      </div>
+    );
+  }
+
+  const result = response.payload;
+  const categories = (result?.data as unknown as CategoryType[]) || [];
+
+  if (categories.length === 0) {
     return (
       <div dir={isRTL ? "rtl" : "ltr"} className="min-h-[60vh] flex items-center justify-center">
         <p className="text-gray-700 dark:text-gray-300 text-lg">{t("empty")}</p>
@@ -31,8 +42,8 @@ const CategoriesPage = async ({ params }: { params: { locale: string } }) => {
         <p className="text-right text-gray-600 dark:text-gray-400 mb-8">{t("subtitle")}</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {response.categories.map((category: AllCategory["categories"][number]) => (
-            <CategoriesCard key={category._id} category={category} />
+          {categories.map((category: CategoryType) => (
+            <CategoriesCard key={category.id} category={category} />
           ))}
         </div>
       </section>

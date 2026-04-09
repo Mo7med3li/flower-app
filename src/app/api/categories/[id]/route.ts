@@ -9,7 +9,7 @@ export async function GET(_request: Request, { params }: { params: { id: string 
     }
 
     const payload = await res.json();
-    return NextResponse.json(payload.category);
+    return NextResponse.json(payload);
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to fetch category", message: error },

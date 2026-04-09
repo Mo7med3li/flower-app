@@ -1,8 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { Categories } from "@/lib/types/category";
-import { getProducts } from "@/lib/api/products.api";
 import SingleProduct from "@/components/common/single-product";
+import { Product } from "@/lib/types/products";
 import { getSingleCategory } from "./_api/get-single-category";
 
 const CategoryPage = async ({ params }: { params: { id: string } }) => {
@@ -10,15 +9,15 @@ const CategoryPage = async ({ params }: { params: { id: string } }) => {
   const t = await getTranslations();
 
   // Category response
-  const category: Categories = await getSingleCategory(params.id);
+  const responseCategory = await getSingleCategory(params.id);
 
-  // Products response
-  const products = await getProducts({ category: params.id });
-
-  // Error handling
-  if ("error" in products) {
-    throw new Error(products.error);
+  if (!responseCategory.status) {
+    throw new Error(responseCategory.message || "Failed to fetch category");
   }
+
+  const category = responseCategory.payload.category;
+
+  const products = responseCategory.payload.category.products;
 
   return (
     <section className="w-full px-4 md:px-20 py-5">
@@ -29,7 +28,7 @@ const CategoryPage = async ({ params }: { params: { id: string } }) => {
           <div className="relative h-24 w-full sm:h-32 md:h-40">
             <Image
               src={category.image}
-              alt={category.name}
+              alt={category.title}
               fill
               priority
               sizes="100vw"
@@ -41,16 +40,16 @@ const CategoryPage = async ({ params }: { params: { id: string } }) => {
         )}
         <div className="relative px-4 pb-5 pt-4 sm:px-6 md:px-8">
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-3xl">
-            {category?.name}
+            {category?.title}
           </h1>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-            {t("number-of-products", { count: products.products.length })}
+            {t("number-of-products", { count: products.length })}
           </p>
         </div>
       </div>
 
       <div className="mt-6">
-        {products.products.length === 0 ? (
+        {products.length === 0 ? (
           <div className="flex h-48 items-center justify-center rounded-lg border border-dashed border-zinc-300 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-300">
             {t("no-products-found")}
           </div>
@@ -59,8 +58,8 @@ const CategoryPage = async ({ params }: { params: { id: string } }) => {
             <h2 className="text-2xl col-span-1 md:col-span-6 lg:col-span-4 font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-3xl">
               {t("category-products")}
             </h2>
-            {products.products.map((product) => (
-              <SingleProduct key={product._id} singleProduct={product} />
+            {products.map((product: Product) => (
+              <SingleProduct key={product.id} singleProduct={product} />
             ))}
           </div>
         )}
