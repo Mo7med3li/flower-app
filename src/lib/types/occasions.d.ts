@@ -1,30 +1,26 @@
-declare type SearchParamOcassion = {
-  name?: string;
-  slug?: string;
-  image?: string;
-  isSuperAdmin?: boolean;
-  productsCount?: number;
-} & CommonSearchParams;
-import { occasion } from "./occasions.d";
-// Single occasion
+export type DatabaseProps = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type occasion = {
-  name: string;
+  title: string;
   slug: string;
   image: string;
   isSuperAdmin: boolean;
-  productsCount: number;
-} & DataBaseProbs;
+  _count: {
+    products: number;
+  };
+} & DatabaseProps;
 
-// array of occasion
 export type occasions = {
-  occasions: occasion[];
+  data: occasion[];
 };
 
-// Ocassions Search Param Type
-declare type SearchParamOcassion = {
-  name?: string;
+export type SearchParamOcassion = {
+  title?: string;
   slug?: string;
-  image?: string;
-  isSuperAdmin?: boolean;
-  productsCount?: number;
-} & CommonSearchParams;
+  page?: string;
+  limit?: string;
+};

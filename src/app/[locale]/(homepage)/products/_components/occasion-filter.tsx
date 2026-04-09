@@ -24,7 +24,7 @@ export default function OccasionFilter() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const value = searchParams.get("occasion");
+  const value = searchParams.get("occasionId");
 
   // useInfiniteQuery to fetch occasions
   const { data, fetchNextPage, hasNextPage, isLoading, isError, isFetchingNextPage } =
@@ -32,13 +32,18 @@ export default function OccasionFilter() {
       queryKey: ["occasions"],
       queryFn: ({ pageParam = 1 }) => getOccasions(pageParam),
       getNextPageParam: (lastPage) => {
-        if (lastPage.metadata.currentPage === lastPage.metadata.totalPages) return undefined;
-        return lastPage.metadata.currentPage + 1;
+        if (!lastPage.status || !("payload" in lastPage) || !lastPage.payload) {
+          return undefined;
+        }
+
+        const isLastPage = lastPage.payload.metadata?.page >= lastPage.payload.metadata?.totalPages;
+
+        return isLastPage ? undefined : lastPage.payload.metadata?.page + 1;
       },
       initialPageParam: 1,
     });
 
-  const allOccasions = data?.pages.flatMap((page) => page.occasions) ?? [];
+  const allOccasions = data?.pages.flatMap((page) => page.payload.data) ?? [];
 
   // Handle error & loading ui
   if (isLoading) {
@@ -48,20 +53,56 @@ export default function OccasionFilter() {
   const handleClick = (id: string) => {
     const newParams = new URLSearchParams(searchParams);
     if (id === value) {
-      newParams.delete("occasion");
+      newParams.delete("occasionId");
     } else {
-      newParams.set("occasion", id);
+      newParams.set("occasionId", id);
     }
     router.push(`${pathname}?${newParams.toString()}`);
   };
 
+  if (allOccasions.length === 0) {
+    return (
+      <div className="mb-6 border-b-2 border-zinc-100 dark:border-zinc-700 pb-6">
+        <div className="flex justify-between hide-scroll">
+          <h3 className="font-semibold text-lg font-primary">{t("product.occasion")}</h3>
+        </div>
+        <div className="flex flex-col items-center justify-center py-8 text-center">
+          <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+            <svg
+              className="w-8 h-8 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              nn
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">
+            {t("product.no_occasions_available")}
+          </p>
+          <p className="text-gray-400 dark:text-gray-500 text-xs mt-1">
+            {t("product.check_back_later")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mb-6 border-b-2 border-zinc-100 dark:border-zinc-700 pb-6">
       {/* header occasion filter */}
-      <div className="flex justify-between hide-scroll">
-        <h3 className="font-semibold text-lg font-primary">{t("product.occasion")}</h3>
-        <ResetComponent paramKey="occasion" />
-      </div>
+      {value && (
+        <div className="flex justify-between hide-scroll">
+          <h3 className="font-semibold text-lg font-primary">{t("product.occasion")}</h3>
+          <ResetComponent paramKey="occasionId" />
+        </div>
+      )}
       <InfiniteScroll
         dataLength={allOccasions.length}
         next={fetchNextPage}
@@ -77,29 +118,31 @@ export default function OccasionFilter() {
         className="overflow-hidden hide-scroll"
       >
         <div className="grid grid-cols-2 gap-3">
-          {allOccasions.map((occasion: occasion) => (
-            <div
-              key={occasion._id}
-              className="relative flex items-center justify-center h-20 rounded-lg col-span-2 md:col-span-1"
-              onClick={() => handleClick(occasion._id)}
-            >
-              <Button
-                className={cn(
-                  "absolute rounded-lg z-30 w-full h-full flex justify-center items-center text-white text-base font-medium bg-gradient-to-t from-black to-transparent hover:bg-transparent hover:from-maroon-600 hover:to-transparent hover:from-10% dark:bg-gradient-to-t dark:hover:bg-transparent dark:hover:from-soft-pink-500 dark:text-white dark:hover:from-10%",
-                  value === occasion._id && "from-maroon-600 to-transparent",
-                )}
+          {allOccasions
+            .flatMap((occasions) => occasions.data)
+            .map((occasion: occasion) => (
+              <div
+                key={occasion?.id}
+                className="relative flex items-center justify-center h-20 rounded-lg col-span-2 md:col-span-1"
+                onClick={() => handleClick(occasion?.id)}
               >
-                {occasion.name}
-              </Button>
-              <Image
-                src={`${url_image}${occasion.image}`}
-                alt={occasion.name}
-                width={100}
-                height={100}
-                className="absolute z-20 rounded-lg object-cover w-full h-full "
-              />
-            </div>
-          ))}
+                <Button
+                  className={cn(
+                    "absolute rounded-lg z-30 w-full h-full flex justify-center items-center text-white text-base font-medium bg-gradient-to-t from-black to-transparent hover:bg-transparent hover:from-maroon-600 hover:to-transparent hover:from-10% dark:bg-gradient-to-t dark:hover:bg-transparent dark:hover:from-soft-pink-500 dark:text-white dark:hover:from-10%",
+                    value === occasion?.id && "from-maroon-600 to-transparent",
+                  )}
+                >
+                  {occasion?.title}
+                </Button>
+                <Image
+                  src={occasion?.image ? `${url_image}${occasion?.image}` : ""}
+                  alt={occasion?.title}
+                  width={100}
+                  height={100}
+                  className="absolute z-20 rounded-lg object-cover w-full h-full "
+                />
+              </div>
+            ))}
         </div>
       </InfiniteScroll>
     </div>
