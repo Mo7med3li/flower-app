@@ -8,7 +8,7 @@ export const getProducts = async (params?: SearchParamProduct | undefined) => {
 
   // Default parameters
   if (!params?.limit) {
-    url.searchParams.append("limit", "5");
+    url.searchParams.append("limit", "4");
   }
 
   // If params are given, append them all
@@ -58,4 +58,3 @@ export const getRelatedProduct = async (productId: string) => {
 
   return payload;
 };
-

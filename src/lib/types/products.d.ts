@@ -9,7 +9,12 @@ export type Product = {
   price: number;
   discountType: string;
   discountValue: number;
+  quantity: number;
+  sold: number;
+  rateAvg: number;
+  rateCount: number;
   cover: string;
+  imgCover: string;
   gallery: string[];
   categoryId: string;
   subCategoryId: string;
@@ -35,9 +40,7 @@ export type ProductDetails = {
 };
 
 // Array of Products
-export type Products = {
-  products: Product[];
-};
+export type Products = Product[];
 
 // Product Search Params Type
 export type SearchParamProduct = {
