@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 
 type WishlistCheckResult = {
@@ -40,6 +41,9 @@ export async function AddToWishlist(productId: string) {
 
   const payload: APIResponse<WishlistCheckResult> = await response.json();
 
+  // Revalidate product data using tags (more efficient than path revalidation)
+  revalidateTag(`product-${productId}`);
+
   return payload;
 }
 
@@ -54,9 +58,12 @@ export async function removeFromWishlist(productId: string) {
   });
 
   const payload: APIResponse<WishlistCheckResult> = await response.json();
-  if (!response.status) {
-    throw new Error(payload.message);
+  if (!payload.status) {
+    throw new Error(payload.message || payload.error || "Failed to remove from wishlist");
   }
+
+  // Revalidate product data using tags (more efficient than path revalidation)
+  revalidateTag(`product-${productId}`);
 
   return payload;
 }

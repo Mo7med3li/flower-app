@@ -48,7 +48,7 @@ export default function ProductThumbnail({ thumbnailImages }: ThumbnailImagesPro
   }, [mainCarouselAPI, onSelect, secondaryCarouselAPI]);
 
   // Empty state fallback
-  if (!thumbnailImages || thumbnailImages.length === 0) {
+  if (!thumbnailImages || !Array.isArray(thumbnailImages) || thumbnailImages.length === 0) {
     return (
       <div className="w-full h-60 sm:h-72 md:h-[402px] rounded-xl border border-dashed border-zinc-300 bg-zinc-50 flex items-center justify-center text-zinc-500">
         No product images

@@ -45,11 +45,14 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
   const t = await getTranslations();
 
   const currency = "EGP";
-
+  const priceAfterDiscount =
+    product.priceType === "PERCENT"
+      ? product.price * (product.discountValue / 100)
+      : product.price - product.discountValue;
   // Price calculations
-  const priceValue = product.priceAfterDiscount || product.price;
-  const discounted = product.priceAfterDiscount
-    ? getCurrencyParts(locale, currency, product.price, {
+  const priceValue = product.price;
+  const discounted = priceAfterDiscount
+    ? getCurrencyParts(locale, currency, priceAfterDiscount, {
         maximumFractionDigits: 0,
         numberingSystem: locale === "ar" ? "arab" : "latn",
       })
@@ -68,7 +71,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
         ),
       )
     : 0;
-  const lowStock = product.quantity > 0 && product.quantity <= 5;
+  const lowStock = product.stock > 0 && product.stock <= 5;
 
   return (
     <div className="w-full gap-4 pt-6 md:pt-10 pb-6">
@@ -107,7 +110,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           <div
             className={
               "flex items-center gap-1 py-1.5 px-3 rounded-3xl mt-2 ring-1 " +
-              (product.quantity === 0
+              (product.stock === 0
                 ? "bg-zinc-100 ring-zinc-200 text-zinc-800 dark:text-zinc-50"
                 : lowStock
                   ? "bg-amber-50 ring-amber-200 text-amber-700"
@@ -116,8 +119,8 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           >
             <Package className="size-5" />
             <div className="flex items-center gap-1 font-medium font-primary text-sm">
-              <span>{format.number(product.quantity, "number-base")}</span>
-              <p>{product.quantity === 0 ? t("out-of-stock") : t("left-in-stock")}</p>
+              <span>{format.number(product.stock, "number-base")}</span>
+              <p>{product.stock === 0 ? t("out-of-stock") : t("left-in-stock")}</p>
             </div>
           </div>
         </div>
@@ -127,16 +130,16 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           <div className="flex items-center gap-2">
             {/* Stars */}
             <div className="flex items-center gap-1 text-orange-400">
-              {Array.from({ length: Math.floor(product.rateAvg) }).map((_, i) => (
+              {Array.from({ length: Math.floor(product.rating) }).map((_, i) => (
                 <Star key={i} fill="#FFA500" className="text-[#FFA500]" />
               ))}
-              {product.rateAvg % 1 !== 0 && <StarHalf fill="#FFA500" className="text-[#FFA500]" />}
+              {product.rating % 1 !== 0 && <StarHalf fill="#FFA500" className="text-[#FFA500]" />}
             </div>
             <span className="font-primary font-semibold text-zinc-800 dark:text-zinc-50">
-              {format.number(product.rateAvg, "number-base")}/{format.number(5, "number-base")}
+              {format.number(product.rating, "number-base")}/{format.number(5, "number-base")}
             </span>
             <span className="text-sm text-blue-600 font-medium ">
-              ({format.number(product.rateCount, "number-base")} {t("ratings")})
+              ({format.number(product.ratings, "number-base")} {t("ratings")})
             </span>
           </div>
         </div>
@@ -148,20 +151,27 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
 
         {/* Action Buttons */}
         <div className="pt-4">
-          {product.quantity > 0 ? (
+          {product.stock > 0 ? (
             // In stock - show both wishlist and cart buttons
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               <div>
-                <AddToWishlist productId={product._id} />
+                <AddToWishlist
+                  isInWishlist={product._count.wishlistItems > 0}
+                  productId={product.id}
+                />
               </div>
               <div className="sm:flex-1">
-                <AddToCartButton productId={product._id} isLoggedIn={isLoggedIn} />
+                <AddToCartButton productId={product.id} isLoggedIn={isLoggedIn} />
               </div>
             </div>
           ) : (
             // Out of stock - show only wishlist button (extended)
             <div>
-              <AddToWishlist extend productId={product._id} />
+              <AddToWishlist
+                isInWishlist={product._count.wishlistItems > 0}
+                extend
+                productId={product.id}
+              />
             </div>
           )}
         </div>

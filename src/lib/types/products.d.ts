@@ -10,11 +10,7 @@ export type Product = {
   discountType: string;
   discountValue: number;
   quantity: number;
-  sold: number;
-  rateAvg: number;
-  rateCount: number;
   cover: string;
-  imgCover: string;
   gallery: string[];
   categoryId: string;
   subCategoryId: string;

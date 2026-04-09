@@ -15,8 +15,8 @@ export function useRemoveFromWishlist() {
   const { isPending, error, mutate } = useMutation({
     mutationFn: async (productId: string) => {
       const response = await removeFromWishlist(productId);
-      if ("error" in response) {
-        throw new Error(response.message || response.error || t("failed-to-remove-from-wishlist"));
+      if (!response.status) {
+        throw new Error(response.message || t("failed-to-remove-from-wishlist"));
       }
 
       return response;
