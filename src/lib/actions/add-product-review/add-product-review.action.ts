@@ -1,18 +1,20 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { ProductReviewField } from "@/lib/schema/add-product-review.schema";
 import { AddProductReviewResponse } from "@/lib/types/add-product-review";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
 
-type AddProdcutReviewProps = {
-  values: ProductReviewField;
-  product: string;
+type AddProductReviewProps = {
+  values: ProductReviewField & { productId?: string };
+  productId: string;
 };
-export async function addProductReview({ values, product }: AddProdcutReviewProps) {
+export async function addProductReview({ values, productId }: AddProductReviewProps) {
   // Token
   const token = await getTokenHeader();
 
+  values.productId = productId;
   const response = await fetch(`${process.env.API}/reviews`, {
     method: "POST",
     headers: {
@@ -20,13 +22,14 @@ export async function addProductReview({ values, product }: AddProdcutReviewProp
       Authorization: `Bearer ${token.token}`,
     },
     body: JSON.stringify({
-      product: product,
       ...values,
     }),
   });
+
   const payload: APIResponse<AddProductReviewResponse> = await response.json();
-  if ("error" in payload) {
-    throw new Error(payload.error);
+  if (!payload.status) {
+    throw new Error(payload.message);
   }
+  revalidateTag(`product-${productId}`);
   return payload;
 }

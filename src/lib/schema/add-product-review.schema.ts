@@ -10,8 +10,8 @@ export const useAddProductReviewSchema = () => {
       .number()
       .min(1, t("please-select-a-rating"))
       .max(5, t("rating-cannot-exceed-5-stars")),
-    title: z.string().min(5, t("title-must-be-at-least-10-characters")),
-    comment: z.string().min(20, t("review-must-be-at-least-20-characters")),
+    headline: z.string().min(5, t("title-must-be-at-least-10-characters")),
+    content: z.string().min(10, t("review-must-be-at-least-20-characters")),
   });
 };
 

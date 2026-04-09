@@ -14,7 +14,7 @@ export default function useAddProductReview() {
       values: ProductReviewField;
       productId: string;
     }) => {
-      return await addProductReview({ values, product: productId });
+      return await addProductReview({ values, productId });
     },
 
     onSuccess: () => {

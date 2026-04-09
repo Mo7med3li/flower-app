@@ -44,7 +44,7 @@ export default function AddProductReviewForm({ productId }: AddProductReviewForm
 
   // Effects
   useEffect(() => {
-    if (session?.user?._id) {
+    if (session?.user?.id) {
       const storedReview = localStorage.getItem("stoppedReview");
       if (storedReview) {
         const { values, productId } = JSON.parse(storedReview);
@@ -52,21 +52,21 @@ export default function AddProductReviewForm({ productId }: AddProductReviewForm
         localStorage.removeItem("stoppedReview");
       }
     }
-  }, [session?.user._id, addProductReviewFn]);
+  }, [session?.user?.id, addProductReviewFn]);
 
   //   Form
   const form = useForm<ProductReviewField>({
     defaultValues: {
       rating: 0,
-      title: "",
-      comment: "",
+      headline: "",
+      content: "",
     },
     resolver: zodResolver(addProductReviewSchema),
   });
 
   //   Submit
   const onSubmit: SubmitHandler<ProductReviewField> = (values) => {
-    if (session?.user._id) {
+    if (session?.user?.id) {
       addProductReviewFn({ values, productId });
       form.reset();
     } else {
@@ -104,7 +104,7 @@ export default function AddProductReviewForm({ productId }: AddProductReviewForm
 
         {/* Title Field */}
         <FormField
-          name="title"
+          name="headline"
           control={form.control}
           render={({ field }) => (
             <FormItem>
@@ -122,7 +122,7 @@ export default function AddProductReviewForm({ productId }: AddProductReviewForm
 
         {/* Review Field */}
         <FormField
-          name="comment"
+          name="content"
           control={form.control}
           render={({ field }) => (
             <FormItem>
@@ -146,10 +146,7 @@ export default function AddProductReviewForm({ productId }: AddProductReviewForm
         {error && <p className="text-red-500 text-xl font-medium">{error.message}!</p>}
 
         {/* Button Submit */}
-        <Button
-          className="w-full"
-          disabled={isPending || (!form.formState.isSubmitted && !form.formState.isValid)}
-        >
+        <Button className="w-full" disabled={isPending || !form.formState.isValid}>
           {t("add-review")}
         </Button>
       </form>

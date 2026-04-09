@@ -1,9 +1,9 @@
 "use client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useFormatter, useTranslations } from "next-intl";
-// import { useState } from "react";
 import { useSession } from "next-auth/react";
 import ProductReviewSkeleton from "@/components/skeletons/product-reviews/product-review.skeleton";
+import { Review } from "@/lib/types/add-product-review";
 import AddProductReviewForm from "./add-product-review-form";
 import RateUser from "./rate-user";
 import Stars from "./stars";
@@ -20,114 +20,13 @@ export default function ProductReview({ productId, rateCount, rateAvg }: Product
   const format = useFormatter();
   const t = useTranslations();
 
-  // // Data
-  // const dummyReviews = [
-  //   {
-  //     _id: "1",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 3.5,
-  //     title: t("amazing-quality"),
-  //     comment: t("review-1"),
-  //     user: t("mohamed"),
-  //   },
-  //   {
-  //     _id: "2",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 3.5,
-  //     title: t("lovely-bouquet"),
-  //     comment: t("review-2"),
-  //     user: t("ali"),
-  //   },
-  //   {
-  //     _id: "3",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 3,
-  //     title: t("okay-experience"),
-  //     comment: t("review-3"),
-  //     user: t("ahmed"),
-  //   },
-  //   {
-  //     _id: "4",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 2.5,
-  //     title: t("not-what-i-expected"),
-  //     comment: t("review-4"),
-  //     user: t("mahmood"),
-  //   },
-  //   {
-  //     _id: "5",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 5,
-  //     title: t("perfect-gift"),
-  //     comment: t("review-5"),
-  //     user: t("menna"),
-  //   },
-  //   {
-  //     _id: "6",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 4,
-  //     title: t("great-service"),
-  //     comment: t("review-6"),
-  //     user: t("alaa"),
-  //   },
-  //   {
-  //     _id: "7",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 3.5,
-  //     title: t("good-but-could-be-better"),
-  //     comment: t("review-7"),
-  //     user: t("khaled"),
-  //   },
-  //   {
-  //     _id: "8",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 5,
-  //     title: t("excellent"),
-  //     comment: t("review-8"),
-  //     user: t("tarek"),
-  //   },
-  //   {
-  //     _id: "9",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 4,
-  //     title: t("very-nice"),
-  //     comment: t("review-9"),
-  //     user: t("yousry"),
-  //   },
-  //   {
-  //     _id: "10",
-  //     product: "673e2d1b1159920171828146",
-  //     rating: 1,
-  //     title: t("disappointed"),
-  //     comment: t("review-10"),
-  //     user: t("merna"),
-  //   },
-  // ];
-
-  // Sessions
+  // Session
   const { data: session } = useSession();
 
-  // State
-  // const [reviews, setReviews] = useState(dummyReviews.slice(0, 1));
-  // const [hasMore, setHasMore] = useState(true);
-
-  // Functions
-  // const fetchMoreData = () => {
-  //   if (reviews.length >= dummyReviews.length) {
-  //     setHasMore(false);
-  //     return;
-  //   }
-
-  //   setTimeout(() => {
-  //     const nextItems = dummyReviews.slice(reviews.length, reviews.length + 2);
-  //     setReviews((prevReviews) => [...prevReviews, ...nextItems]);
-  //   }, 2000);
-  // };
-
   // Hooks
-  //! until fix backend
   const { fetchNextPage, hasNextPage, isLoading, payload } = useFetchProductReview({ productId });
-  const reviews = payload?.pages.flatMap((page) => page.reviews) ?? [];
+  // @ts-expect-error - payload is typed as any
+  const reviews = payload?.pages.flatMap((page) => page.data as Review[]) ?? [];
 
   if (isLoading) {
     return <ProductReviewSkeleton />;
@@ -188,13 +87,13 @@ export default function ProductReview({ productId, rateCount, rateAvg }: Product
               {/* Product Reviews */}
               {reviews.map((review) => (
                 // <ProductReviewItem key={review._id} review={review} />
-                <section className="p-4 md:p-5 space-y-[10px]" key={review._id}>
+                <section className="p-4 md:p-5 space-y-[10px]" key={review.id}>
                   <RateUser rating={review.rating} user={review.user} />
                   <section className="space-y-[6px]">
                     <h6 className="text-base font-semibold text-black dark:text-white">
-                      {review.title}
+                      {review.headline}
                     </h6>
-                    <p className="h-28 md:h-32 overflow-y-auto border-b-2 py-1">{review.comment}</p>
+                    <p className="h-28 md:h-32 overflow-y-auto border-b-2 py-1">{review.content}</p>
                   </section>
                   <RateUser rating={review.rating} user={review.user} />
                 </section>

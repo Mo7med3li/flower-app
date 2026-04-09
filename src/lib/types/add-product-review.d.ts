@@ -3,8 +3,8 @@ export type AddProductReviewResponse = {
   product: string; // ID of the product
   user: string; // ID of the user
   rating: number;
-  title: string;
-  comment: string;
+  headline: string;
+  content: string;
   status: "pending" | "approved" | "rejected"; // assuming possible statuses
   createdAt: string; // ISO date string
   updatedAt: string;
@@ -13,34 +13,36 @@ export type AddProductReviewResponse = {
 
 export type ReviewsResponse = {
   message: string;
-  metadata: {
-    currentPage: number;
-    totalPages: number;
-    limit: number;
-    totalItems: number;
+  status: boolean;
+  code: number;
+  payload: {
+    data: Review[];
+    metadata: {
+      page: number;
+      totalPages: number;
+      limit: number;
+      total: number;
+    };
   };
-  reviews: Review[];
 };
 
 export type Review = {
-  _id: string;
+  id: string;
   product: {
-    _id: string;
-    title: string;
-    imgCover: string;
     id: string;
+    title: string;
   };
   user: {
-    _id: string;
+    id: string;
     firstName: string;
     lastName: string;
-    photo: string;
+    username: string;
   };
   rating: number;
-  title: string;
-  comment: string;
-  status: "approved" | "pending" | "rejected";
+  headline: string;
+  content: string;
   createdAt: string;
   updatedAt: string;
-  __v: number;
+  userId: string;
+  productId: string;
 };

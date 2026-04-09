@@ -6,14 +6,14 @@ export async function GET(req: NextRequest, { params }: { params: { productId: s
 
   const pageParam = searchParams.get("page") || 1;
 
-  const respone = await fetch(
-    `${process.env.API}/products/${params.productId}/reviews?page=${pageParam}`,
+  const response = await fetch(
+    `${process.env.API}/reviews?page=${pageParam}&limit=20&productId=${params.productId}`,
     {
       headers: { ...JSON_HEADER },
     },
   );
 
-  const payload = await respone.json();
+  const payload = await response.json();
 
   return NextResponse.json(payload);
 }

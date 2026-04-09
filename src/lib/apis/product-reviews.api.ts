@@ -4,10 +4,8 @@ type FetchProductReviewsProps = {
   pageParam: number;
   productId: string;
 };
-export async function fetchProductReviews({ pageParam, productId }: FetchProductReviewsProps) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/get-product-reviews/${productId}?page=${pageParam}`,
-  );
+export async function fetchProductReviews({ productId }: FetchProductReviewsProps) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/get-product-reviews/${productId}`);
 
   const payload: APIResponse<ReviewsResponse> = await response.json();
 
@@ -15,5 +13,5 @@ export async function fetchProductReviews({ pageParam, productId }: FetchProduct
     throw new Error(payload.error);
   }
 
-  return payload;
+  return payload as SuccessfulResponse<ReviewsResponse>;
 }
