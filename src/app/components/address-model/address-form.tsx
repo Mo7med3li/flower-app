@@ -7,12 +7,13 @@ import { Marker } from "@react-google-maps/api";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale, useTranslations } from "next-intl";
-import { useSession } from "next-auth/react";
+import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,6 +26,7 @@ import {
 } from "@/lib/schema/address-model/address-form.schema";
 import useAddAddress from "@/hooks/address/use-add-address";
 import useUpdateAddress from "@/hooks/address/use-update-address";
+import { Address } from "@/lib/types/user-addresses";
 
 // types
 declare global {
@@ -63,13 +65,10 @@ export default function AddressForm({
   const t = useTranslations();
   const locale = useLocale();
 
-  // Session
-  const { data: session } = useSession();
-
   // States
   const [center, setCenter] = useState({
-    lat: Number(address?.lat) || 30.0123,
-    lng: Number(address?.long) || 31.0123,
+    lat: Number(address?.latitude) || 30.0123,
+    lng: Number(address?.longitude) || 31.0123,
   });
   const [map, setMap] = useState<GoogleMapInstance | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<{
@@ -90,12 +89,13 @@ export default function AddressForm({
   // Form
   const form = useForm<AddDressFormType>({
     defaultValues: {
+      title: address?.title || "",
+      isPrimary: address?.isPrimary || false,
       street: address?.street || "",
       phone: address?.phone || "",
       city: address?.city || "",
-      lat: address?.lat || "",
-      long: address?.long || "",
-      username: address?.username || session?.user.firstName,
+      latitude: address?.latitude?.toString() || "",
+      longitude: address?.longitude?.toString() || "",
     },
     resolver: zodResolver(addressFormSchema),
   });
@@ -125,8 +125,8 @@ export default function AddressForm({
 
           // Update both state and form
           setSelectedLocation(pos);
-          form.setValue("lat", pos.lat.toString());
-          form.setValue("long", pos.lng.toString());
+          form.setValue("latitude", pos.lat.toString());
+          form.setValue("longitude", pos.lng.toString());
         },
         () => {
           // Use console.warn instead of console.error, or handle the error properly
@@ -143,8 +143,8 @@ export default function AddressForm({
       const lng = event.latLng.lng();
 
       setSelectedLocation({ lat, lng });
-      form.setValue("lat", lat.toString());
-      form.setValue("long", lng.toString());
+      form.setValue("latitude", lat.toString());
+      form.setValue("longitude", lng.toString());
     },
     [form],
   );
@@ -153,7 +153,7 @@ export default function AddressForm({
   const onsubmit: SubmitHandler<AddDressFormType> = (values) => {
     if (address) {
       updateAddressFn(
-        { values, id: address._id },
+        { values, id: address.id },
         {
           onSuccess: () => {
             setOpenDialog(false);
@@ -166,17 +166,24 @@ export default function AddressForm({
         onSuccess: () => {
           setOpenDialog(false);
           setSteps(1);
+          form.reset();
         },
       });
     }
   };
 
-  const { isLoaded } = useJsApiLoader({
+  const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     libraries: ["places"],
   });
 
-  if (!isLoaded) {
+  if (loadError) {
+    // Set default coordinates when maps fail
+    form.setValue("latitude", "30.0123");
+    form.setValue("longitude", "31.0123");
+  }
+
+  if (!isLoaded && !loadError) {
     return <div>{t("loading-map")}</div>;
   }
 
@@ -192,6 +199,22 @@ export default function AddressForm({
                 {t("enter-address-details")}
               </h3>
             </div>
+            <FormField
+              name="title"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  {/* Label */}
+                  <FormLabel>{t("title")}</FormLabel>
+                  {/* Field */}
+                  <FormControl>
+                    <Input placeholder={t("enter-your-title")} {...field} />
+                  </FormControl>
+                  {/* Feedback */}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               name="city"
               control={form.control}
@@ -246,6 +269,22 @@ export default function AddressForm({
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="isPrimary"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">{t("primary-address")}</FormLabel>
+                    <FormDescription>{t("set-as-default-address")}</FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className="pt-4">
               <Button
                 type="button"
@@ -282,32 +321,40 @@ export default function AddressForm({
 
             <div className="relative">
               {/* Google Map */}
-              <GoogleMap
-                mapContainerStyle={{ width: "100%", height: "400px" }}
-                center={center}
-                zoom={12}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-                onClick={onMapClick}
-                options={{
-                  zoomControl: true,
-                  streetViewControl: true,
-                  mapTypeControl: true,
-                  fullscreenControl: true,
-                }}
-              >
-                {selectedLocation && (
-                  <Marker
-                    position={{
-                      lat: selectedLocation.lat || center.lat,
-                      lng: selectedLocation.lng || center.lng,
-                    }}
-                    title={`Selected Location: ${selectedLocation.lat.toFixed(
-                      6,
-                    )}, ${selectedLocation.lng.toFixed(6)}`}
-                  />
-                )}
-              </GoogleMap>
+              {loadError ? (
+                <div className="w-full h-[400px] bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center">
+                  <MapPinHouse className="w-12 h-12 text-gray-400 mb-4" />
+                  <p className="text-gray-600 text-center mb-4">{t("map-unavailable")}</p>
+                  <p className="text-sm text-gray-500 text-center">{t("using-default-location")}</p>
+                </div>
+              ) : (
+                <GoogleMap
+                  mapContainerStyle={{ width: "100%", height: "400px" }}
+                  center={center}
+                  zoom={12}
+                  onLoad={onLoad}
+                  onUnmount={onUnmount}
+                  onClick={onMapClick}
+                  options={{
+                    zoomControl: true,
+                    streetViewControl: true,
+                    mapTypeControl: true,
+                    fullscreenControl: true,
+                  }}
+                >
+                  {selectedLocation && (
+                    <Marker
+                      position={{
+                        lat: selectedLocation.lat || center.lat,
+                        lng: selectedLocation.lng || center.lng,
+                      }}
+                      title={`Selected Location: ${selectedLocation.lat.toFixed(
+                        6,
+                      )}, ${selectedLocation.lng.toFixed(6)}`}
+                    />
+                  )}
+                </GoogleMap>
+              )}
 
               <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
                 <Button
@@ -315,15 +362,16 @@ export default function AddressForm({
                   type="button"
                   onClick={getCurrentLocation}
                   className="bg-white shadow-md"
+                  disabled={!!loadError}
                 >
                   <MapPinHouse className="w-4 h-4 mr-2" />
                   {t("find-my-location")}
                 </Button>
               </div>
             </div>
-            {form.formState.errors.long && (
+            {form.formState.errors.longitude && (
               <p className="text-3xl font-semibold text-red-500">
-                {form.formState.errors.long.message}
+                {form.formState.errors.longitude.message}
               </p>
             )}
             <div className="pt-4">

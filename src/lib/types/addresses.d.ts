@@ -1,14 +1,17 @@
-export interface Addresses {
-  message: string;
-  addresses: Address[];
-}
+export type Addresses = {
+  data: Address[];
+};
 
-export interface Address {
+export type Address = {
+  id: string;
+  userId: string;
+  title: string;
+  isPrimary: boolean;
+  city: string;
   street: string;
   phone: string;
-  city: string;
-  lat: string;
-  long: string;
-  username: string;
-  _id: string;
-}
+  latitude: number | null;
+  longitude: number | null;
+  createdAt: string;
+  updatedAt: string;
+};

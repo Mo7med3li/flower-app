@@ -1,5 +1,6 @@
 "use server";
 import { JSON_HEADER } from "@/lib/constants/api.constant";
+import { UserAddresses } from "@/lib/types/user-addresses";
 import { getTokenHeader } from "@/lib/utils/token-header";
 
 export async function deleteAddress(id: string) {
@@ -15,8 +16,8 @@ export async function deleteAddress(id: string) {
 
   const payload: APIResponse<UserAddresses> = await respone.json();
 
-  if ("error" in payload) {
-    throw new Error(payload.error);
+  if (!payload.status) {
+    throw new Error(payload.message);
   }
 
   return payload;

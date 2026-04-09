@@ -16,6 +16,7 @@ import AddressSkeleton from "@/components/skeletons/address/address.skeleton";
 import FormSteps from "@/app/components/address-model/form-steps";
 import AddressCard from "@/app/components/address-model/address-card";
 import AddressForm from "@/app/components/address-model/address-form";
+import { Address } from "@/lib/types/user-addresses";
 
 export default function AddressesSection() {
   // Hooks
@@ -63,14 +64,14 @@ export default function AddressesSection() {
           <div className="flex items-center justify-center h-96">
             <p className="text-2xl font-semibold text-red-500">{error?.message}</p>
           </div>
-        ) : payload?.addresses?.length === 0 ? (
+        ) : payload?.payload?.data?.length === 0 ? (
           <div className="flex items-center justify-center h-96">
             <p className="text-2xl font-semibold text-zinc-800">{t("no-addresses-to-show")}</p>
           </div>
         ) : (
-          payload?.addresses?.map((address) => (
+          payload?.payload?.data?.map((address: Address) => (
             <AddressCard
-              key={address._id}
+              key={address.id}
               address={address}
               setSteps={setSteps}
               steps={steps}

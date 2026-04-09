@@ -43,12 +43,12 @@ export default function LocationHeader() {
           <div className="text-maroon-700 dark:text-soft-pink-200 flex flex-nowrap items-center gap-2 justify-center">
             <LocationEdit size={"20px"} />
             <p className=" font-medium text-base font-primary">
-              {payload?.addresses?.[0]?.city || t("set-delivery-address")}
+              {payload?.payload?.addresses?.[0]?.city || t("set-delivery-address")}
             </p>
           </div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[850px] space-y-6">
+      <DialogContent className="sm:max-w-[850px] space-y-6 max-w-full h-4/3 max-h-4/3 overflow-hidden max-h-[90vh] overflow-y-auto">
         <DialogHeader></DialogHeader>
         <div className="flex items-center justify-between ">
           <h2 className="font-bold text-3xl text-zinc-800 dark:text-zinc-50">
@@ -59,7 +59,7 @@ export default function LocationHeader() {
             <DialogTrigger asChild>
               <Button variant="secondary">{t("add-a-new-address")}</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[850px] ">
+            <DialogContent className="sm:max-w-[850px] max-w-full h-4/3 max-h-4/3 overflow-hidden max-h-[90vh] overflow-y-auto ">
               <DialogHeader>
                 <DialogTitle></DialogTitle>
                 <DialogDescription></DialogDescription>
@@ -85,18 +85,13 @@ export default function LocationHeader() {
             <div className="flex items-center justify-center h-96">
               <p className="text-2xl font-semibold text-red-500">{error?.message}</p>
             </div>
-          ) : payload?.addresses?.length === 0 ? (
+          ) : payload?.payload?.addresses?.length === 0 ? (
             <div className="flex items-center justify-center h-96">
               <p className="text-2xl font-semibold text-zinc-800">{t("no-addresses-to-show")}</p>
             </div>
           ) : (
-            payload?.addresses?.map((address) => (
-              <AddressCard
-                key={address._id}
-                address={address}
-                setSteps={setSteps}
-                steps={steps}
-              />
+            payload?.payload?.addresses?.map((address) => (
+              <AddressCard key={address.id} address={address} setSteps={setSteps} steps={steps} />
             ))
           )}
         </section>

@@ -1,14 +1,17 @@
-type Address = {
+export type Address = {
+  id: string;
+  userId: string;
+  title: string;
+  isPrimary: boolean;
+  city: string;
   street: string;
   phone: string;
-  city: string;
-  lat: string;
-  long: string;
-  username: string;
-  _id: string;
+  latitude: number | null;
+  longitude: number | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
-type UserAddresses={
-    addresses: Address[];
-    
-}
+export type UserAddresses = {
+  addresses: Address[];
+};

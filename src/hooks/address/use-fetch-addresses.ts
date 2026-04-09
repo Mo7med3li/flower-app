@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { UserAddresses } from "@/lib/types/user-addresses";
 
 export default function useFetchAddresses() {
   const {
@@ -11,10 +12,10 @@ export default function useFetchAddresses() {
     queryFn: async () => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API}/get-addresses`);
       const payload: APIResponse<UserAddresses> = await response.json();
-      if ("error" in payload) {
-        throw new Error(payload.error);
+      if (!payload.status) {
+        throw new Error(payload.message || "Something went wrong");
       }
-      return payload;
+      return payload as SuccessfulResponse<UserAddresses>;
     },
   });
   return {

@@ -16,11 +16,13 @@ export default function useUpdateAddress() {
     },
     onSuccess: () => {
       toast.success(t("address-updated-successfully"));
-      queryClient.invalidateQueries({ queryKey: ["user-addresses"] });
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       toast.error(error.message);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-addresses"] });
     },
   });
   return {

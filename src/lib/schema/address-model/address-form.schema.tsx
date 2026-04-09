@@ -6,6 +6,8 @@ export const useAddressFormSchema = () => {
   const t = useTranslations();
 
   return z.object({
+    title: z.string().min(1, t("title-is-required")),
+    isPrimary: z.boolean(),
     city: z.string().min(1, t("city-is-required")),
     street: z
       .string()
@@ -15,9 +17,8 @@ export const useAddressFormSchema = () => {
       .string()
       .min(10, t("phone-number-must-be-at-least-10-digits"))
       .max(15, t("phone-number-too-long")),
-    lat: z.string().min(1, t("location-is-required")),
-    long: z.string().min(1, t("location-is-required")),
-    username: z.string(),
+    latitude: z.string().min(1, t("location-is-required")),
+    longitude: z.string().min(1, t("location-is-required")),
   });
 };
 export type AddDressFormType = z.infer<ReturnType<typeof useAddressFormSchema>>;

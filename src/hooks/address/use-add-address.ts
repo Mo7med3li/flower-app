@@ -16,10 +16,16 @@ export default function useAddAddress() {
     },
     onSuccess: () => {
       toast.success(t("address-added-successfully"));
-      queryClient.invalidateQueries({ queryKey: ["user-addresses"] });
     },
     onError: (error) => {
       toast.error(error.message || t("something-went-wrong"));
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-addresses"] });
+    },
+    meta: {
+      errorMessage: t("something-went-wrong"),
+      loadingMessage: t("adding-address"),
     },
   });
   return {
