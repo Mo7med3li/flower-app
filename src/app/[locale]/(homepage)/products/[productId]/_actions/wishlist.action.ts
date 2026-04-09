@@ -55,6 +55,9 @@ export async function removeFromWishlist(productId: string) {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({
+      productId: productId,
+    }),
   });
 
   const payload: APIResponse<WishlistCheckResult> = await response.json();

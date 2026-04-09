@@ -1,7 +1,6 @@
 // Libraries
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-
 import { useFormatter, useTranslations } from "next-intl";
 // Actions
 import { addToCartAction } from "../_actions/cart.action";
@@ -17,14 +16,15 @@ export function useAddToCart() {
     mutationFn: async ({ productId, quantity = 1 }: { productId: string; quantity?: number }) => {
       const response = await addToCartAction(productId, quantity);
 
-      if ("error" in response) {
-        throw new Error(response.message || response.error);
+      if (!response.status) {
+        throw new Error(response.message);
       }
       return response;
     },
     onSuccess: (data) => {
+      const successData = data as unknown as { payload: { cartItem: { quantity: number } } };
       toast.success(
-        `${format.number(data.numOfCartItems, "number-base")} ${t("items-in-your-cart")}`,
+        `${format.number(successData.payload?.cartItem?.quantity || 0, "number-base")} ${t("items-in-your-cart")}`,
       );
       queryClient.invalidateQueries({ queryKey: ["user-cart"] });
     },

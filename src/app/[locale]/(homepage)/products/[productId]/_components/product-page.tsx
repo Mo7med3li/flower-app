@@ -148,7 +148,6 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
         <ScrollArea className="h-32 md:h-40 rounded-md border-none mt-4">
           <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{product.description}</p>
         </ScrollArea>
-
         {/* Action Buttons */}
         <div className="pt-4">
           {product.stock > 0 ? (

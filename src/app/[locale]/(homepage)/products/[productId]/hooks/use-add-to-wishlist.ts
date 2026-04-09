@@ -16,7 +16,7 @@ export function useAddToWishlist() {
     mutationFn: async (productId: string) => {
       const response = await AddToWishlist(productId);
 
-      if ("error" in response) {
+      if (!response.status) {
         throw new Error(response.message || response.error || t("failed-to-add-to-wishlist"));
       }
       return response;

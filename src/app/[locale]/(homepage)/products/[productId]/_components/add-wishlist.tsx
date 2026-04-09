@@ -4,6 +4,7 @@ import { Heart, HeartPlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useFetchWishlist } from "@/hooks/wishlist/use-fetch-wishlist";
 import { useAddToWishlist } from "../hooks/use-add-to-wishlist";
 import { useRemoveFromWishlist } from "../hooks/use-delete-from-wishlist";
 
@@ -23,6 +24,10 @@ export default function FavoriteToggle({
   // hooks
   const { isPending: isAdding, addToWishlist } = useAddToWishlist();
   const { isPending: isRemoving, removeFromWishlist } = useRemoveFromWishlist();
+  const { payload, isLoading } = useFetchWishlist();
+  const products = payload?.wishlistItems ?? [];
+
+  const productInWishlist = products.find((item) => item.productId === productId);
 
   // translations
   const t = useTranslations();
@@ -34,10 +39,10 @@ export default function FavoriteToggle({
       addToWishlist(productId);
     } else {
       // Remove from wishlist
-      removeFromWishlist(productId);
+      removeFromWishlist(productInWishlist?.id || "");
     }
   };
-  if (isAdding || isRemoving) return <Skeleton className="w-12 h-12" />;
+  if (isAdding || isRemoving || isLoading) return <Skeleton className="w-12 h-12" />;
 
   const isPending = isAdding || isRemoving;
 

@@ -139,7 +139,10 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
 
       {/* Badges */}
       <div className="absolute top-0 flex end-0 gap-2 p-2 justify-between items-center start-0">
-        <ProductCardWishlist productId={singleProduct.id} />
+        <ProductCardWishlist
+          isInWishlist={singleProduct._count.wishlistItems > 0}
+          productId={singleProduct.id}
+        />
         <div className="flex gap-2">
           <Badge
             className={cn(
