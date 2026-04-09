@@ -8,9 +8,9 @@ declare type DatabaseProps = {
 
 declare type ErrorResponse = {
   status: false;
-  code?: string | number;
-  message?: string;
-  error?: string;
+  code: string | number;
+  message: string;
+  error: string;
   errors?: {
     message: string;
     path?: string;
@@ -21,8 +21,8 @@ declare type SuccessfulResponse<T> = {
   status: true;
   code: string | number;
   message: string;
-  payload?: T; // For endpoints using "payload" wrapper (like login)
-  data?: T; // For endpoints using "data" wrapper (like products)
+  payload: T; // For endpoints using "payload" wrapper (like login)
+  // For endpoints using "data" wrapper (like products)
 };
 
 declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
@@ -55,13 +55,10 @@ declare type LoginResponse = {
 declare type PaginatedResponse<T> = {
   data: T;
   metadata: {
-    currentPage: number;
-    totalPages: number;
+    page: number;
     limit: number;
-    totalItems: number;
-    nextPage?: number;
-    page: number; // fallback
-    total: number; // fallback
+    total: number;
+    totalPages: number;
   };
 };
 

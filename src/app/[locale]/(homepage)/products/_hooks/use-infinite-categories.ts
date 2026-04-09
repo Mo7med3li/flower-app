@@ -6,9 +6,13 @@ export default function useInfiniteCategories() {
     queryFn: getPaginatedCategories,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      const isLastPage = lastPage.metadata?.currentPage >= lastPage.metadata?.totalPages;
+      if (!lastPage.status || !("payload" in lastPage) || !lastPage.payload) {
+        return undefined;
+      }
 
-      return isLastPage ? undefined : lastPage.metadata?.currentPage + 1;
+      const isLastPage = lastPage.payload.metadata?.page >= lastPage.payload.metadata?.totalPages;
+
+      return isLastPage ? undefined : lastPage.payload.metadata?.page + 1;
     },
   });
 }

@@ -1,19 +1,22 @@
 // All categories response type
 export type AllCategory = {
-  categories: Categories[];
+  data: CategoryType[];
 };
 
-type Categories = {
-  _id: string;
-  name: string;
-  slug: string;
+export type CategoryType = {
+  id: string;
+  title: string;
+  description: string;
   image: string;
+  immutable: boolean;
   createdAt: string;
   updatedAt: string;
-  isSuperAdmin: boolean;
-  productsCount: number;
-} & DataBaseProbs;
+  subCategories: unknown[];
+  _count: {
+    products: number;
+  };
+};
 
 declare type Category = {
-  category: Categories;
+  category: CategoryType;
 };

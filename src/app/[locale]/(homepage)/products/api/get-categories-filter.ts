@@ -1,18 +1,18 @@
-import { Categories } from "@/lib/types/category";
+import { CategoryType } from "@/lib/types/category";
 
 export const getPaginatedCategories = async ({ pageParam = 1 }) => {
   try {
     const res = await fetch(`/api/categories?page=${pageParam}&limit=6`);
 
-    const payload: APIResponse<PaginatedResponse<{ categories: Categories[] }>> = await res.json();
+    const payload: APIResponse<PaginatedResponse<CategoryType[]>> = await res.json();
 
-    if (!res.ok || (payload as ErrorResponse).error) {
+    if (!res.status || (payload as ErrorResponse).error) {
       throw new Error(
-        (payload as ErrorResponse).error || "Something went wrong, please try again later",
+        (payload as ErrorResponse).message || "Something went wrong, please try again later",
       );
     }
 
-    return payload as PaginatedResponse<SuccessfulResponse<{ categories: Categories[] }>>;
+    return payload;
   } catch (err) {
     throw err;
   }
