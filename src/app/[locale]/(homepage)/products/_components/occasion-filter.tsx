@@ -74,7 +74,6 @@ export default function OccasionFilter() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              nn
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -97,12 +96,12 @@ export default function OccasionFilter() {
   return (
     <div className="mb-6 border-b-2 border-zinc-100 dark:border-zinc-700 pb-6">
       {/* header occasion filter */}
-      {value && (
-        <div className="flex justify-between hide-scroll">
-          <h3 className="font-semibold text-lg font-primary">{t("product.occasion")}</h3>
-          <ResetComponent paramKey="occasionId" />
-        </div>
-      )}
+
+      <div className="flex justify-between hide-scroll">
+        <h3 className="font-semibold text-lg font-primary">{t("product.occasion")}</h3>
+        {value && <ResetComponent paramKey="occasionId" />}
+      </div>
+
       <InfiniteScroll
         dataLength={allOccasions.length}
         next={fetchNextPage}

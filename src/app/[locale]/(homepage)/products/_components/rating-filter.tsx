@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { Star, X } from "lucide-react";
+import { Star } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
+import ResetComponent from "@/components/common/reset-button";
 
 const RatingFilter = () => {
   // Navigation
@@ -20,7 +21,7 @@ const RatingFilter = () => {
   const searchParams = useSearchParams();
 
   // Selected rating
-  const selectedRating = Number(searchParams.get("rateAvg[gte]")) || 0;
+  const selectedRating = Number(searchParams.get("minRating")) || 0;
   // Hover preview state
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -28,9 +29,9 @@ const RatingFilter = () => {
   const handleRatingClick = (rating: number) => {
     const params = new URLSearchParams(searchParams);
     if (rating === selectedRating) {
-      params.delete("rateAvg[gte]");
+      params.delete("minRating");
     } else {
-      params.set("rateAvg[gte]", rating.toString());
+      params.set("minRating", rating.toString());
     }
     router.push(`${pathname}?${params.toString()}`);
   };
@@ -39,14 +40,7 @@ const RatingFilter = () => {
       <div className="flex items-center justify-between">
         <h3 className="font-semibold text-lg font-primary">{t("rating")}</h3>
         {selectedRating > 0 && (
-          <button
-            type="button"
-            onClick={() => handleRatingClick(selectedRating)}
-            className="text-sm text-red-600 hover:text-red-700 dark:hover:text-red-500 flex items-center gap-1"
-          >
-            <X size={16} />
-            {t("reset")}
-          </button>
+          <ResetComponent paramKey={["minRating"]} onResetFormValues={() => {}} />
         )}
       </div>
       {/* Rating Stars */}

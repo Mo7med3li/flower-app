@@ -38,12 +38,12 @@ export default function PriceFilter() {
     const params = new URLSearchParams(searchParams.toString());
 
     // Add or remove priceFrom
-    if (priceFrom) params.set("price[gt]", priceFrom);
-    else params.delete("price[gt]");
+    if (priceFrom) params.set("minPrice", priceFrom);
+    else params.delete("minPrice");
 
     // Add or remove priceTo
-    if (priceTo) params.set("price[lt]", priceTo);
-    else params.delete("price[lt]");
+    if (priceTo) params.set("maxPrice", priceTo);
+    else params.delete("maxPrice");
 
     // Change the url
     const newUrl = params.toString() ? `${pathname}?${params}` : pathname;
@@ -55,10 +55,12 @@ export default function PriceFilter() {
       {/* header occasion filter */}
       <div className="flex items-center justify-between">
         <h3 className="font-semibold text-lg font-primary">{t("product.price")}</h3>
-        <ResetComponent
-          paramKey={["price[gt]", "price[lt]"]}
-          onResetFormValues={() => reset({ priceFrom: "", priceTo: "" })}
-        />
+        {priceFrom || priceTo ? (
+          <ResetComponent
+            paramKey={["maxPrice", "minPrice"]}
+            onResetFormValues={() => reset({ priceFrom: "", priceTo: "" })}
+          />
+        ) : null}
       </div>
 
       {/* price filter component */}

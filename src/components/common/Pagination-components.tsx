@@ -16,12 +16,14 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils/cn";
 
 interface PaginationComponentProps {
-  metaData: {
-    totalPages: number;
-    currentPage: number;
-    totalItems: number;
-    limit: number;
-  };
+  metaData:
+    | {
+        page: number;
+        limit: number;
+        total: number;
+        totalPages: number;
+      }
+    | undefined;
 }
 
 function getVisiblePages(currentPage: number, totalPages: number): (number | string)[] {
@@ -54,7 +56,7 @@ export default function PaginationComponent({ metaData }: PaginationComponentPro
 
   // Variables
   const currentPage = Number(searchParams.get("page") || 1);
-  const totalPages = metaData.totalPages;
+  const totalPages = metaData?.totalPages || 1;
 
   // Functions
   const handlePageChange = (newPage: number) => {
