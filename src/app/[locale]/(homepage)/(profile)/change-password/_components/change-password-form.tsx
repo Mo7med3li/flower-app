@@ -29,8 +29,9 @@ const ChangePasswordForm = () => {
   // form
   const form = useForm<ChangePasswordFormType>({
     defaultValues: {
-      password: "",
+      currentPassword: "",
       newPassword: "",
+      confirmPassword: "",
     },
     resolver: zodResolver(changePasswordSchema),
   });
@@ -47,7 +48,7 @@ const ChangePasswordForm = () => {
           <section className="flex flex-col gap-8">
             {/* Password */}
             <FormField
-              name="password"
+              name="currentPassword"
               control={form.control}
               render={({ field }) => {
                 return (
@@ -70,6 +71,27 @@ const ChangePasswordForm = () => {
             {/* New Password */}
             <FormField
               name="newPassword"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    {/* Label */}
+                    <FormLabel>{t("new-password")}</FormLabel>
+
+                    {/* Field */}
+                    <FormControl>
+                      <Input {...field} type="password" placeholder="*********" />
+                    </FormControl>
+
+                    {/* Feedback */}
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
+            <FormField
+              name="confirmPassword"
               control={form.control}
               render={({ field }) => {
                 return (

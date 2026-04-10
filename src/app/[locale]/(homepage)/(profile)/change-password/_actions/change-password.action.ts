@@ -6,8 +6,8 @@ import { getAuthHeader } from "@/lib/utils/auth-header";
 
 const changePasswordAction = async (values: ChangePasswordFormType) => {
   const token = await getAuthHeader();
-  const response = await fetch("https://flower.elevateegy.com/api/v1/auth/change-password", {
-    method: "PATCH",
+  const response = await fetch(`${process.env.API}/users/change-password`, {
+    method: "POST",
     headers: {
       ...JSON_HEADER,
       Authorization: `Bearer ${token.token}`,
@@ -15,8 +15,8 @@ const changePasswordAction = async (values: ChangePasswordFormType) => {
     body: JSON.stringify(values),
   });
   const payload = await response.json();
-  if ("error" in payload) {
-    throw new Error(payload.error);
+  if (!payload.status) {
+    throw new Error(payload.message);
   }
   return payload;
 };

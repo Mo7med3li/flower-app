@@ -9,10 +9,13 @@ export default async function BestSelling() {
     return <p>Error loading products</p>;
   }
 
-  const result = response.data || response.payload;
-  if (result?.data.length === 0) {
+  const result = response.payload;
+  // PaginatedResponse<Products> -> result.data is Products { data: Product[] }
+  const products = result?.data || (result as any)?.data || [];
+
+  if (products.length === 0) {
     return <p>No products available</p>;
   }
 
-  return <BestSellingSection products={result?.data} />;
+  return <BestSellingSection products={products} />;
 }
