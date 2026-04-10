@@ -19,6 +19,6 @@ export type occasions = occasion[];
 export type SearchParamOcassion = {
   title?: string;
   slug?: string;
-  page?: string;
-  limit?: string;
+  page?: number;
+  limit?: number;
 };

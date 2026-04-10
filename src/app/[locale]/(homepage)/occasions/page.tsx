@@ -23,7 +23,6 @@ const OccasionsPage = async ({ searchParams }: { searchParams: SearchParamOcassi
 
   return (
     <section className="w-full px-4 md:px-20 py-6">
-      {JSON.stringify(result)}
       <header className="mb-6">
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
           {t("occasions")}
