@@ -14,9 +14,7 @@ export type occasion = {
   };
 } & DatabaseProps;
 
-export type occasions = {
-  data: occasion[];
-};
+export type occasions = occasion[];
 
 export type SearchParamOcassion = {
   title?: string;
