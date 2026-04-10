@@ -24,9 +24,9 @@ import AddressForm from "@/app/components/address-model/address-form";
 // Types
 interface AddressStep1Props {
   step: number;
-  address: Address;
+  address: Address | null;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  setAddress: React.Dispatch<React.SetStateAction<object>>;
+  setAddress: React.Dispatch<React.SetStateAction<Address | null>>;
 }
 
 export default function AddressStep1({ step, address, setStep, setAddress }: AddressStep1Props) {
@@ -46,7 +46,9 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
 
   // Handle loading and error states
   if (isLoading) return <LoadingSpin />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (!data?.status) return <p>Error: {error?.message || "Failed to fetch addresses"}</p>;
+
+  const addresses = data.payload?.addresses || [];
 
   return (
     <>
@@ -56,26 +58,22 @@ export default function AddressStep1({ step, address, setStep, setAddress }: Add
       {/* content  */}
       <div className="flex flex-col gap-2 h-[675px] overflow-y-scroll">
         {/* address list */}
-        {data?.addresses.map((addressMap: Address) => (
+        {addresses.map((addressMap: Address) => (
           // Address check button
           <button
-            key={addressMap._id}
+            key={addressMap.id}
             onClick={() => {
               setAddress(addressMap);
               setIsActive(true);
             }}
             className={cn(
               " flex flex-col gap-2 p-5 rounded-xl relative hover:dark:bg-maroon-600 transition-colors",
-              isActive && address._id === addressMap._id
+              isActive && address && address.id === addressMap.id
                 ? "bg-maroon-600 text-white dark:bg-soft-pink-500"
                 : "hover:bg-zinc-50",
             )}
           >
-            <AddressCard
-              address={addressMap}
-              steps={steps}
-              setSteps={setSteps}
-            />
+            <AddressCard address={addressMap} steps={steps} setSteps={setSteps} />
           </button>
         ))}
       </div>

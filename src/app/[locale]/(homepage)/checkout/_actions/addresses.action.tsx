@@ -1,20 +1,20 @@
 // "use server";
 
-import { Addresses } from "@/lib/types/addresses";
+import { UserAddresses } from "@/lib/types/user-addresses";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 
 export default async function getAddresses() {
   const token = await getAuthHeader();
-  const respones = await fetch(`${process.env.NEXT_PUBLIC_API}/get-addresses`, {
+  const response = await fetch(`${process.env.API}/addresses`, {
     headers: {
       Authorization: `Bearer ${token.token}`,
     },
   });
 
-  const payload: APIResponse<Addresses> = await respones.json();
-  if ("code" in payload) {
-    throw new Error("Error");
+  const payload: APIResponse<UserAddresses> = await response.json();
+  if (!payload.status) {
+    throw new Error(payload.message || "Failed to fetch addresses");
   }
 
-  return payload as SuccessfulResponse<Addresses>;
+  return payload as SuccessfulResponse<UserAddresses>;
 }

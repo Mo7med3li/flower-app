@@ -10,7 +10,7 @@ import AddressStep2 from "./address-step2";
 export default function AddressForm() {
   // hook
   const [step, setStep] = useState<number>(1);
-  const [address, setAddress] = useState<object>({});
+  const [address, setAddress] = useState<Address | null>(null);
 
   // translation
   const format = useFormatter();
@@ -41,7 +41,7 @@ export default function AddressForm() {
             step={step}
             setStep={setStep}
             setAddress={setAddress}
-            address={address as Address}
+            address={address}
           />
         ) : step === 2 ? (
           <AddressStep2 step={step} setStep={setStep} address={address as Address} />

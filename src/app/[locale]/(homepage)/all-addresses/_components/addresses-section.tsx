@@ -33,7 +33,6 @@ export default function AddressesSection() {
     <section className="px-4 md:px-20 py-10 bg-maroon-300/20 dark:bg-maroon-900/20">
       <div className="flex items-center justify-between py-2">
         <h2 className="font-bold text-3xl text-zinc-800 dark:text-zinc-50">{t("my-addresses")}</h2>
-
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
           <DialogTrigger asChild>
             <Button variant="secondary">{t("add-a-new-address")}</Button>
@@ -64,18 +63,13 @@ export default function AddressesSection() {
           <div className="flex items-center justify-center h-96">
             <p className="text-2xl font-semibold text-red-500">{error?.message}</p>
           </div>
-        ) : payload?.payload?.data?.length === 0 ? (
+        ) : payload?.payload?.addresses?.length === 0 ? (
           <div className="flex items-center justify-center h-96">
             <p className="text-2xl font-semibold text-zinc-800">{t("no-addresses-to-show")}</p>
           </div>
         ) : (
-          payload?.payload?.data?.map((address: Address) => (
-            <AddressCard
-              key={address.id}
-              address={address}
-              setSteps={setSteps}
-              steps={steps}
-            />
+          payload?.payload?.addresses?.map((address: Address) => (
+            <AddressCard key={address.id} address={address} setSteps={setSteps} steps={steps} />
           ))
         )}
       </section>

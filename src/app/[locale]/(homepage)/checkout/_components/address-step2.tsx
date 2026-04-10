@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import CashImg from "@assets/Cash-on-Delivery.png";
 import CreditImg from "@assets/Credit-Card.png";
-import { Address } from "@/lib/types/addresses";
+import { Address } from "@/lib/types/user-addresses";
 import { CheckoutSessionTS } from "@/lib/types/checkout-session";
 import { useRouter } from "@/i18n/navigation";
 import CheckCreditOrder from "../_actions/checkout-session.action";
@@ -25,7 +25,7 @@ type SortOrder = "cash" | "credit";
 export default function AddressStep2({ step, address, setStep }: AddressStep1Props) {
   // hook
   const [checked, setChecked] = useState<SortOrder>("cash");
-  const [data, setData] = useState<APIResponse<CheckoutSessionTS> | APIResponse<ErrorResponse>>();
+  const [data, setData] = useState<APIResponse<CheckoutSessionTS>>();
   const [isActive, setIsActive] = useState<boolean>(false);
 
   // router
@@ -44,6 +44,8 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
 
     fetchCheckoutSession();
   }, [checked, address]);
+
+  const checkoutResult = data?.status ? data.payload : null;
 
   return (
     <>
@@ -140,21 +142,22 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
 
         {/* Checkout */}
         <div className="border-t flex items-center justify-end pt-4">
-          {data && "session" in data && data.session?.url ? (
+          {checkoutResult && checkoutResult.session?.url ? (
             <Button
               disabled={isActive ? false : true}
               className="w-[200px] flex flex-nowrap justify-evenly "
               onClick={() => {
                 if (checked === "credit") {
-                  window.location.href = data.session.url;
+                  window.location.href = checkoutResult.session.url;
                 } else if (checked === "cash") {
-                  CheckCashOrder(address).then((response) => {
-                    if ("error" in response) {
-                    } else {
+                  CheckCashOrder(address)
+                    .then(() => {
                       toast.success(t("your-order-has-been-placed-successfully"));
                       router.push("/allOrders");
-                    }
-                  });
+                    })
+                    .catch((error) => {
+                      toast.error(error.message || "Failed to place order");
+                    });
                 }
               }}
             >
@@ -166,8 +169,25 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
               )}
             </Button>
           ) : (
-            <Button disabled className="w-[200px] flex flex-nowrap">
-              {data && "error" in data ? data.error : t("checkout.loading")}
+            <Button
+              disabled={checked === "credit"}
+              className="w-[200px] flex flex-nowrap"
+              onClick={() => {
+                if (checked === "cash") {
+                  CheckCashOrder(address)
+                    .then(() => {
+                      toast.success(t("your-order-has-been-placed-successfully"));
+                      router.push("/allOrders");
+                    })
+                    .catch((error) => {
+                      toast.error(error.message || "Failed to place order");
+                    });
+                }
+              }}
+            >
+              {checkoutResult === null && checked === "credit"
+                ? t("checkout.loading")
+                : t("checkout.checkout")}
             </Button>
           )}
         </div>
