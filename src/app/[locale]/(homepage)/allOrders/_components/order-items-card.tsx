@@ -1,4 +1,3 @@
-import { Star } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import Image from "next/image";
 import { OrderItemType } from "@/lib/types/orders";
@@ -16,10 +15,10 @@ export default function OrderItemCard({ orderItem }: OrderItemParams) {
   return (
     <div className="col-span-2 lg:col-span-1 flex bg-zinc-50 dark:bg-zinc-700 rounded-lg overflow-hidden">
       {/* Cover Image */}
-      <Link href={`/products/${orderItem.product._id}`}>
+      <Link href={`/products/${orderItem.productId}`}>
         <div className="h-36 w-28 relative">
           <Image
-            src={orderItem.product.imgCover}
+            src={orderItem.product.cover}
             fill={true}
             alt={orderItem.product.title}
             className="object-cover"
@@ -31,33 +30,11 @@ export default function OrderItemCard({ orderItem }: OrderItemParams) {
       <div className=" flex flex-col justify-between p-2">
         <div>
           {/* Title */}
-          <Link href={`/products/${orderItem.product._id}`}>
+          <Link href={`/products/${orderItem.product.id}`}>
             <p className="text-maroon-700 dark:text-soft-pink-300 text-lg font-semibold">
               {orderItem.product.title}
             </p>
           </Link>
-
-          {/* Rate & Reviews */}
-          <p className="flex items-center">
-            <Star fill="#FBA707" size={20} strokeWidth={0} className="me-1" />
-
-            {/* Rate */}
-            <span className="me-1 font-medium">
-              <span className="font-normal">{t("rating")}</span>{" "}
-              {format.number(orderItem.product.rateAvg, "number-base")}/
-              {format.number(5, "number-base")}
-            </span>
-
-            {/* Reviews */}
-            <Link
-              href={`/products/${orderItem.product._id}`}
-              className="lowercase text-blue-500 dark:text-blue-300 font-medium"
-            >
-              {t("ratings-count", {
-                count: format.number(orderItem.product.rateCount, "number-base"),
-              })}
-            </Link>
-          </p>
         </div>
 
         {/* Price & count */}

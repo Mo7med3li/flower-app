@@ -1,10 +1,9 @@
-import { Product } from "./products";
-
 export type Orders = Order[];
 export type Order = {
   id: string;
   userId: string;
   addressId: string;
+  couponId: string | null;
   status:
     | "PENDING"
     | "CONFIRMED"
@@ -15,20 +14,53 @@ export type Order = {
     | "REFUNDED";
   paymentMethod: "CASH_ON_DELIVERY" | "CREDIT_CARD";
   paymentStatus: "PENDING" | "PROCESSING" | "SUCCEEDED" | "FAILED" | "REFUNDED" | "CANCELLED";
-  subtotal: number;
-  discount: number;
-  shipping: number;
-  total: number;
+  stripePaymentIntentId: string | null;
+  subtotal: string;
+  discount: string;
+  shipping: string;
+  total: string;
   trackingNumber: string | null;
   notes: string | null;
-  orderItems: OrderItemType[];
   createdAt: string;
   updatedAt: string;
+  user: {
+    id: string;
+    username: string;
+    email: string;
+  };
+  address: {
+    id: string;
+    userId: string;
+    title: string;
+    isPrimary: boolean;
+    city: string;
+    street: string;
+    phone: string;
+    latitude: string;
+    longitude: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  coupon: {
+    id: string;
+    code: string;
+    // Add other coupon properties as needed
+  } | null;
+  orderItems: OrderItemType[];
 };
 
 export type OrderItemType = {
-  product: Product;
-  price: number;
+  id: string;
+  orderId: string;
+  productId: string;
   quantity: number;
-  _id: string;
+  price: number;
+  createdAt: string;
+  product: {
+    id: string;
+    title: string;
+    cover: string;
+    rating: number;
+    ratings: number;
+  };
 };

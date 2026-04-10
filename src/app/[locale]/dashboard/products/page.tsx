@@ -20,7 +20,7 @@ export default async function Page({
     ...(search ? { search: search as string } : {}),
   });
 
-  if ("error" in response) {
+  if (!response.status) {
     return (
       <div className="col-span-5 bg-white p-6 rounded-2xl gap-4 text-maroon-500 flex justify-center items-center">
         <h2 className="text-center">Something Went Wrong!</h2>
@@ -28,7 +28,17 @@ export default async function Page({
     );
   }
 
-  const { products } = response;
+  const result = response.data || response.payload;
+
+  if (!result || !result.data) {
+    return (
+      <div className="col-span-5 bg-white p-6 rounded-2xl gap-4 text-maroon-500 flex justify-center items-center">
+        <h2 className="text-center">Something Went Wrong!</h2>
+      </div>
+    );
+  }
+
+  const { data: products } = result;
 
   return (
     <div className="ms-4 me-5 mt-5 bg-white rounded-2xl p-6">

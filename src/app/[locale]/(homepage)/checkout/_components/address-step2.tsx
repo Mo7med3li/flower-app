@@ -1,12 +1,15 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { MoveLeft, MoveRight } from "lucide-react";
+import { MoveLeft, MoveRight, Tag, FileText, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import CashImg from "@assets/Cash-on-Delivery.png";
 import CreditImg from "@assets/Credit-Card.png";
 import { Address } from "@/lib/types/user-addresses";
@@ -27,6 +30,10 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
   const [checked, setChecked] = useState<SortOrder>("cash");
   const [data, setData] = useState<APIResponse<CheckoutSessionTS>>();
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [couponCode, setCouponCode] = useState<string>("");
+  const [notes, setNotes] = useState<string>("");
+  const queryClient = useQueryClient();
+  const [showCouponInput, setShowCouponInput] = useState<boolean>(false);
 
   // router
   const router = useRouter();
@@ -73,7 +80,7 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
       </h3>
 
       {/* content  */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 overflow-y-auto">
         <div className=" grid grid-cols-2 gap-4 justify-center p-3">
           {/* Cash on Delivery */}
           <button
@@ -140,6 +147,69 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
           </button>
         </div>
 
+        {/* Coupon Code Section */}
+        <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 rounded-xl p-4 border border-amber-200 dark:border-amber-800/30">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Tag className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+              <h4 className="font-semibold text-gray-900 dark:text-white">
+                {t("checkout.coupon-code")}
+              </h4>
+            </div>
+            {!showCouponInput && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowCouponInput(true)}
+                className="text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300"
+              >
+                {t("checkout.add-coupon")}
+              </Button>
+            )}
+          </div>
+
+          {showCouponInput && (
+            <div className="flex gap-2">
+              <Input
+                placeholder={t("checkout.enter-coupon-code")}
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                className="flex-1"
+              />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setShowCouponInput(false);
+                  setCouponCode("");
+                }}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {/* Order Notes Section */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-xl p-4 border border-blue-200 dark:border-blue-800/30">
+          <div className="flex items-center gap-2 mb-3">
+            <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <h4 className="font-semibold text-gray-900 dark:text-white">
+              {t("checkout.order-notes")}
+            </h4>
+          </div>
+          <Textarea
+            placeholder={t("checkout.add-delivery-instructions")}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="min-h-[80px] resize-none"
+            maxLength={200}
+          />
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            {notes.length}/200 {t("checkout.characters")}
+          </p>
+        </div>
+
         {/* Checkout */}
         <div className="border-t flex items-center justify-end pt-4">
           {checkoutResult && checkoutResult.session?.url ? (
@@ -150,9 +220,10 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
                 if (checked === "credit") {
                   window.location.href = checkoutResult.session.url;
                 } else if (checked === "cash") {
-                  CheckCashOrder(address)
+                  CheckCashOrder(address, couponCode || undefined, notes || undefined)
                     .then(() => {
                       toast.success(t("your-order-has-been-placed-successfully"));
+                      queryClient.invalidateQueries({ queryKey: ["user-cart"] });
                       router.push("/allOrders");
                     })
                     .catch((error) => {
@@ -174,9 +245,10 @@ export default function AddressStep2({ step, address, setStep }: AddressStep1Pro
               className="w-[200px] flex flex-nowrap"
               onClick={() => {
                 if (checked === "cash") {
-                  CheckCashOrder(address)
+                  CheckCashOrder(address, couponCode || undefined, notes || undefined)
                     .then(() => {
                       toast.success(t("your-order-has-been-placed-successfully"));
+                      queryClient.invalidateQueries({ queryKey: ["user-cart"] });
                       router.push("/allOrders");
                     })
                     .catch((error) => {

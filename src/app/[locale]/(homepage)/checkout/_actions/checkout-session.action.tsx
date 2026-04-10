@@ -1,32 +1,26 @@
-import { Address } from "@/lib/types/addresses";
+import { Address } from "@/lib/types/user-addresses";
 import { CheckoutSessionTS } from "@/lib/types/checkout-session";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 
 export default async function CheckCreditOrder(shippingAddress: Address) {
   const response = await fetch(
-    "https://flower.elevateegy.com/api/v1/orders/checkout?url=http://localhost:3000",
+    `${process.env.API}/orders/checkout?url=${process.env.NEXT_PUBLIC_BASE_URL}`,
     {
       method: "POST",
       headers: {
         ...(await getAuthHeader()),
       },
       body: JSON.stringify({
-        shippingAddress: {
-          street: shippingAddress.street,
-          phone: shippingAddress.phone,
-          city: shippingAddress.city,
-          lat: shippingAddress.lat,
-          long: shippingAddress.long,
-        },
+        addressId: shippingAddress.id,
       }),
     },
   );
 
-  const payload = await response.json();
+  const payload: APIResponse<CheckoutSessionTS> = await response.json();
 
-  if ("error" in payload) {
-    return payload as APIResponse<ErrorResponse>;
+  if (!payload.status) {
+    throw new Error(payload.message || "Something went wrong");
   }
 
-  return payload as APIResponse<CheckoutSessionTS>;
+  return payload as SuccessfulResponse<CheckoutSessionTS>;
 }

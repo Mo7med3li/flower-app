@@ -188,7 +188,13 @@
     "cash-title": "ستدفع نقدًا عند تسليم طلبك.",
     "credit-card": "بطاقة إئتمان",
     "credit-title": "سيتم إعادة توجيهك بشكل آمن إلى الشريط لإكمال الدفع الخاص بك.",
-    "checkout": "الدفع"
+    "checkout": "الدفع",
+    "coupon-code": "رمز القسيمة",
+    "add-coupon": "أضف قسيمة",
+    "enter-coupon-code": "أدخل رمز القسيمة",
+    "order-notes": "ملاحظات الطلب",
+    "add-delivery-instructions": "إضافة تعليمات التسليم (اختياري)",
+    "characters": "الشخصيات"
   },
   "summary": {
     "summary": "ملخص",
@@ -500,5 +506,12 @@
   "back-to-home": "العودة إلى المنزل",
   "retry": "حاول ثانية",
   "orders-error-message": "لم نتمكن من استرداد طلباتك. \nيرجى المحاولة مرة أخرى في وقت لاحق.",
-  "orders-error-title": "فشل في تحميل الطلبات"
+  "orders-error-title": "فشل في تحميل الطلبات",
+  "delivery-address": "عنوان التسليم",
+  "coupon-applied": "تم تطبيق القسيمة",
+  "coupon-discount-applied": "تم تطبيق خصم القسيمة",
+  "order-notes": "ملاحظات الطلب",
+  "subtotal": "المجموع الفرعي",
+  "discount": "تخفيض",
+  "shipping": "شحن"
 }

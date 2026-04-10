@@ -1,28 +1,47 @@
-import { Address } from "@/lib/types/addresses";
+"use server";
+import { revalidateTag } from "next/cache";
+import { Address } from "@/lib/types/user-addresses";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 
-export default async function CheckCashOrder(shippingAddress: Address) {
-  const response = await fetch("https://flower.elevateegy.com/api/v1/orders", {
+interface CashOrderData {
+  addressId: string;
+  paymentMethod: "CASH_ON_DELIVERY" | "CREDIT_CARD";
+  couponCode?: string;
+  notes?: string;
+}
+
+export default async function CheckCashOrder(
+  shippingAddress: Address,
+  couponCode?: string,
+  notes?: string,
+) {
+  const orderData: CashOrderData = {
+    addressId: shippingAddress.id,
+    paymentMethod: "CASH_ON_DELIVERY",
+  };
+
+  if (couponCode) {
+    orderData.couponCode = couponCode;
+  }
+
+  if (notes) {
+    orderData.notes = notes;
+  }
+
+  const response = await fetch(`${process.env.API}/orders`, {
     method: "POST",
     headers: {
       ...(await getAuthHeader()),
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      shippingAddress: {
-        street: shippingAddress.street,
-        phone: shippingAddress.phone,
-        city: shippingAddress.city,
-        lat: shippingAddress.lat,
-        long: shippingAddress.long,
-      },
-    }),
+    body: JSON.stringify(orderData),
   });
 
-  const payload = await response.json();
+  const payload: APIResponse<unknown> = await response.json();
 
-  if ("code" in payload) {
-    throw new Error("Error");
+  if (!payload.status) {
+    throw new Error(payload.message || "Something went wrong");
   }
-
+  revalidateTag("user-cart");
   return payload;
 }

@@ -46,6 +46,14 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
     >
       {/* Product image */}
       <div className="relative overflow-hidden rounded-lg w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
+        {/* Discount Badge */}
+        {product.discountType && product.discountValue > 0 && (
+          <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-md z-10">
+            {product.discountType === "PERCENT"
+              ? `-${product.discountValue}%`
+              : `-${format.number(product.discountValue, "currency-int")}`}
+          </div>
+        )}
         <Image
           alt="Product image"
           src={product.cover}
@@ -92,14 +100,25 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
               <span className="text-xs sm:text-sm font-medium text-maroon-500 dark:text-maroon-100">
                 (x{format.number(item.quantity, "number-base")})
               </span>
-              <span>
-                {format.number(
-                  product.discountType === "PERCENT"
-                    ? product.price - product.price * (product.discountValue / 100)
-                    : product.price - product.discountValue,
-                  "currency-int",
+              <div className="flex flex-col">
+                {product.discountType && product.discountValue > 0 ? (
+                  <>
+                    <span className="text-sm text-gray-500 line-through decoration-gray-500">
+                      {format.number(product.price * item.quantity, "currency-int")}
+                    </span>
+                    <span className="text-red-600 dark:text-red-400 font-medium">
+                      {format.number(
+                        product.discountType === "PERCENT"
+                          ? product.price * item.quantity * (1 - product.discountValue / 100)
+                          : (product.price - product.discountValue) * item.quantity,
+                        "currency-int",
+                      )}
+                    </span>
+                  </>
+                ) : (
+                  <span>{format.number(product.price * item.quantity, "currency-int")}</span>
                 )}
-              </span>
+              </div>
             </p>
           </div>
 

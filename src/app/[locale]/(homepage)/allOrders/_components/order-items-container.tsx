@@ -33,7 +33,7 @@ export default function OrderItemsContainer({ orderItems }: OrderItemContainerPa
     >
       {/* Order item cards */}
       {orderItems.map((item) => (
-        <OrderItemCard orderItem={item} key={item._id} />
+        <OrderItemCard orderItem={item} key={item.id} />
       ))}
 
       {/* Show all button (only showed if orderItems array length > 2) */}

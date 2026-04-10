@@ -187,7 +187,13 @@
     "cash-title": "You'll pay in cash when your order is delivered.",
     "credit-card": "Credit Card",
     "credit-title": "You'll be securely redirected to Stripe to complete your payment.",
-    "checkout": "Checkout"
+    "checkout": "Checkout",
+    "coupon-code": "Coupon Code",
+    "add-coupon": "Add Coupon",
+    "enter-coupon-code": "Enter coupon code",
+    "order-notes": "Order Notes",
+    "add-delivery-instructions": "Add delivery instructions (optional)",
+    "characters": "characters"
   },
   "summary": {
     "summary": "Summary",
@@ -500,5 +506,12 @@
   "back-to-home": "Back to Home",
   "retry": "Try Again",
   "orders-error-message": "We couldn't retrieve your orders. Please try again later.",
-  "orders-error-title": "Failed to Load Orders"
+  "orders-error-title": "Failed to Load Orders",
+  "delivery-address": "Delivery Address",
+  "coupon-applied": "Coupon Applied",
+  "coupon-discount-applied": "Coupon Discount Applied",
+  "order-notes": "Order Notes",
+  "subtotal": "Subtotal",
+  "discount": "Discount",
+  "shipping": "Shipping"
 }
