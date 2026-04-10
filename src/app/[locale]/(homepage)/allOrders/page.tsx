@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { getOrders } from "@/lib/apis/orders.api";
 import OrderCard from "./_components/order-card";
 import EmptyOrders from "./_components/empty-orders";
+import ErrorOrders from "./_components/error-orders";
 
 export default async function Page() {
   // Translations
@@ -10,14 +11,18 @@ export default async function Page() {
   // Functions
   const response = await getOrders();
 
-  if ("error" in response) {
-    return <p>error</p>;
+  if (!response.status) {
+    return <ErrorOrders message={response.message} />;
   }
-  const { orders } = response;
 
   // If there are no orders
-  if (orders.length === 0) {
-    return <EmptyOrders />;
+  if (response.payload.data.length === 0) {
+    return (
+      <div>
+        <EmptyOrders />
+        {JSON.stringify(response)}
+      </div>
+    );
   }
 
   return (
@@ -29,8 +34,8 @@ export default async function Page() {
 
       {/* Order card */}
       <div className="flex flex-col gap-4 mb-16">
-        {orders.map((order) => (
-          <OrderCard order={order} key={order._id} />
+        {response.payload.data.map((order) => (
+          <OrderCard order={order} key={order.id} />
         ))}
       </div>
     </section>

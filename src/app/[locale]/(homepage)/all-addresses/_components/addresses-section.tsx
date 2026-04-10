@@ -37,7 +37,7 @@ export default function AddressesSection() {
           <DialogTrigger asChild>
             <Button variant="secondary">{t("add-a-new-address")}</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[850px] ">
+          <DialogContent className="sm:max-w-[850px] max-w-full h-4/3 max-h-4/3 overflow-hidden max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle></DialogTitle>
               <DialogDescription></DialogDescription>

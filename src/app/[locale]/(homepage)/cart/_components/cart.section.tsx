@@ -22,7 +22,7 @@ const CartSection = () => {
   const { clearCartMutation, isPending } = useClearCart();
 
   // variables
-  const items = payload?.cart?.cartItems ?? [];
+  const items = payload?.payload?.cartItems ?? [];
   const itemsLength = items.length;
 
   return (
@@ -62,21 +62,32 @@ const CartSection = () => {
           <EmptyCart />
         ) : (
           items.map((item) => {
-            return <UserCartCard key={item._id} item={item} />;
+            return <UserCartCard key={item.id} item={item} />;
           })
         )}
       </div>
 
       {/* Continue Shopping Button */}
-      {itemsLength !== 0 && (
-        <Button
-          className="w-full sm:w-fit flex items-center gap-1 rtl:flex-row-reverse"
-          onClick={() => router.back()}
-        >
-          <MoveLeft />
-          {t("continue-shopping")}
-        </Button>
-      )}
+      <div className="flex justify-between items-center">
+        {itemsLength !== 0 && (
+          <Button
+            className="w-full sm:w-fit flex items-center gap-1 rtl:flex-row-reverse"
+            onClick={() => router.back()}
+          >
+            <MoveLeft />
+            {t("continue-shopping")}
+          </Button>
+        )}
+
+        {itemsLength > 0 && (
+          <Button
+            className="w-full sm:w-fit flex items-center gap-1 rtl:flex-row-reverse"
+            onClick={() => router.push("/checkout")}
+          >
+            {t("checkout")}
+          </Button>
+        )}
+      </div>
     </section>
   );
 };

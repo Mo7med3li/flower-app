@@ -1,19 +1,30 @@
 import { Product } from "./products";
 
-export type Orders = {
-  orders: Order[];
-};
-
+export type Orders = Order[];
 export type Order = {
-  user: string;
+  id: string;
+  userId: string;
+  addressId: string;
+  status:
+    | "PENDING"
+    | "CONFIRMED"
+    | "PROCESSING"
+    | "SHIPPED"
+    | "DELIVERED"
+    | "CANCELLED"
+    | "REFUNDED";
+  paymentMethod: "CASH_ON_DELIVERY" | "CREDIT_CARD";
+  paymentStatus: "PENDING" | "PROCESSING" | "SUCCEEDED" | "FAILED" | "REFUNDED" | "CANCELLED";
+  subtotal: number;
+  discount: number;
+  shipping: number;
+  total: number;
+  trackingNumber: string | null;
+  notes: string | null;
   orderItems: OrderItemType[];
-  totalPrice: number;
-  paymentType: string;
-  isPaid: boolean;
-  isDelivered: boolean;
-  state: string;
-  orderNumber: string;
-} & DataBaseProbs;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export type OrderItemType = {
   product: Product;

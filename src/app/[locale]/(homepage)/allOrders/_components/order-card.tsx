@@ -18,8 +18,8 @@ export default function OrderCard({ order }: orderCardProps) {
       {/* Header */}
       <div className="bg-maroon-600 flex justify-between p-4">
         {/* Order number */}
-        <h3 className="text-white font-semibold text-2xl">
-          {t("order-number")} {order.orderNumber}
+        <h3 className="text-white font-semibold text-2xl lowercase">
+          {t("order-number")} {order.id.split("-")[0]}
         </h3>
 
         {/* Date */}
@@ -36,12 +36,12 @@ export default function OrderCard({ order }: orderCardProps) {
         {/* Total price */}
         <div className="text-2xl font-medium">
           {t.rich("total-price", {
-            value: format.number(order.totalPrice, "currency-int"),
+            value: format.number(order.total, "currency-int"),
             price: (chunks) => <span className="text-3xl font-bold me-4">{chunks}</span>,
           })}
           {
             // Paid badge
-            order.isPaid && (
+            order.paymentStatus === "SUCCEEDED" && (
               <Badge className="bg-emerald-500 text-white hover:bg-emerald-500 dark:bg-emerald-400 hover:dark:bg-emerald-400 dark:text-zinc-800 dark:border-none">
                 <Check size={20} className="me-2" />
                 {t("paid")}
@@ -55,7 +55,7 @@ export default function OrderCard({ order }: orderCardProps) {
           {t("status")}
           {
             // In Progress state
-            order.state === "pending" && (
+            (order.status === "PENDING" || order.status === "PROCESSING") && (
               <Badge className="ms-2 bg-blue-500 hover:bg-blue-500 dark:bg-blue-400 hover:dark:bg-blue-400 text-white">
                 {t("in-progress-state")}
               </Badge>
@@ -63,7 +63,7 @@ export default function OrderCard({ order }: orderCardProps) {
           }
           {
             // Canceled state
-            order.state === "canceled" && (
+            order.status === "CANCELLED" && (
               <Badge className="ms-2 bg-red-600 hover:bg-red-600 dark:bg-red-500 hover:dark:bg-red-500 text-white">
                 {t("canceled-state")}
               </Badge>
@@ -71,7 +71,7 @@ export default function OrderCard({ order }: orderCardProps) {
           }
           {
             // Done state
-            order.state === "completed" && (
+            order.status === "DELIVERED" && (
               <Badge className="ms-2 bg-emerald-500 hover:bg-emerald-500 dark:bg-emerald-400 hover:dark:bg-emerald-400 text-white">
                 {t("done-satate")}
               </Badge>
@@ -87,7 +87,7 @@ export default function OrderCard({ order }: orderCardProps) {
           {t("payment-method")}
           {
             // cash method
-            order.paymentType === "cash" ? (
+            order.paymentMethod === "CASH_ON_DELIVERY" ? (
               <>
                 <Banknote className="ms-2 me-1 text-zinc-500" size={20} />
                 <span className=" text-zinc-500 font-medium">{t("cash")}</span>
@@ -107,7 +107,7 @@ export default function OrderCard({ order }: orderCardProps) {
           {t("delivery-status")}
           {
             // Pending state
-            order.state === "pending" && (
+            (order.status === "PENDING" || order.status === "CONFIRMED") && (
               <>
                 <Truck className="ms-2 me-1 text-yellow-600" size={20} />
                 <span className=" text-yellow-600 font-medium">{t("pending-delivery-status")}</span>
@@ -116,7 +116,7 @@ export default function OrderCard({ order }: orderCardProps) {
           }
           {
             // Canceled state
-            order.state === "canceled" && (
+            order.status === "CANCELLED" && (
               <>
                 <TriangleAlert className="ms-2 me-1 text-maroon-500" size={20} />
                 <span className=" text-maroon-500 font-medium">
@@ -127,7 +127,7 @@ export default function OrderCard({ order }: orderCardProps) {
           }
           {
             //  Delivered state
-            order.state === "completed" && (
+            order.status === "DELIVERED" && (
               <>
                 <CheckCheck className="ms-2 me-1 text-emerald-600" size={20} />
                 <span className=" text-emerald-600 font-medium">
