@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: `Unauthorized ${token}` }, { status: 401 });
   }
 
-  const response = await fetch(`${process.env.API}/auth/profile-data`, {
+  const response = await fetch(`${process.env.API}/users/profile`, {
     next: {
       tags: ["user-data"],
     },

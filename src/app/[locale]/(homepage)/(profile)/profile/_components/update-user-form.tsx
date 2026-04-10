@@ -39,6 +39,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
       lastName: user.lastName,
       email: user.email,
       phone: user.phone || "",
+      gender: user.gender,
     },
     resolver: zodResolver(useUpdateProfileSchema()),
   });
@@ -108,6 +109,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
             <div className="col-span-2">
               <FormField
                 control={form.control}
+                disabled
                 name="email"
                 render={({ field }) => (
                   <FormItem>
@@ -166,10 +168,10 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem dir="ltr" value="male">
+                        <SelectItem dir="ltr" value="MALE">
                           {t("male")}
                         </SelectItem>
-                        <SelectItem dir="ltr" value="female">
+                        <SelectItem dir="ltr" value="FEMALE">
                           {t("female")}
                         </SelectItem>
                       </SelectContent>

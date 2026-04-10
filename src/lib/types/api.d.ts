@@ -35,13 +35,11 @@ declare type ApplicationUser = {
   phone: string;
   firstName: string;
   lastName: string;
-  gender: string;
+  gender: "MALE" | "FEMALE";
   photo?: string;
   emailVerified: boolean;
   phoneVerified: boolean;
-  role: string;
-  wishlist: string[];
-  addresses: string[];
+  role: "USER" | "ADMIN" | "SUPER_ADMIN";
   createdAt: string;
   updatedAt: string;
 };

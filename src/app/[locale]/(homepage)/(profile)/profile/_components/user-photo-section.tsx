@@ -66,6 +66,7 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
             >
               <CloudUpload size={20} />
               <FormField
+                disabled
                 control={form.control}
                 name="photo"
                 render={({}) => (
@@ -76,6 +77,7 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
                     {/* Field */}
                     <FormControl>
                       <input
+                        disabled
                         name="photo"
                         type="file"
                         accept="image/*"

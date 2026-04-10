@@ -6,5 +6,5 @@ export async function getUserData() {
   if ("error" in payload) {
     throw new Error(payload.error);
   }
-  return payload;
+  return payload as SuccessfulResponse<UserDataResponse>;
 }

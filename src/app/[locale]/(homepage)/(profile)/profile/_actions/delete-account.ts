@@ -7,7 +7,7 @@ const deleteAccount = async () => {
   // token
   const token = await getAuthHeader();
   // delete account
-  const response = await fetch(`${process.env.API}/auth/deleteMe`, {
+  const response = await fetch(`${process.env.API}/users/account`, {
     method: "DELETE",
     headers: {
       ...JSON_HEADER,
@@ -15,8 +15,8 @@ const deleteAccount = async () => {
     },
   });
   const payload = await response.json();
-  if (payload.error) {
-    throw new Error(payload.error);
+  if (!payload.status) {
+    throw new Error(payload.message);
   }
   return payload;
 };

@@ -6,21 +6,23 @@ import { getAuthHeader } from "@/lib/utils/auth-header";
 export async function updateProfileAction(values: UpdateProfileFields) {
   // token
   const token = await getAuthHeader();
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { email, gender, ...rest } = values;
   // request
-  const response = await fetch(`${process.env.API}/auth/editProfile`, {
-    method: "PUT",
+  const response = await fetch(`${process.env.API}/users/profile`, {
+    method: "PATCH",
     headers: {
       ...JSON_HEADER,
       Authorization: `Bearer ${token.token}`,
     },
-    body: JSON.stringify(values),
+    body: JSON.stringify(rest),
   });
 
   // response
   const payload = await response.json();
-  if ("error" in payload) {
-    throw new Error(payload.error);
+  if (!payload.status) {
+    throw new Error(payload.message);
   }
+
   return payload;
 }
