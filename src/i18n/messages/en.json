@@ -491,5 +491,10 @@
   "browse-categories": "Browse Categories",
   "shop-products": "Shop Products",
   "contact-support": "Contact Support",
-  "error-reassurance": "Don't worry, this isn't your fault. Our digital gardeners are already on it!"
+  "error-reassurance": "Don't worry, this isn't your fault. Our digital gardeners are already on it!",
+  "occasion-not-found": "Occasion Not Found",
+  "occasion-id-not-exist": "The occasion you're looking for doesn't exist or has been removed",
+  "explore-instead": "Explore our other collections:",
+  "all-occasions": "All Occasions",
+  "all-products": "All Products"
 }

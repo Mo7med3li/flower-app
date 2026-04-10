@@ -26,7 +26,7 @@ export default function TabsTitle({ occasions }: TabsTitleProps) {
   useEffect(() => {
     if (!currentOccasionId && occasions.length > 0) {
       const params = new URLSearchParams(searchParams);
-      params.set("occasion", occasions[0]._id);
+      params.set("occasion", occasions[0].id);
       router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     }
   }, [currentOccasionId, occasions, pathname, router, searchParams]);
@@ -48,12 +48,12 @@ export default function TabsTitle({ occasions }: TabsTitleProps) {
     <>
       {occasions.map((occasion) => (
         <TabsTrigger
-          key={occasion._id}
-          value={occasion._id}
-          onClick={() => handleClick(occasion._id)}
+          key={occasion.id}
+          value={occasion.id}
+          onClick={() => handleClick(occasion.id)}
           className="text-zinc-700 dark:text-zinc-400 data-[state=active]:text-maroon-600 dark:data-[state=active]:text-soft-pink-200 transition-colors duration-200 hover:text-[#A6252A]/80 font-medium"
         >
-          {occasion.name}
+          {occasion.title}
         </TabsTrigger>
       ))}
     </>

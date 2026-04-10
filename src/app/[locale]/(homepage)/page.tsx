@@ -4,10 +4,11 @@ import CarouselSection from "./_components/carousel-section";
 import CompaniesSection from "./_components/companies-section";
 import FeaturesSection from "./_components/features-section";
 import Gallery from "./_components/gallery-section";
+import MostPopular from "./_components/most-popular/most-popular";
 import OccasionsSection from "./_components/occasions-section";
 import TestimonialsSection from "./_components/testimonials-section/testimonials-section";
 
-export default function Home() {
+export default function Home({ searchParams }: { searchParams?: { occasion?: string } }) {
   return (
     <section>
       {/* Carousel section */}
@@ -23,7 +24,7 @@ export default function Home() {
       <BestSelling />
 
       {/*Most Popular section*/}
-      {/* <MostPopular searchParams={searchParams || {}} /> */}
+      <MostPopular searchParams={searchParams || {}} />
 
       {/*About section*/}
       <AboutUs />
