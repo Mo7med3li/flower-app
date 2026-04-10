@@ -12,11 +12,16 @@ export default async function ProductsByOccasion({ occasionId }: OccasionId) {
   const t = await getTranslations();
   // Functions
   const response = await getProducts({ occasion: occasionId });
-  if ("error" in response) {
+  if (!response.status) {
     return <p>{t("error-while-fetching-data")}</p>;
   }
 
-  const { products } = response;
+  const result = response.payload;
+  if (!result || !result.data) {
+    return <p>{t("error-while-fetching-data")}</p>;
+  }
+
+  const products = result.data;
 
   // If there are no products in occasion
   if (products.length === 0) {
@@ -32,7 +37,7 @@ export default async function ProductsByOccasion({ occasionId }: OccasionId) {
   return (
     <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-12 gap-6">
       {products.map((product) => (
-        <div key={product._id} className="col-span-3">
+        <div key={product.id} className="col-span-3">
           <SingleProduct singleProduct={product} />
         </div>
       ))}
