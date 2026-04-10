@@ -1,6 +1,7 @@
 import { useFormatter, useTranslations } from "next-intl";
 import React from "react";
 import { cn } from "@/lib/utils";
+import { Address } from "@/lib/types/user-addresses";
 
 export default function FormSteps({ steps, address }: { steps: number; address?: Address }) {
   // Translations

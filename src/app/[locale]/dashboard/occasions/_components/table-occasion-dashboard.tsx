@@ -25,14 +25,14 @@ export default function TableOccasionDashboard({ occasions }: { occasions: occas
         <TableBody>
           {occasions.map((occasion) => {
             return (
-              <TableRow key={occasion._id} className="h-[60px] hover:bg-maroon-50">
-                <TableCell className="font-medium ps-5 text-zinc-800">{occasion.name}</TableCell>
-                <TableCell className="text-zinc-800">{occasion.productsCount} Product</TableCell>
+              <TableRow key={occasion.id} className="h-[60px] hover:bg-maroon-50">
+                <TableCell className="font-medium ps-5 text-zinc-800">{occasion.title}</TableCell>
+                <TableCell className="text-zinc-800">{occasion._count.products} Product</TableCell>
                 <TableCell className="text-end text-zinc-800">
                   <div className="flex justify-end items-center gap-3">
                     <Link
-                      id={occasion._id}
-                      href={`/dashboard/occasions/${occasion._id}`}
+                      id={occasion.id}
+                      href={`/dashboard/occasions/${occasion.id}`}
                       className="flex justify-center items-center gap-1 bg-blue-600 bg-opacity-10 w-fit rounded-md px-2 py-1 text-blue-600 font-medium text-xs hover:bg-opacity-100 hover:text-white"
                     >
                       <Pencil size={14} /> Edit
@@ -40,7 +40,7 @@ export default function TableOccasionDashboard({ occasions }: { occasions: occas
                     {/* Delete */}
 
                     <DeleteDialog
-                      itemId={occasion._id}
+                      itemId={occasion.id}
                       itemDeleteType={"occasion"}
                       itemDeleteString={"itemDeleteString"}
                     />

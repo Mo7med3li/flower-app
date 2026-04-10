@@ -28,7 +28,7 @@ export default async function Page({
     );
   }
 
-  const result = response.data || response.payload;
+  const result = response.payload;
 
   if (!result || !result.data) {
     return (

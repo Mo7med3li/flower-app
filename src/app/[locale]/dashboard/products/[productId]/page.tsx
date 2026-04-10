@@ -26,7 +26,7 @@ export default async function Page({ params }: ProductIdProbs) {
   ]);
 
   // Error handling
-  if ("error" in response || !("occasions" in occasions) || !("categories" in categories)) {
+  if ("error" in response || !("payload" in occasions) || !("payload" in categories)) {
     notFound();
   }
 
@@ -35,19 +35,19 @@ export default async function Page({ params }: ProductIdProbs) {
       {/* Form */}
       <ProductForm
         edit
-        product={response.product}
-        occasions={occasions.occasions}
-        categories={categories.categories}
+        product={response.payload.product}
+        occasions={occasions.payload.data}
+        categories={categories.payload.data.data}
       />
 
       {/* Images dialogs */}
       <div className="flex justify-end gap-3">
         <ShowImagesDialog
-          cover={response.product.imgCover}
+          cover={response.payload.product.imgCover}
           buttonTitleCoverTranslation={t("product-cover")}
         />
         <ShowImagesDialog
-          gallary={response.product.images}
+          gallary={response.payload.product.images}
           buttonTitleGallaryTranslation={t("product-gallary")}
         />
       </div>

@@ -118,7 +118,7 @@ export default function OccasionFilter() {
       >
         <div className="grid grid-cols-2 gap-3">
           {allOccasions
-            .flatMap((occasions) => occasions.data)
+            .flatMap((occasions) => occasions)
             .map((occasion: occasion) => (
               <div
                 key={occasion?.id}

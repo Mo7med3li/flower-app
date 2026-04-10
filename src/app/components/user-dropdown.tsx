@@ -77,7 +77,7 @@ export default function UserDropdown({ user }: UserProps) {
             </Link>
           </DropdownMenuItem>
 
-          {user.role === "admin" && (
+          {user.role === "ADMIN" && (
             <DropdownMenuItem className="cursor-pointer" asChild>
               <Link href="/dashboard" className="flex items-center gap-2">
                 <Settings className="mr-2 h-4 w-4" />

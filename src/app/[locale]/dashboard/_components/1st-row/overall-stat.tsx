@@ -17,7 +17,8 @@ export default async function OverAllStat() {
       </div>
     );
   }
-  const { statistics } = response;
+  const { payload } = response;
+  const { statistics } = payload;
 
   // Variables
   const totalProducts = format.number(statistics.totalProducts, "number-format");

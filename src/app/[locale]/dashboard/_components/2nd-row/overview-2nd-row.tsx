@@ -1,18 +1,18 @@
-import { getOrders } from "@/lib/apis/order.api";
-import { RevenueChart } from "./revenue-chart";
+// import { getOrders } from "@/lib/apis/order.api";
+// import { RevenueChart } from "./revenue-chart";
 
 export default async function Overview2ndRow() {
-  const data = await getOrders();
+  // const data = await getOrders();
   return (
     <div className="grid grid-cols-4 gap-4">
       <div className="col-span-1">
         {/* <OrdersStatusChart ordersByStatus={data.statistics.ordersByStatus} /> */}
       </div>
       <div className="col-span-3">
-        <RevenueChart
-          monthlyRevenue={data.statistics.monthlyRevenue}
+        {/* <RevenueChart
+          monthlyRevenue={data.monthlyRevenue}
           dailyRevenue={data.statistics.dailyRevenue}
-        />
+        /> */}
       </div>
     </div>
   );

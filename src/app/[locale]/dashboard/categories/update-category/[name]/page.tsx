@@ -11,7 +11,7 @@ export default async function Page({ searchParams }: { searchParams: { id: strin
 
   return (
     <section>
-      <CategoryForm category={payload.category} />
+      <CategoryForm category={payload.payload} />
     </section>
   );
 }

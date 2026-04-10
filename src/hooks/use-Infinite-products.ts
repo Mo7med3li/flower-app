@@ -29,8 +29,8 @@ export const useInfiniteProducts = (
       return payload;
     },
     getNextPageParam: (lastPage) => {
-      if (lastPage.metadata.currentPage >= lastPage.metadata.totalPages) return undefined;
-      return lastPage.metadata.currentPage + 1;
+      if (lastPage.metadata.page >= lastPage.metadata.totalPages) return undefined;
+      return lastPage.metadata.page + 1;
     },
     initialPageParam: 1,
   });

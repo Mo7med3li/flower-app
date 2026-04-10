@@ -25,8 +25,9 @@ import { cn } from "@/lib/utils";
 import { useProductSchema, ProductFormValues } from "@/lib/schemas/product.schema";
 import { useToast } from "@/hooks/use-toast";
 import { occasion } from "@/lib/types/occasions";
-import { Categories } from "@/lib/types/category";
+
 import { Product } from "@/lib/types/products";
+import { CategoryType } from "@/lib/types/category";
 import useAddProduct from "../_hooks/use-add-product";
 import useUpdateProduct from "../_hooks/use-update-product";
 
@@ -37,7 +38,7 @@ export default function ProductForm({
   product,
 }: {
   occasions: occasion[];
-  categories: Categories[];
+  categories: CategoryType[];
   edit?: boolean;
   product?: Product;
 }) {
@@ -386,8 +387,8 @@ export default function ProductForm({
                   </FormControl>
                   <SelectContent>
                     {categories.map((category) => (
-                      <SelectItem key={category._id} value={category._id}>
-                        {category.name}
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.title}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -416,8 +417,8 @@ export default function ProductForm({
                   </FormControl>
                   <SelectContent>
                     {occasions.map((occasion) => (
-                      <SelectItem key={occasion._id} value={occasion._id}>
-                        {occasion.name}
+                      <SelectItem key={occasion.id} value={occasion.id}>
+                        {occasion.title}
                       </SelectItem>
                     ))}
                   </SelectContent>

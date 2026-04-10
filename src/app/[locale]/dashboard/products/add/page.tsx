@@ -6,13 +6,15 @@ export default async function Page() {
   const occasions = await getOccasions();
   const categories = await getAllCategory();
 
-  if (!("occasions" in occasions)) {
+  if (!("payload" in occasions)) {
     return;
   }
 
-  if (!("categories" in categories)) {
+  if (!("payload" in categories)) {
     return;
   }
 
-  return <ProductForm occasions={occasions.occasions} categories={categories.categories} />;
+  return (
+    <ProductForm occasions={occasions.payload.data} categories={categories.payload.data.data} />
+  );
 }

@@ -3,7 +3,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useFormatter, useTranslations } from "next-intl";
-import { AllCategory, Categories } from "@/lib/types/category";
+import { AllCategory, CategoryType } from "@/lib/types/category";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function AllCategories() {
@@ -12,7 +12,9 @@ export default function AllCategories() {
   const format = useFormatter();
 
   // Functions (fetching from route /api/categories)
-  const { data, fetchNextPage, hasNextPage, isLoading, isError } = useInfiniteQuery<PaginatedResponse<AllCategory>>({
+  const { data, fetchNextPage, hasNextPage, isLoading, isError } = useInfiniteQuery<
+    PaginatedResponse<AllCategory>
+  >({
     queryKey: ["categories"], // Refetch when this changes
     queryFn: async ({ pageParam = 1 }) => {
       const response = await fetch(`/api/categories?page=${pageParam}&limit=5`); // Fetching from route handler
@@ -20,14 +22,14 @@ export default function AllCategories() {
       return response.json();
     },
     getNextPageParam: (lastPage) => {
-      if (lastPage.metadata.currentPage >= lastPage.metadata.totalPages) return undefined; // Stop paginating
-      return lastPage.metadata.currentPage + 1; // return next page number
+      if (lastPage.metadata.page >= lastPage.metadata.totalPages) return undefined; // Stop paginating
+      return lastPage.metadata.page + 1; // return next page number
     },
     initialPageParam: 1,
   });
 
   // Variables
-  const allCategories: Categories[] = data?.pages.flatMap((page) => page.categories) ?? []; // Empty array during loading
+  const allCategories: CategoryType[] = data?.pages.flatMap((page) => page.data.data) ?? []; // Empty array during loading
 
   // Statements
   if (isLoading) {
@@ -63,18 +65,18 @@ export default function AllCategories() {
           <ul className="flex flex-col gap-3">
             {allCategories.map((category) => (
               <li
-                key={category._id}
+                key={category.id}
                 className="flex justify-between pb-2 border-b border-b-zinc-200"
               >
                 {/* Category name */}
-                <span className="capitalize text-zinc-800">{category.name}</span>
+                <span className="capitalize text-zinc-800">{category.title}</span>
 
                 {/* Number of products */}
                 <span className="bg-zinc-100 rounded-lg px-2 py-1 text-sm font-medium">
-                  {category.productsCount === 0
+                  {category._count.products === 0
                     ? t("no-products")
                     : t("number-of-products", {
-                        count: format.number(category.productsCount, "number-format"),
+                        count: format.number(category._count.products, "number-format"),
                       })}
                 </span>
               </li>

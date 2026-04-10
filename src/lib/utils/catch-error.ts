@@ -4,7 +4,7 @@ export default async function catchError<T>(
   try {
     const payload = await callback();
 
-    if ("code" in payload) throw new Error(payload.code ?? "Unknown error");
+    if ("code" in payload) throw new Error(String(payload.code ?? "Unknown error"));
 
     return [payload as SuccessfulResponse<T>, null];
   } catch (error) {

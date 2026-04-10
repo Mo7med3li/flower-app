@@ -2,13 +2,13 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 import { getAllCategories } from "@/app/[locale]/dashboard/categories/_apis/all-categories";
-import { Categories } from "@/lib/types/category";
+import { CategoryType } from "@/lib/types/category";
 
 type CategoryContextType = {
-  searchCategoryList: Categories[];
-  setSearchCategoryList: React.Dispatch<React.SetStateAction<Categories[]>>;
+  searchCategoryList: CategoryType[];
+  setSearchCategoryList: React.Dispatch<React.SetStateAction<CategoryType[]>>;
   // eslint-disable-next-line no-unused-vars
-  searchCategory: (searchValue: string) => Promise<Categories[]>;
+  searchCategory: (searchValue: string) => Promise<CategoryType[]>;
   searchValue: string | null;
   setSearchValue: React.Dispatch<React.SetStateAction<string | null>>;
 };
@@ -17,15 +17,15 @@ const CategoryContext = createContext<CategoryContextType | undefined>(undefined
 
 export const CategoryProvider = ({ children }: { children: ReactNode }) => {
   // state
-  const [searchCategoryList, setSearchCategoryList] = useState<Categories[]>([]);
+  const [searchCategoryList, setSearchCategoryList] = useState<CategoryType[]>([]);
   const [searchValue, setSearchValue] = useState<string | null>(null);
 
   // functions
-  async function searchCategory(searchValue: string): Promise<Categories[]> {
+  async function searchCategory(searchValue: string): Promise<CategoryType[]> {
     const payload = await getAllCategories();
 
-    const filteredCategories = payload.categories.filter((category) =>
-      category.name.toLowerCase().includes(searchValue.toLowerCase()),
+    const filteredCategories = payload.payload.data.filter((category) =>
+      category.title.toLowerCase().includes(searchValue.toLowerCase()),
     );
     setSearchCategoryList(filteredCategories || []);
 

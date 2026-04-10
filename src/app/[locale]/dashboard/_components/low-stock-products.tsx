@@ -16,7 +16,7 @@ export default function LowStockProducts() {
   // Get products from current pages - مع إصلاح النوع
   const products: Product[] =
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (data as any)?.pages?.flatMap((page: any) => page.products) ?? data?.products ?? [];
+    (data as any)?.pages?.flatMap((page: any) => page.products) ?? data ?? [];
 
   // Skeleton Loader
   const SkeletonList = () => (

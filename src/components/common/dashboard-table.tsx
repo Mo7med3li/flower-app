@@ -30,8 +30,9 @@ import {
 import { Product } from "@/lib/types/products";
 import { occasion } from "@/lib/types/occasions";
 import { Link } from "@/i18n/navigation";
-import { Categories } from "@/lib/types/category";
+
 import { cn } from "@/lib/cn";
+import { Category } from "@/lib/types/category";
 import DeleteDialog from "./delete-dialog";
 
 type TableParamType<T extends Product | occasion> = {
@@ -43,7 +44,7 @@ type TableParamType<T extends Product | occasion> = {
   itemDeleteString: string;
 };
 
-export default function DashboardTable<T extends Product | occasion | Categories>({
+export default function DashboardTable<T extends Product | occasion | Category>({
   data,
   colHeader,
   colEndPpoint,

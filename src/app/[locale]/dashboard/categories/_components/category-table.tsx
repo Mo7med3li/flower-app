@@ -4,6 +4,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { useSearchContext } from "@/components/providers/components/search.provider";
+import { CategoryType } from "@/lib/types/category";
 import CategoriesTableSkeleton from "@/components/skeletons/category/categories-table.skeleton";
 import CategoryTableHeader from "./category-table-header";
 import { useFetchCategories } from "../_hooks/use-fetch-categories";
@@ -33,7 +34,7 @@ export default function CategoryTable() {
         {searchValue ? (
           searchCategoryList.length > 0 ? (
             searchCategoryList.map((category) => (
-              <CategoryTableBody key={category._id} category={category} />
+              <CategoryTableBody key={category.id} category={category} />
             ))
           ) : (
             <TableRow>
@@ -45,9 +46,9 @@ export default function CategoryTable() {
               </TableCell>
             </TableRow>
           )
-        ) : categories?.categories && categories.categories.length > 0 ? (
-          categories.categories.map((category) => (
-            <CategoryTableBody key={category._id} category={category} />
+        ) : categories?.payload?.data && categories.payload.data.length > 0 ? (
+          categories.payload.data.map((category: CategoryType) => (
+            <CategoryTableBody key={category.id} category={category} />
           ))
         ) : (
           ""
