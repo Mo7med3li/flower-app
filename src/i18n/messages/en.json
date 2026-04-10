@@ -19,7 +19,9 @@
   "password_complexity": "Password must include at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long",
   "product": {
     "occasion": "Occasion",
-    "price": "Price"
+    "price": "Price",
+    "no_occasions_available": "There is no occasions available",
+    "check_back_later": "Check back Later"
   },
   "username_required": "Username is required",
   "username_placeholder": "Enter your username",
@@ -255,7 +257,7 @@
   "rating-cannot-exceed-5-stars": "Rating cannot exceed 5 stars",
   "title-must-be-at-least-10-characters": "Title must be at least 10 characters",
   "category": "Category",
-  "review-must-be-at-least-20-characters": "Review must be at least 20 characters",
+  "review-must-be-at-least-20-characters": "Review must be at least 10 characters",
   "table-name": "Name",
   "table-price": "Price",
   "table-stock": "Stock",
@@ -418,7 +420,7 @@
   "failed-to-add-to-cart": "Failed to add to cart",
   "adding": "Adding...",
   "add-to-cart": "Add to Cart",
-  "items-in-your-cart": "items in your cart",
+  "items-in-your-cart": "items  from this product in your cart",
   "empty": "Empty",
   "subtitle": "Explore our curated selection of our categories",
   "category-products": "Category Products",
@@ -474,5 +476,20 @@
   "there-are-no-orders-yet": "There are no orders yet",
   "ordrs-empty": "It looks like you have not made any orders yet, start shopping now and enjoy your first experience!",
   "orders-empty": "\tIt looks like you have not made any orders yet, start shopping now and enjoy your first experience!",
-  "browse-products": "Browse Products"
+  "browse-products": "Browse Products",
+  "title-is-required": "Address title is required",
+  "enter-your-title": "enter your address title",
+  "adding-address": "adding your address ...",
+  "page-not-found": "Page Not Found",
+  "go-home": "Go To Home Page",
+  "go-back": "Go To Previous Page",
+  "looking-for": "Looking for something specific?",
+  "error-description": "Oops! We've hit a snag in the garden. Our team has been notified and is working to fix this issue.",
+  "error-details": "Error Details",
+  "try-again": "Try Again",
+  "while-you-wait": "While we fix this, you can:",
+  "browse-categories": "Browse Categories",
+  "shop-products": "Shop Products",
+  "contact-support": "Contact Support",
+  "error-reassurance": "Don't worry, this isn't your fault. Our digital gardeners are already on it!"
 }

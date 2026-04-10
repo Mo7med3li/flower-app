@@ -33,8 +33,12 @@ export const getProductDetails = async (productId: string) => {
   // Declaring product details API
   const url = new URL(`${BASE_URL}/products/${productId}`);
 
-  // Extracting only the API link
-  const response = await fetch(url.toString());
+  // Extracting only the API link with cache tags for revalidation
+  const response = await fetch(url.toString(), {
+    next: {
+      tags: [`product-${productId}`],
+    },
+  });
 
   // Returning the product details results
   const payload: APIResponse<ProductDetails> = await response.json();
