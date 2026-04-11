@@ -4,6 +4,7 @@ import ReactQueryProvider from "./components/react-query.provider";
 import SessionClientProvider from "./components/session-client-provider";
 import { ThemeProvider } from "./components/theme-provider";
 import { CategoryProvider } from "./components/search.provider";
+import { CheckUserStatusProvider } from "./components/check-user-status.provider";
 
 export default function Providers({ children }: ProvidersProps) {
   const locale = useLocale();
@@ -13,24 +14,26 @@ export default function Providers({ children }: ProvidersProps) {
   return (
     <SessionClientProvider>
       <ReactQueryProvider>
-        <CategoryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem={false}
-            disableTransitionOnChange
-          >
-            <ReactQueryDevtools initialIsOpen={false} />
-            <NextIntlClientProvider
-              locale={locale}
-              messages={messages}
-              timeZone={timeZone}
-              now={now}
+        <CheckUserStatusProvider>
+          <CategoryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem={false}
+              disableTransitionOnChange
             >
-              {children}
-            </NextIntlClientProvider>
-          </ThemeProvider>
-        </CategoryProvider>
+              <ReactQueryDevtools initialIsOpen={false} />
+              <NextIntlClientProvider
+                locale={locale}
+                messages={messages}
+                timeZone={timeZone}
+                now={now}
+              >
+                {children}
+              </NextIntlClientProvider>
+            </ThemeProvider>
+          </CategoryProvider>
+        </CheckUserStatusProvider>
       </ReactQueryProvider>
     </SessionClientProvider>
   );
