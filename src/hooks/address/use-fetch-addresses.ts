@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { UserAddresses } from "@/lib/types/user-addresses";
+import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
 
 export default function useFetchAddresses() {
+  const { isAuthenticated } = useCheckUserStatus();
+
   const {
     isLoading,
     data: payload,
@@ -17,11 +21,14 @@ export default function useFetchAddresses() {
       }
       return payload as SuccessfulResponse<UserAddresses>;
     },
+    enabled: isAuthenticated,
   });
+
   return {
-    isLoading,
+    isLoading: isAuthenticated ? isLoading : false,
     payload,
     isError,
     error,
+    isAuthenticated,
   };
 }

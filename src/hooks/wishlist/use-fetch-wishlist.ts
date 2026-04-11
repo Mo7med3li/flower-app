@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { WishlistResponse } from "@/lib/types/wishlist";
+import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
 
 export function useFetchWishlist() {
+  const { isAuthenticated } = useCheckUserStatus();
   const {
     data: payload,
     isLoading,
@@ -17,7 +19,12 @@ export function useFetchWishlist() {
       }
       return payload.payload;
     },
+    enabled: isAuthenticated,
   });
 
-  return { payload, isLoading, error };
+  return {
+    payload,
+    isLoading: isAuthenticated ? isLoading : false,
+    error,
+  };
 }

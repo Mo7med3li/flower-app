@@ -16,6 +16,7 @@ import { useReadAllNotifications } from "@/hooks/notifications/use-read-all-noti
 import { useDeleteAllNotifications } from "@/hooks/notifications/use-delete-all-notifications";
 import { fetchUserNotification } from "@/lib/api/notifications";
 import NotificationItemSkeleton from "@/components/skeletons/notifications/notification-item.skeleton";
+import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
 import NotificationCard from "./notification-card";
 import EmptyNotification from "./empty-notification";
 import TooltipCom from "../tooltip-com";
@@ -24,6 +25,7 @@ export default function Notification() {
   // Translations
   const t = useTranslations();
   const format = useFormatter();
+  const { isAuthenticated } = useCheckUserStatus();
 
   const {
     data: payload,
@@ -40,6 +42,7 @@ export default function Notification() {
       if (LastPage.payload.metadata.page === LastPage.payload.metadata.totalPages) return undefined;
       return LastPage.payload.metadata.page + 1;
     },
+    enabled: isAuthenticated,
   });
 
   // Mutations

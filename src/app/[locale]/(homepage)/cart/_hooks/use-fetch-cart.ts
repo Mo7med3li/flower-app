@@ -1,9 +1,12 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+
 import { CartResponse } from "@/lib/types/cart";
+import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
 
 export default function useFetchCart() {
+  const { isAuthenticated } = useCheckUserStatus();
   const {
     isLoading,
     data: payload,
@@ -19,9 +22,10 @@ export default function useFetchCart() {
       }
       return payload as SuccessfulResponse<CartResponse>;
     },
+    enabled: isAuthenticated,
   });
   return {
-    isLoading,
+    isLoading: isAuthenticated ? isLoading : false,
     payload,
     isError,
     error,
