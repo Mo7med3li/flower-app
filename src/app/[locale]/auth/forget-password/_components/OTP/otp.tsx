@@ -12,7 +12,7 @@ export default function OTP({ setStep, email }: OTPProps) {
   return (
     <>
       <div className="mb-4">
-        <p className="text-sm text-gray-600">We&lsquo;ve sent a verification code to: {email}</p>
+        <p className="text-sm text-gray-600">We&lsquo;ve sent a reset link to: {email}</p>
       </div>
       <Button onClick={() => setStep(2)} className="w-full">
         go to next step

@@ -4,11 +4,11 @@ import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { ForgetPasswordFields } from "@/lib/schemes/forget-password.schema";
 import { ForgetPassword } from "@/lib/types/forget-password";
 
-export default async function forgetPasswordAction(fileds: ForgetPasswordFields) {
+export default async function forgetPasswordAction(fields: ForgetPasswordFields) {
   // Send POST request to forgot password endpoint
-  const response = await fetch(`${process.env.API}/auth/forgotPassword`, {
+  const response = await fetch(`${process.env.API}/auth/forgot-password`, {
     method: "POST",
-    body: JSON.stringify(fileds),
+    body: JSON.stringify(fields),
     headers: {
       ...JSON_HEADER,
     },
@@ -16,6 +16,9 @@ export default async function forgetPasswordAction(fileds: ForgetPasswordFields)
 
   // Parse response as JSON
   const payload: APIResponse<ForgetPassword> = await response.json();
+  if (!payload.status) {
+    throw new Error(payload.message || payload.error || "Failed to forget password");
+  }
 
   // Return the response payload
   return payload;
