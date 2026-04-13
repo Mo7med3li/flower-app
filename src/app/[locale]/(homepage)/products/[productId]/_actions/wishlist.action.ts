@@ -41,7 +41,7 @@ export async function AddToWishlist(productId: string) {
 
   const payload: APIResponse<WishlistCheckResult> = await response.json();
 
-  // Revalidate product data using tags (more efficient than path revalidation)
+  // Revalidate product data and wishlist data using tags (more efficient than path revalidation)
   revalidateTag(`product-${productId}`);
 
   return payload;
@@ -65,7 +65,7 @@ export async function removeFromWishlist(productId: string) {
     throw new Error(payload.message || payload.error || "Failed to remove from wishlist");
   }
 
-  // Revalidate product data using tags (more efficient than path revalidation)
+  // Revalidate product data and wishlist data using tags (more efficient than path revalidation)
   revalidateTag(`product-${productId}`);
 
   return payload;

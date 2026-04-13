@@ -21,7 +21,11 @@ export const getProducts = async (params?: SearchParamProduct | undefined) => {
   }
 
   // Extracting only the API link
-  const response = await fetch(url.toString());
+  const response = await fetch(url.toString(), {
+    next: {
+      tags: ["products"],
+    },
+  });
 
   // Returning the products results
   const payload: APIResponse<PaginatedResponse<Products>> = await response.json();

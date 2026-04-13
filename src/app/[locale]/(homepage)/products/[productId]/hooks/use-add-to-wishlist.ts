@@ -24,6 +24,7 @@ export function useAddToWishlist() {
     onSuccess: () => {
       toast.success(t("added-to-wishlist"));
       queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      queryClient.invalidateQueries({ queryKey: ["products-best-selling"] });
     },
     onError: (error: { message: string }) => {
       toast.error(`${t("failed-to-add-to-wishlist")} ${error.message}`);

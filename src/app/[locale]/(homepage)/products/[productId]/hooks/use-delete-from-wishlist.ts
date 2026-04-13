@@ -23,6 +23,7 @@ export function useRemoveFromWishlist() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      queryClient.invalidateQueries({ queryKey: ["products-best-selling"] });
       toast.success(t("removed-from-wishlist"));
     },
     onError: () => {
