@@ -11,7 +11,7 @@ export function useFetchWishlist() {
   } = useQuery({
     queryKey: ["wishlist"],
     queryFn: async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/wishlist`);
+      const response = await fetch("/api/wishlist");
 
       const payload: APIResponse<WishlistResponse> = await response.json();
       if (!payload.status) {

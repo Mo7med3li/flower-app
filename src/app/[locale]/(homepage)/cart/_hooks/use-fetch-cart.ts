@@ -15,7 +15,7 @@ export default function useFetchCart() {
   } = useQuery({
     queryKey: ["user-cart"],
     queryFn: async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/user-cart`);
+      const response = await fetch("/api/user-cart");
       const payload: APIResponse<CartResponse> = await response.json();
       if (!payload.status) {
         throw new Error(payload.message || "Something went wrong");

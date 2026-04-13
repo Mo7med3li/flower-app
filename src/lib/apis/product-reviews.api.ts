@@ -5,7 +5,7 @@ type FetchProductReviewsProps = {
   productId: string;
 };
 export async function fetchProductReviews({ productId }: FetchProductReviewsProps) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/get-product-reviews/${productId}`);
+  const response = await fetch(`/api/get-product-reviews/${productId}`);
 
   const payload: APIResponse<ReviewsResponse> = await response.json();
 

@@ -39,7 +39,7 @@ export default function AddOccasion() {
       formData.append("image", data.image[0]);
     }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/occasions`, {
+    const res = await fetch("/api/occasions", {
       method: "PUT",
       body: formData,
       headers: {

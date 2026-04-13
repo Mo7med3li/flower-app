@@ -14,7 +14,7 @@ export default function useFetchAddresses() {
   } = useQuery({
     queryKey: ["user-addresses"],
     queryFn: async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/get-addresses`);
+      const response = await fetch("/api/get-addresses");
       const payload: APIResponse<UserAddresses> = await response.json();
       if (!payload.status) {
         throw new Error(payload.message || "Something went wrong");
