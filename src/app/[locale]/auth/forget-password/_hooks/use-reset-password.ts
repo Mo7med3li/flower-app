@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { ResetPassword } from "@/lib/types/rest-password";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
+import { ResetPasswordFields } from "@/lib/schemes/reset-password.schema";
 import resetPasswordAction from "../_actions/reset-password.action";
 
 export default function useResetPassword() {
@@ -11,27 +11,19 @@ export default function useResetPassword() {
   // Create mutation
   const { isPending, error, mutate } = useMutation({
     // When mutation runs
-    mutationFn: async (fileds: ResetPassword) => {
-      const payload = await resetPasswordAction(fileds);
-
-      // Error
-      if ("error" in payload) throw new Error(payload.error);
+    mutationFn: async (fields: ResetPasswordFields) => {
+      const payload = await resetPasswordAction(fields);
 
       return payload;
     },
 
     onSuccess: () => {
-      // On success toest
-      toast({
-        description: t("reset-success"),
-      });
+      // On success toast
+      toast.success(t("reset-success"));
     },
     onError: () => {
       // On error toast
-      toast({
-        description: t("reset-error"),
-        variant: "destructive",
-      });
+      toast.error(t("reset-error"));
     },
   });
 

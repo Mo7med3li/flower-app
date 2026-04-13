@@ -513,5 +513,10 @@
   "order-notes": "Order Notes",
   "subtotal": "Subtotal",
   "discount": "Discount",
-  "shipping": "Shipping"
+  "shipping": "Shipping",
+  "token-required": "Token is required",
+  "token": "Token",
+  "please-enter-your-token-from-email-link": "please enter your token from email link",
+  "link-sent-to-your-email-successfully": "Link sent to your email successfully",
+  "failed-to-send-link-to-your-email": "Failed to send link to your email"
 }

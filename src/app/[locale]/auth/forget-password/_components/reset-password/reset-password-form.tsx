@@ -19,11 +19,7 @@ import { ResetPasswordFields, useResetPasswordSchema } from "@/lib/schemes/reset
 import { cn } from "@/lib/utils/cn";
 import useResetPassword from "../../_hooks/use-reset-password";
 
-interface ResetPasswordProps {
-  email: string;
-}
-
-export default function ResetPasswordForm({ email }: ResetPasswordProps) {
+export default function ResetPasswordForm() {
   // Hooks
   const { isPending, resetPassword, error } = useResetPassword();
   const router = useRouter();
@@ -36,26 +32,19 @@ export default function ResetPasswordForm({ email }: ResetPasswordProps) {
   const form = useForm<ResetPasswordFields>({
     resolver: zodResolver(schema),
     defaultValues: {
+      token: "",
       newPassword: "",
-      newRePassword: "",
+      confirmPassword: "",
     },
   });
 
   //Functions
   const onSubmit: SubmitHandler<ResetPasswordFields> = (values: ResetPasswordFields) => {
-    resetPassword(
-      {
-        email,
-        newPassword: values.newPassword,
+    resetPassword(values, {
+      onSuccess: () => {
+        router.push("/auth/login");
       },
-      {
-        onSuccess: () => {
-          // Redirect to log in page
-          router.push("/auth/login");
-        },
-        // onError , onSuccess handled in hook (use-reset-password)
-      },
-    );
+    });
   };
 
   return (
@@ -65,6 +54,37 @@ export default function ResetPasswordForm({ email }: ResetPasswordProps) {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-7 border-t-2 border-b-2 pt-6 pb-9 mb-5 mt-4"
         >
+          {/* Token field */}
+          <FormField
+            control={form.control}
+            name="token"
+            render={({ field }) => {
+              const hasError = form.formState.errors.token;
+              return (
+                <FormItem>
+                  {/* Label */}
+                  <FormLabel>{t("token")}</FormLabel>
+
+                  {/* Input */}
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder={t("please-enter-your-token-from-email-link")}
+                      {...field}
+                      className={cn(
+                        "border-2 focus-visible:ring-0 focus-visible:ring-offset-0",
+                        hasError && "border-red-500",
+                      )}
+                    />
+                  </FormControl>
+                  <FormDescription></FormDescription>
+
+                  {/* Error message */}
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
           {/* New password field */}
           <FormField
             control={form.control}
@@ -102,9 +122,9 @@ export default function ResetPasswordForm({ email }: ResetPasswordProps) {
           {/* New re password field */}
           <FormField
             control={form.control}
-            name="newRePassword"
+            name="confirmPassword"
             render={({ field }) => {
-              const hasError = form.formState.errors.newRePassword;
+              const hasError = form.formState.errors.confirmPassword;
 
               return (
                 <FormItem>

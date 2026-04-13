@@ -513,5 +513,10 @@
   "order-notes": "ملاحظات الطلب",
   "subtotal": "المجموع الفرعي",
   "discount": "تخفيض",
-  "shipping": "شحن"
+  "shipping": "شحن",
+  "token-required": "الرمز المميز مطلوب",
+  "token": "رمز مميز",
+  "please-enter-your-token-from-email-link": "يرجى إدخال الرمز المميز الخاص بك من رابط البريد الإلكتروني",
+  "link-sent-to-your-email-successfully": "تم إرسال الرابط إلى بريدك الإلكتروني بنجاح",
+  "failed-to-send-link-to-your-email": "فشل في إرسال الرابط إلى بريدك الإلكتروني"
 }

@@ -18,8 +18,8 @@ export default function FrogetPasswordFlow() {
       {/* Step 1 => OTP component  */}
       {step === 1 && <OTP setStep={setStep} email={email} />}
 
-      {/* Step 2 => Forget password component  */}
-      {step === 2 && <ResetPassword email={email} />}
+      {/* Step 2 => Reset password component  */}
+      {step === 2 && <ResetPassword />}
     </>
   );
 }

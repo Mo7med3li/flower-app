@@ -1,12 +1,12 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
-import { ResetPassword } from "@/lib/types/rest-password";
+import { ResetPasswordFields } from "@/lib/schemes/reset-password.schema";
 
-export default async function resetPasswordAction(fields: ResetPassword) {
-  // Send PUT request to reset password endpoint
+export default async function resetPasswordAction(fields: ResetPasswordFields) {
+  // Send POST request to reset password endpoint
   const response = await fetch(`${process.env.API}/auth/reset-password`, {
-    method: "PUT",
+    method: "POST",
     body: JSON.stringify(fields),
     headers: {
       ...JSON_HEADER,
@@ -14,7 +14,7 @@ export default async function resetPasswordAction(fields: ResetPassword) {
   });
 
   // Parse response as JSON
-  const payload: APIResponse<ResetPassword> = await response.json();
+  const payload: APIResponse<ResetPasswordFields> = await response.json();
   if (!payload.status) {
     throw new Error(payload.message || payload.error || "Failed to reset password");
   }

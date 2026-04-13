@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { ForgetPasswordFields } from "@/lib/schemes/forget-password.schema";
-import { toast } from "@/hooks/use-toast";
 import forgetPasswordAction from "../_actions/forget-password.action";
 
 export default function useForgetPassword() {
@@ -11,29 +11,19 @@ export default function useForgetPassword() {
   // Create mutation
   const { isPending, error, mutate } = useMutation({
     // When mutation runs
-    mutationFn: async (fileds: ForgetPasswordFields) => {
-      const payload = await forgetPasswordAction(fileds);
-
-      // Error
-      if ("error" in payload) throw new Error(payload.error);
+    mutationFn: async (fields: ForgetPasswordFields) => {
+      const payload = await forgetPasswordAction(fields);
 
       return payload;
     },
 
     onSuccess: () => {
-      // On success toest
-      toast({
-        title: t("otp-sent"),
-        description: t("descreption-toast-forgetpassword"),
-      });
+      // On success toast
+      toast.success(t("link-sent-to-your-email-successfully"));
     },
     onError: () => {
-      // On Error toest
-      toast({
-        title: t("email-not-found-error-toast"),
-        description: t("descreption-error-toast-forgetpassword"),
-        variant: "destructive",
-      });
+      // On Error toast
+      toast.error(t("failed-to-send-link-to-your-email"));
     },
   });
 

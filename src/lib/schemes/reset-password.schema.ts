@@ -6,6 +6,7 @@ export const useResetPasswordSchema = () => {
   const t = useTranslations();
   return z
     .object({
+      token: z.string().min(1, { message: t("token-required") }),
       newPassword: z
         .string()
         .min(1, { message: t("password-requred-reset-password") })
@@ -13,14 +14,14 @@ export const useResetPasswordSchema = () => {
         .max(50, { message: t("password-max") })
         .regex(/[A-Z]/, { message: t("password-upercase") })
         .regex(/[a-z]/, { message: t("password-lowercase") })
-        .regex(/[0-9]/, { message: t("password-number") })
-        .regex(/[^A-Za-z0-9]/, { message: t("password-special") }),
+        .regex(/[0-8]/, { message: t("password-number") })
+        .regex(/[^A-Za-z0-8]/, { message: t("password-special") }),
 
-      newRePassword: z.string().min(1, { message: t("confirm-password-required") }),
+      confirmPassword: z.string().min(1, { message: t("confirm-password-required") }),
     })
-    .refine((data) => data.newPassword === data.newRePassword, {
+    .refine((data) => data.newPassword === data.confirmPassword, {
       message: t("password-mismatch"),
-      path: ["newRePassword"],
+      path: ["confirmPassword"],
     });
 };
 
