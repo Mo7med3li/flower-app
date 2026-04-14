@@ -3,9 +3,15 @@ import type { CategoryType } from "@/lib/types/category";
 import { getAllCategory } from "./_api/get-categories";
 import CategoriesCard from "./_components/categories-card";
 
-const CategoriesPage = async ({ params }: { params: { locale: string } }) => {
+const CategoriesPage = async ({
+  params,
+  searchParams,
+}: {
+  params: { locale: string };
+  searchParams?: URLSearchParams;
+}) => {
   // Category response
-  const response = await getAllCategory();
+  const response = await getAllCategory({ searchParams });
 
   // Translation
   const isRTL = params?.locale?.toLowerCase().startsWith("ar");
