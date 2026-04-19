@@ -127,7 +127,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
                 "currency-float",
               )}
             </span>
-            <span className="line-through text-zinc-400">
+            <span className="line-through text-zinc-500">
               {format.number(singleProduct.price, "currency-float")}
             </span>
           </div>

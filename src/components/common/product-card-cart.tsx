@@ -16,6 +16,7 @@ const ProductCardCart = ({ productId }: { productId: string }) => {
     <Button
       className="rounded-full [&_svg]:size-6 h-11 w-11 bg-maroon-600 hover:bg-maroon-700 dark:bg-maroon-500 dark:text-white"
       size="icon"
+      aria-label="Add to cart"
       onClick={handleClick}
     >
       {isPending ? <Loader2 className="animate-spin" /> : <ShoppingCart strokeWidth={1} />}

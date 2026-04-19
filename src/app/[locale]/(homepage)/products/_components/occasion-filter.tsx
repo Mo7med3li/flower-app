@@ -82,10 +82,10 @@ export default function OccasionFilter() {
               />
             </svg>
           </div>
-          <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">
+          <p className="text-zinc-600 dark:text-zinc-300 text-sm font-medium">
             {t("product.no_occasions_available")}
           </p>
-          <p className="text-gray-400 dark:text-gray-500 text-xs mt-1">
+          <p className="text-zinc-500 dark:text-zinc-400 text-xs mt-1">
             {t("product.check_back_later")}
           </p>
         </div>

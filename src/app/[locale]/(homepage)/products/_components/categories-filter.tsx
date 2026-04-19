@@ -105,7 +105,7 @@ export default function FilterCategories() {
                   >
                     <Image
                       src={category.image}
-                      alt={category.title}
+                      alt=""
                       width={24}
                       height={24}
                       className="shrink-0"

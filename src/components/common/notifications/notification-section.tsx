@@ -56,7 +56,7 @@ export default function Notification() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="relative">
+        <button type="button" aria-label={t("open-notifications")} className="relative outline-none">
           <div className="relative">
             <TooltipCom
               title={t("open-notifications")}
@@ -70,7 +70,7 @@ export default function Notification() {
               </span>
             )}
           </div>
-        </div>
+        </button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

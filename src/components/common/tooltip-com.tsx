@@ -18,13 +18,12 @@ const TooltipCom = ({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <button
-            type="button"
+          <span
             aria-label={title}
-            className="rounded-md p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            className="inline-block rounded-md p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
             {icon}
-          </button>
+          </span>
         </TooltipTrigger>
         <TooltipContent>
           <p>{title}</p>

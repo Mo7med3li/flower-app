@@ -28,14 +28,14 @@ const WishlistIcon = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="relative">
+        <button type="button" aria-label={t("open-wishlist")} className="relative outline-none">
           <TooltipCom
             title={t("open-wishlist")}
             icon={<Heart className="cursor-pointer size-6" />}
             isLoading={isLoading}
             count={count}
           />
-        </div>
+        </button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="relative w-[min(90vw,500px)] hide-scroll h-[400px] rounded-2xl border p-0 bg-white dark:bg-zinc-900 shadow-lg">

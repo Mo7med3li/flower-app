@@ -94,7 +94,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           <div className="mt-4 flex items-baseline gap-3">
             {/* Original price (crossed out if discounted) */}
             {discounted && (
-              <span className="text-2xl text-zinc-400 font-semibold line-through">
+              <span className="text-2xl text-zinc-500 font-semibold line-through">
                 {discounted.number}
               </span>
             )}

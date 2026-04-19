@@ -103,7 +103,7 @@ const UserCartCard = ({ item }: { item: CartItem }) => {
               <div className="flex flex-col">
                 {product.discountType && product.discountValue > 0 ? (
                   <>
-                    <span className="text-sm text-gray-500 line-through decoration-gray-500">
+                    <span className="text-sm text-zinc-500 line-through decoration-zinc-500">
                       {format.number(product.price * item.quantity, "currency-int")}
                     </span>
                     <span className="text-red-600 dark:text-red-400 font-medium">
