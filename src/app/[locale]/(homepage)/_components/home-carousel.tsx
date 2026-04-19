@@ -62,6 +62,8 @@ export default function HomeCarousel() {
                   src={item.image}
                   alt={t(item.alt)}
                   fill
+                  priority={index === 0}
+                  sizes="(max-width: 1024px) 100vw, 75vw"
                   className="object-cover object-center"
                 />
 

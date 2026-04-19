@@ -80,7 +80,7 @@ export default async function Header() {
           {/* Left: Hamburger */}
           <MobileNav />
           {/* Center: Logo */}
-          <Image src={logo} alt="Logo" className="w-12 h-12" />
+          <Image src={logo} alt="Logo" className="w-12 h-12" sizes="48px" />
           {/* Right: Actions (compact) */}
           <div className="flex items-center gap-3">
             {/* Sign in hidden on mobile to reduce clutter */}
@@ -98,7 +98,7 @@ export default async function Header() {
       <div className="bg-white dark:bg-zinc-800 w-full hidden md:block">
         <div className="text-lg py-5 container mx-auto flex items-center justify-between gap-4">
           {/* image logo */}
-          <Image src={logo} alt="Logo" className="md:w-[85px] md:h-[85px]" />
+          <Image src={logo} alt="Logo" className="md:w-[85px] md:h-[85px]" sizes="85px" />
 
           {/* address */}
           <div className="hidden lg:block">{session && <LocationHeader />}</div>

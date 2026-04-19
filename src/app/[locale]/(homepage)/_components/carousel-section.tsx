@@ -19,8 +19,10 @@ export default function CarouselSection() {
         {/* Image */}
         <Image
           src="/assets/home-section-1-static.png"
-          className="rounded-2xl w-full"
+          className="rounded-2xl w-full object-cover"
           fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 25vw"
           alt="red presents"
         />
 

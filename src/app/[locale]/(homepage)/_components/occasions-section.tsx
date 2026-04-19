@@ -35,7 +35,13 @@ export default function OccasionsSection() {
           <Link href="/occasions" key={index} className="w-full col-span-1">
             <div className="relative h-[271px] w-full overflow-hidden rounded-2xl">
               {/* Image */}
-              <Image src={occasion.image} alt={t(occasion.alt)} fill className="object-cover" />
+              <Image 
+                src={occasion.image} 
+                alt={t(occasion.alt)} 
+                fill 
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
 
               <div className="absolute bottom-6 flex flex-col ltr:left-6 rtl:right-6">
