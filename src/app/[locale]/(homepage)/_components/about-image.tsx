@@ -10,6 +10,7 @@ export default function AboutImage() {
           alt="about image"
           width={300}
           height={0}
+          sizes="(max-width: 768px) 100vw, 33vw"
           className="w-[450px] h-86 left-7 top-5 rotate-0 rounded-[120px] rounded-tl-[50px] object-cover"
         />
       </div>
@@ -19,6 +20,7 @@ export default function AboutImage() {
           alt="about image"
           width={300}
           height={0}
+          sizes="(max-width: 768px) 100vw, 33vw"
           className="size-52 rounded-full object-cover"
         />
         <Image
@@ -26,6 +28,7 @@ export default function AboutImage() {
           alt="about image"
           width={300}
           height={0}
+          sizes="(max-width: 768px) 100vw, 33vw"
           className="w-[200px] h-36 rounded-s-[50px] rounded-e-[100px] object-cover"
         />
       </div>

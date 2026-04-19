@@ -195,6 +195,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         )}
         disabled={!canScrollPrev}
         onClick={scrollPrev}
+        aria-label="Previous slide"
         {...props}
       >
         <div className="flex items-center justify-center">
@@ -225,6 +226,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
         )}
         disabled={!canScrollNext}
         onClick={scrollNext}
+        aria-label="Next slide"
         {...props}
       >
         <div className="flex items-center justify-center">

@@ -26,6 +26,7 @@ export default function Gallery() {
               width={420}
               height={620}
               className="w-full h-full object-cover "
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
 
@@ -37,6 +38,7 @@ export default function Gallery() {
               width={420}
               height={410}
               className="w-full h-full object-cover "
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
 
@@ -48,6 +50,7 @@ export default function Gallery() {
               width={420}
               height={410}
               className="w-full h-full object-cover "
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
 
@@ -59,6 +62,7 @@ export default function Gallery() {
               width={420}
               height={620}
               className="w-full h-full object-cover "
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
 
@@ -70,6 +74,7 @@ export default function Gallery() {
               width={420}
               height={620}
               className="w-full h-full object-cover "
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
 
@@ -81,6 +86,7 @@ export default function Gallery() {
               width={420}
               height={410}
               className="w-full h-full object-cover "
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
         </div>

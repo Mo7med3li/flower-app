@@ -135,24 +135,26 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-3">
               <ul className="flex flex-col gap-2 text-zinc-100 text-base">
                 {leftLinks.map((item, index) => (
-                  <Link
-                    href={item.link}
-                    key={`left-${index}`}
-                    className="hover:text-soft-pink-300 transition-colors duration-300"
-                  >
-                    {item.title}
-                  </Link>
+                  <li key={`left-${index}`}>
+                    <Link
+                      href={item.link}
+                      className="hover:text-soft-pink-300 transition-colors duration-300"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
                 ))}
               </ul>
               <ul className="flex flex-col gap-2 text-zinc-100 text-base">
                 {rightLinks.map((item, index) => (
-                  <Link
-                    href={item.link}
-                    key={`right-${index}`}
-                    className="hover:text-soft-pink-300 transition-colors duration-300"
-                  >
-                    {item.title}
-                  </Link>
+                  <li key={`right-${index}`}>
+                    <Link
+                      href={item.link}
+                      className="hover:text-soft-pink-300 transition-colors duration-300"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
                 ))}
               </ul>
             </div>

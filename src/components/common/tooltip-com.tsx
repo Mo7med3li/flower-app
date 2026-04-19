@@ -18,12 +18,13 @@ const TooltipCom = ({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div
-            aria-label="Open wishlist"
+          <button
+            type="button"
+            aria-label={title}
             className="rounded-md p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
             {icon}
-          </div>
+          </button>
         </TooltipTrigger>
         <TooltipContent>
           <p>{title}</p>

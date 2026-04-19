@@ -102,6 +102,7 @@ export default function HomeCarousel() {
               <Button
                 key={index}
                 size={"icon"}
+                aria-label={t("go-to-slide", { slide: index + 1 }) || `Go to slide ${index + 1}`}
                 onClick={() => {
                   onDotButtonClick(index);
                 }}
