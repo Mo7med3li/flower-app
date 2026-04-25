@@ -24,6 +24,7 @@ const useDeleteItemCart = ({ cartItemId }: { cartItemId: string }) => {
       queryClient.invalidateQueries({
         queryKey: ["user-cart"],
       });
+      queryClient.invalidateQueries({ queryKey: ["products-best-selling"] });
     },
   });
   return { removeProductCartMutation, isPending };

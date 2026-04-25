@@ -1,7 +1,7 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { getAuthHeader } from "@/lib/utils/auth-header";
-
 import { Product } from "@/lib/types/products";
 
 export type AddToCartResult = {
@@ -39,6 +39,7 @@ export async function addToCartAction(productId: string, quantity: number = 1) {
   if (!payload.status) {
     throw new Error(payload.message);
   }
+  revalidateTag(`product-${productId}`);
 
   return payload;
 }

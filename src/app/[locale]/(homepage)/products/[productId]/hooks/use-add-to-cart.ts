@@ -27,6 +27,7 @@ export function useAddToCart() {
         `${format.number(successData.payload?.cartItem?.quantity || 0, "number-base")} ${t("items-in-your-cart")}`,
       );
       queryClient.invalidateQueries({ queryKey: ["user-cart"] });
+      queryClient.invalidateQueries({ queryKey: ["products-best-selling"] });
     },
     onError: (error) => {
       toast.error(`${t("failed-to-add-to-cart")} ${error.message}`);

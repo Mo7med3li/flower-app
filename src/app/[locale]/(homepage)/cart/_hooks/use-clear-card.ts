@@ -19,6 +19,7 @@ const useClearCart = () => {
       queryClient.invalidateQueries({
         queryKey: ["user-cart"],
       });
+      queryClient.invalidateQueries({ queryKey: ["products-best-selling"] });
     },
     onError: (e) => {
       toast.error(e.message || t("failed-to-clear-cart"));

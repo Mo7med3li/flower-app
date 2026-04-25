@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { CartResponse } from "@/lib/types/cart";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
@@ -23,7 +24,7 @@ const removeProductCart = async (cartItemId: string) => {
   if ("error" in payload) {
     throw new Error(payload.error);
   }
-
+  revalidateTag(`product-${cartItemId}`);
   return payload;
 };
 export default removeProductCart;
