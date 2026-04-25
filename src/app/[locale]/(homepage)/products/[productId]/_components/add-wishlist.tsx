@@ -18,11 +18,10 @@ export default function FavoriteToggle({ productId, extend, animation }: AddToWi
   const { isPending: isAdding, addToWishlist } = useAddToWishlist();
   const { isPending: isRemoving, removeFromWishlist } = useRemoveFromWishlist();
   const { payload, isLoading } = useFetchWishlist();
-  const products = payload?.wishlistItems ?? [];
 
-  const wishlist = payload?.wishlistItems;
-  const isInWishlist = (wishlist ?? []).filter((item) => item.product.id === productId).length > 0;
-  const productInWishlist = products.find((item) => item.productId === productId);
+  const wishlist = payload?.wishlistItems ?? [];
+  const isInWishlist = wishlist.filter((item) => item.product.id === productId).length > 0;
+  const productInWishlist = wishlist.find((item) => item.productId === productId);
 
   // translations
   const t = useTranslations();

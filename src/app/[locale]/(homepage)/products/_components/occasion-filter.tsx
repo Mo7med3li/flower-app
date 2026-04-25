@@ -14,9 +14,6 @@ import OccasionSkeleton from "@/components/skeletons/occasion/occasion.skeleton"
 import { getOccasions } from "../_hooks/occasions.action";
 
 export default function OccasionFilter() {
-  // variable
-  const url_image = process.env.NEXT_PUBLIC_URL_IMAGE;
-
   // Translation
   const t = useTranslations();
 
@@ -134,7 +131,7 @@ export default function OccasionFilter() {
                   {occasion?.title}
                 </Button>
                 <Image
-                  src={occasion?.image ? `${url_image}${occasion?.image}` : ""}
+                  src={occasion.image.startsWith("http") ? occasion.image : ""}
                   alt={occasion?.title}
                   width={100}
                   height={100}

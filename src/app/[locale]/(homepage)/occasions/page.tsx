@@ -49,11 +49,7 @@ const OccasionsPage = async ({ searchParams }: { searchParams: SearchParamOcassi
                 <div className="relative h-36 w-full sm:h-40 md:h-44">
                   {o.image ? (
                     <Image
-                      src={
-                        o.image.startsWith("http")
-                          ? o.image
-                          : process.env.NEXT_PUBLIC_URL_IMAGE + o.image
-                      }
+                      src={o.image.startsWith("http") ? o.image : ""}
                       alt={o.title}
                       fill
                       sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 50vw"
