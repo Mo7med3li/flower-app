@@ -154,10 +154,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
             // In stock - show both wishlist and cart buttons
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               <div>
-                <AddToWishlist
-                  isInWishlist={product._count.wishlistItems > 0}
-                  productId={product.id}
-                />
+                <AddToWishlist productId={product.id} />
               </div>
               <div className="sm:flex-1">
                 <AddToCartButton productId={product.id} isLoggedIn={isLoggedIn} />
@@ -166,11 +163,7 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
           ) : (
             // Out of stock - show only wishlist button (extended)
             <div>
-              <AddToWishlist
-                isInWishlist={product._count.wishlistItems > 0}
-                extend
-                productId={product.id}
-              />
+              <AddToWishlist extend productId={product.id} />
             </div>
           )}
         </div>

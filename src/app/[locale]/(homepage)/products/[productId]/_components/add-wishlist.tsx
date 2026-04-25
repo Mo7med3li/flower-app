@@ -10,23 +10,18 @@ import { useRemoveFromWishlist } from "../hooks/use-delete-from-wishlist";
 
 interface AddToWishlistProps {
   productId: string;
-
   extend?: boolean;
   animation?: boolean;
-  isInWishlist: boolean;
 }
-export default function FavoriteToggle({
-  productId,
-  isInWishlist,
-  extend,
-  animation,
-}: AddToWishlistProps) {
+export default function FavoriteToggle({ productId, extend, animation }: AddToWishlistProps) {
   // hooks
   const { isPending: isAdding, addToWishlist } = useAddToWishlist();
   const { isPending: isRemoving, removeFromWishlist } = useRemoveFromWishlist();
   const { payload, isLoading } = useFetchWishlist();
   const products = payload?.wishlistItems ?? [];
 
+  const wishlist = payload?.wishlistItems;
+  const isInWishlist = (wishlist ?? []).filter((item) => item.product.id === productId).length > 0;
   const productInWishlist = products.find((item) => item.productId === productId);
 
   // translations
