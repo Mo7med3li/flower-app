@@ -63,7 +63,7 @@ export default async function Header() {
     },
     {
       name: t("about"),
-      href: "/en/about",
+      href: "/about",
       icons: <Info className="w-5 h-5" />,
     },
   ];

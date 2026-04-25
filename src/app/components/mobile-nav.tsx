@@ -18,7 +18,7 @@ export default function MobileNav() {
     { name: t("categories"), href: "/categories", icon: ClipboardList },
     { name: t("occasions"), href: "/occasions", icon: PartyPopper },
     { name: t("contact"), href: "/contact", icon: Headset },
-    { name: t("about"), href: "/en/about", icon: Info },
+    { name: t("about"), href: "/about", icon: Info },
   ];
 
   return (
