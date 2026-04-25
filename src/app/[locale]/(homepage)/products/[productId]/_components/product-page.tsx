@@ -1,4 +1,4 @@
-import { Package, Star, StarHalf } from "lucide-react";
+import { Heart, Package, ShoppingCart, Star, StarHalf } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { authOptions } from "@/auth";
@@ -45,31 +45,30 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
   const t = await getTranslations();
 
   const currency = "EGP";
-  const priceAfterDiscount =
-    product.priceType === "PERCENT"
-      ? product.price * (product.discountValue / 100)
+  
+  // Calculate price after discount
+  const calculatedPriceAfterDiscount =
+    product.discountType === "percentage" || product.priceType === "PERCENT"
+      ? product.price - product.price * (product.discountValue / 100)
       : product.price - product.discountValue;
-  // Price calculations
-  const priceValue = product.price;
-  const discounted = priceAfterDiscount
-    ? getCurrencyParts(locale, currency, priceAfterDiscount, {
-        maximumFractionDigits: 0,
-        numberingSystem: locale === "ar" ? "arab" : "latn",
-      })
-    : null;
-  const current = getCurrencyParts(locale, currency, priceValue, {
+
+  const hasDiscount = product.discountValue > 0;
+
+  // Price formatting
+  const originalPriceFormatted = getCurrencyParts(locale, currency, product.price, {
+    maximumFractionDigits: 0,
+    numberingSystem: locale === "ar" ? "arab" : "latn",
+  });
+
+  const currentPriceFormatted = getCurrencyParts(locale, currency, calculatedPriceAfterDiscount, {
     maximumFractionDigits: 2,
     numberingSystem: locale === "ar" ? "arab" : "latn",
   });
 
-  const hasDiscount = Boolean(product.priceAfterDiscount);
   const discountPercent = hasDiscount
-    ? Math.max(
-        0,
-        Math.round(
-          ((product.price - (product.priceAfterDiscount as number)) / product.price) * 100,
-        ),
-      )
+    ? product.discountType === "percentage" || product.priceType === "PERCENT"
+      ? product.discountValue
+      : Math.round((product.discountValue / product.price) * 100)
     : 0;
   const lowStock = product.stock > 0 && product.stock <= 5;
 
@@ -93,16 +92,16 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
         <div className="flex flex-wrap items-center gap-3 md:gap-4 mb-4">
           <div className="mt-4 flex items-baseline gap-3">
             {/* Original price (crossed out if discounted) */}
-            {discounted && (
+            {hasDiscount && (
               <span className="text-2xl text-zinc-500 font-semibold line-through">
-                {discounted.number}
+                {originalPriceFormatted.number}
               </span>
             )}
 
             {/* Current price with currency symbol */}
             <span className="text-3xl font-primary font-bold text-zinc-800 dark:text-zinc-50 flex items-baseline gap-1">
-              <span>{current.number}</span>
-              <span className="text-xl">{current.symbol}</span>
+              <span>{currentPriceFormatted.number}</span>
+              <span className="text-xl">{currentPriceFormatted.symbol}</span>
             </span>
           </div>
 
@@ -141,6 +140,26 @@ export default async function ProductPage({ product, locale }: ProductPageProps)
             <span className="text-sm text-blue-600 font-medium ">
               ({format.number(product.ratings, "number-base")} {t("ratings")})
             </span>
+          </div>
+
+          {/* Social Proof Stats */}
+          <div className="flex items-center gap-4">
+            {product?._count && (
+              <>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50/50 dark:bg-red-500/10 border border-red-100/50 dark:border-red-500/20">
+                  <Heart className="size-4 text-red-500 fill-red-500/20" />
+                  <span className="text-xs font-semibold text-red-700 dark:text-red-400">
+                    {format.number(product._count.wishlistItems, "number-base")}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-maroon-50/50 dark:bg-maroon-500/10 border border-maroon-100/50 dark:border-maroon-500/20">
+                  <ShoppingCart className="size-4 text-maroon-600 dark:text-maroon-400" />
+                  <span className="text-xs font-semibold text-maroon-700 dark:text-maroon-300">
+                    {format.number(product._count.cartItems, "number-base")}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 

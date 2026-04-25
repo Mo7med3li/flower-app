@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { Star } from "lucide-react";
+import { Heart, ShoppingCart, Star } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import type { Product } from "@/lib/types/products";
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +38,8 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
   const format = useFormatter();
   const t = useTranslations();
 
-  const { payload } = useFetchWishlist();
+  const wishlistHook = useFetchWishlist();
+  const payload = wishlistHook.payload;
   const wishlist = payload?.wishlistItems;
   const isInWishlist = wishlist?.filter((item) => item.product.id === singleProduct.id);
   // Dates
@@ -134,6 +136,27 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
             <span className="line-through text-zinc-500">
               {format.number(singleProduct.price, "currency-float")}
             </span>
+
+            {/* Social Proof Stats */}
+            <div className="flex items-center gap-3 mt-3 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+              {singleProduct?._count && (
+                <>
+                  <div className="flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400">
+                    <Heart className="size-3.5 text-red-500/80 fill-red-500/10" />
+                    <span className="text-[11px] font-medium leading-none">
+                      {format.number(singleProduct._count.wishlistItems, "number-base")}
+                    </span>
+                  </div>
+                  <div className="w-[1px] h-3 bg-zinc-200 dark:bg-zinc-700" />
+                  <div className="flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400">
+                    <ShoppingCart className="size-3.5 text-maroon-500/80" />
+                    <span className="text-[11px] font-medium leading-none">
+                      {format.number(singleProduct._count.cartItems, "number-base")}
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
 
           {/* Cart Button */}
