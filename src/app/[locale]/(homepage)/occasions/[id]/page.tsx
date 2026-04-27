@@ -16,7 +16,7 @@ const OccasionsDetailPage = async ({ params }: { params: { id: string } }) => {
   const occasion = occasionResult?.occasion || occasionResult;
 
   // Occasion products response
-  const responseProducts = await getProducts({ occasion: params.id });
+  const responseProducts = await getProducts({ occasionId: params.id });
   if (!responseProducts.status) {
     throw new Error(responseProducts.message || "Error fetching products");
   }
