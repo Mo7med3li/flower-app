@@ -540,5 +540,8 @@
   "title-values": "Our <highlight>Core Values</highlight>",
   "login-successful-welcome": "Login Successful Welcome!",
   "failed-to-sync-cart": "Failed to add stored cart data to user cart",
-  "you-need-to-login-to-add-products-to-your-wishlist": "You need to login to add products to your wishlist"
+  "you-need-to-login-to-add-products-to-your-wishlist": "You need to login to add products to your wishlist",
+  "browse-all-products": "browse all products",
+  "no-products-for-occasion": "no products for this occasion",
+  "no-products-available": "no products available"
 }

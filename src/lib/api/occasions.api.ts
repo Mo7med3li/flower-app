@@ -23,9 +23,8 @@ export const getOccasions = async (params?: SearchParamOcassion | undefined) => 
 
   // Returning the occasion results
   const payload: APIResponse<PaginatedResponse<occasions>> = await response.json();
-  if ("error" in payload) {
-    throw new Error(payload.error);
+  if (!payload.status) {
+    throw new Error(payload.message);
   }
-
   return payload;
 };

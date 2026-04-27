@@ -53,7 +53,7 @@ export type SearchParamProduct = {
   priceAfterDiscount?: number; // Price after applying discount (exact match)
   quantity?: number; // Available quantity (exact match)
   category?: string; // Category ID (used to filter)
-  occasion?: string; // Occasion ID (used to filter)
+  occasionId?: string; // Occasion ID (used to filter)
   isSuperAdmin?: boolean; // Admin flag (if filtering by admin-only products)
   sold?: number; // Number of units sold (exact match)
   id?: string; // Product ID alias (same as _id)

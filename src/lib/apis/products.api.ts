@@ -29,6 +29,11 @@ export const getProducts = async (params?: SearchParamProduct | undefined) => {
 
   // Returning the products results
   const payload: APIResponse<PaginatedResponse<Products>> = await response.json();
+
+  if (!payload.status) {
+    throw new Error(payload.message || "Error fetching products");
+  }
+
   return payload;
 };
 

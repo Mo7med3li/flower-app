@@ -540,5 +540,8 @@
   "title-values": "قيمنا <highlight>الأساسية</highlight>",
   "login-successful-welcome": "تم تسجيل الدخول بنجاح مرحباً بك!",
   "failed-to-sync-cart": "فشل في إضافة بيانات سلة التسوق المخزنة إلى عربة المستخدم",
-  "you-need-to-login-to-add-products-to-your-wishlist": "تحتاج إلى تسجيل الدخول لإضافة المنتجات إلى قائمة الرغبات الخاصة بك"
+  "you-need-to-login-to-add-products-to-your-wishlist": "تحتاج إلى تسجيل الدخول لإضافة المنتجات إلى قائمة الرغبات الخاصة بك",
+  "browse-all-products": "تصفح جميع المنتجات",
+  "no-products-for-occasion": "لا توجد منتجات لهذه المناسبة",
+  "no-products-available": "لا توجد منتجات متاحة"
 }

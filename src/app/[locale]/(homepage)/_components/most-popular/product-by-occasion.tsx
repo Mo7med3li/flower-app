@@ -1,6 +1,7 @@
-import { getTranslations } from "next-intl/server";
 import SingleProduct from "@/components/common/single-product";
 import { getProducts } from "@/lib/apis/products.api";
+import MostPopularError from "./most-popular-error";
+import EmptyProductsState from "./empty-products-state";
 
 // OccasionId Type
 interface OccasionId {
@@ -8,30 +9,22 @@ interface OccasionId {
 }
 
 export default async function ProductsByOccasion({ occasionId }: OccasionId) {
-  // Translation
-  const t = await getTranslations();
   // Functions
-  const response = await getProducts({ occasion: occasionId });
+  const response = await getProducts({ occasionId: occasionId });
   if (!response.status) {
-    return <p>{t("error-while-fetching-data")}</p>;
+    return <MostPopularError />;
   }
 
   const result = response.payload;
   if (!result || !result.data) {
-    return <p>{t("error-while-fetching-data")}</p>;
+    return <MostPopularError />;
   }
 
   const products = result.data;
 
   // If there are no products in occasion
   if (products.length === 0) {
-    return (
-      <div className="min-h-52 flex justify-center items-center">
-        <p className="font-bold text-center text-4xl text-maroon-600 dark:text-soft-pink-200">
-          {t("no-products-in-this-occasion")}
-        </p>
-      </div>
-    );
+    return <EmptyProductsState occasion={occasionId} />;
   }
 
   return (
