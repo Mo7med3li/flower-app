@@ -422,7 +422,7 @@
   "please-login-to-manage-your-wishlist": "Please login to manage your wishlist.",
   "remove-from-wishlist": "Remove from wishlist",
   "add-to-wishlist": "Add to wishlist",
-  "added-to-cart": "Added to cart",
+  "added-to-cart": "Stored to add to cart when login",
   "failed-to-add-to-cart": "Failed to add to cart",
   "adding": "Adding...",
   "add-to-cart": "Add to Cart",
@@ -537,5 +537,8 @@
   "bringing-natures": "Bringing Nature's Most Exquisite Art to Your Doorstep",
   "we-emotions": "We don't just deliver flowers; we deliver emotions, memories, and moments that last a lifetime.",
   "ourStory": "Our <highlight>Story</highlight>",
-  "title-values": "Our <highlight>Core Values</highlight>"
+  "title-values": "Our <highlight>Core Values</highlight>",
+  "login-successful-welcome": "Login Successful Welcome!",
+  "failed-to-sync-cart": "Failed to add stored cart data to user cart",
+  "you-need-to-login-to-add-products-to-your-wishlist": "You need to login to add products to your wishlist"
 }

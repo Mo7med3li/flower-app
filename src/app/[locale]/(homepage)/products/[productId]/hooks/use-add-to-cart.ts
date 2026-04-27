@@ -12,7 +12,7 @@ export function useAddToCart() {
   const queryClient = useQueryClient();
 
   // Mutation
-  const { isPending, error, mutate } = useMutation({
+  const { isPending, error, mutate, mutateAsync } = useMutation({
     mutationFn: async ({ productId, quantity = 1 }: { productId: string; quantity?: number }) => {
       const response = await addToCartAction(productId, quantity);
 
@@ -34,5 +34,5 @@ export function useAddToCart() {
     },
   });
 
-  return { isPending, error, addToCart: mutate };
+  return { isPending, error, addToCart: mutate, addToCartAsync: mutateAsync };
 }

@@ -424,7 +424,7 @@
   "please-login-to-manage-your-wishlist": "الرجاء تسجيل الدخول لإدارة قائمة الرغبات الخاصة بك.",
   "remove-from-wishlist": "إزالة من قائمة الرغبات",
   "add-to-wishlist": "أضف إلى قائمة الرغبات",
-  "added-to-cart": "تمت إضافته إلى سلة التسوق",
+  "added-to-cart": "مخزنة لإضافتها إلى سلة التسوق عند تسجيل الدخول",
   "failed-to-add-to-cart": "فشلت الإضافة إلى سلة التسوق",
   "add-to-cart": "أضف إلى السلة",
   "adding": "جارٍ الإضافة...",
@@ -537,5 +537,8 @@
   "bringing-natures": "نجلب لك أروع فنون الطبيعة إلى باب منزلك",
   "we-emotions": "نحن لا نقوم بتوصيل الزهور فقط؛ \nنقدم العواطف والذكريات واللحظات التي تدوم مدى الحياة.",
   "ourStory": "<highlight>قصتنا</highlight>",
-  "title-values": "قيمنا <highlight>الأساسية</highlight>"
+  "title-values": "قيمنا <highlight>الأساسية</highlight>",
+  "login-successful-welcome": "تم تسجيل الدخول بنجاح مرحباً بك!",
+  "failed-to-sync-cart": "فشل في إضافة بيانات سلة التسوق المخزنة إلى عربة المستخدم",
+  "you-need-to-login-to-add-products-to-your-wishlist": "تحتاج إلى تسجيل الدخول لإضافة المنتجات إلى قائمة الرغبات الخاصة بك"
 }

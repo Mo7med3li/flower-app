@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
@@ -7,6 +6,7 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
 import { useAddToCart } from "../hooks/use-add-to-cart";
 import { addToCartLocalStorage } from "../_actions/local-cart.action";
 
@@ -26,13 +26,14 @@ export default function AddToCartButton({
 
   // hooks
   const { isPending, addToCart } = useAddToCart();
+  const { isAuthenticated } = useCheckUserStatus();
 
   // states
   const [isLocalPending, setIsLocalPending] = useState(false);
 
   // functions
   const handleClick = async () => {
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       // User is logged in - use the mutation
       addToCart({ productId, quantity: 1 });
     } else {
@@ -40,6 +41,7 @@ export default function AddToCartButton({
       setIsLocalPending(true);
       try {
         addToCartLocalStorage(productId, 1);
+
         toast.success(t("added-to-cart"));
       } catch (error) {
         toast.error(`${t("failed-to-add-to-cart")} ${error}`);

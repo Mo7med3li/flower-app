@@ -37,7 +37,7 @@ export default function FavoriteToggle({ productId, extend, animation }: AddToWi
     if (!isInWishlist) {
       // Add to wishlist
       if (!isAuthenticated) {
-        toast.warning("You need to login to add products to your wishlist", {
+        toast.warning(t("you-need-to-login-to-add-products-to-your-wishlist"), {
           action: (
             <Button
               size="icon"

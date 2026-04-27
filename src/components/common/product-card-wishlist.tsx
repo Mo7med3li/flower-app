@@ -36,7 +36,7 @@ const ProductCardWishlist = ({
       className="dark:text-soft-pink-100 group text-maroon-600 flex items-center gap-1 cursor-pointer bg-white py-1 px-2 hover:bg-maroon-50"
       onClick={() => {
         if (!isAuthenticated) {
-          toast.warning("You need to login to add products to your wishlist", {
+          toast.warning(t("you-need-to-login-to-add-products-to-your-wishlist"), {
             action: (
               <Button
                 size="icon"

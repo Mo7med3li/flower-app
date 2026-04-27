@@ -12,7 +12,7 @@ export type Cart = {
 
 const CART_STORAGE_KEY = "elevate-flower-cart";
 
-function getCart(): Cart {
+export function getCart(): Cart {
   if (typeof window === "undefined") {
     return { items: [], totalItems: 0 };
   }
