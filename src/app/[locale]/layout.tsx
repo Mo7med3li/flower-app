@@ -5,7 +5,7 @@ import { Pinyon_Script } from "next/font/google";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { setRequestLocale } from "next-intl/server";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import Providers from "./../../components/providers/index";
 
