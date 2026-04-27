@@ -1,11 +1,15 @@
 "use client";
 
-import { Heart, HeartPlus, Loader2 } from "lucide-react";
+import { Heart, HeartPlus, Loader2, LogIn } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
+import { useRouter } from "@/i18n/navigation";
 import { useAddToWishlist } from "@/app/[locale]/(homepage)/products/[productId]/hooks/use-add-to-wishlist";
 import { useRemoveFromWishlist } from "@/app/[locale]/(homepage)/products/[productId]/hooks/use-delete-from-wishlist";
 import { useFetchWishlist } from "@/hooks/wishlist/use-fetch-wishlist";
 import { Badge } from "../ui/badge";
+import { useCheckUserStatus } from "../providers/components/check-user-status.provider";
+import { Button } from "../ui/button";
 
 const ProductCardWishlist = ({
   productId,
@@ -16,6 +20,8 @@ const ProductCardWishlist = ({
 }) => {
   // Translations
   const t = useTranslations();
+  const { isAuthenticated } = useCheckUserStatus();
+  const router = useRouter();
 
   // Hooks
   const { addToWishlist, isPending } = useAddToWishlist();
@@ -29,6 +35,24 @@ const ProductCardWishlist = ({
     <Badge
       className="dark:text-soft-pink-100 group text-maroon-600 flex items-center gap-1 cursor-pointer bg-white py-1 px-2 hover:bg-maroon-50"
       onClick={() => {
+        if (!isAuthenticated) {
+          toast.warning("You need to login to add products to your wishlist", {
+            action: (
+              <Button
+                size="icon"
+                aria-label="login"
+                onClick={() => {
+                  router.push("/auth/login");
+                }}
+              >
+                <LogIn size={18} />
+              </Button>
+            ),
+            duration: 2000,
+          });
+          return;
+        }
+
         if (isInWishlist) {
           removeFromWishlist(productInWishlist?.id || "");
         } else {

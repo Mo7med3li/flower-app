@@ -1,9 +1,13 @@
 "use client";
 
-import { Heart, HeartPlus } from "lucide-react";
+import { Heart, HeartPlus, LogIn } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from "@/i18n/navigation";
+import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
+import { Button } from "@/components/ui/button";
 import { useFetchWishlist } from "@/hooks/wishlist/use-fetch-wishlist";
 import { useAddToWishlist } from "../hooks/use-add-to-wishlist";
 import { useRemoveFromWishlist } from "../hooks/use-delete-from-wishlist";
@@ -25,11 +29,30 @@ export default function FavoriteToggle({ productId, extend, animation }: AddToWi
 
   // translations
   const t = useTranslations();
+  const { isAuthenticated } = useCheckUserStatus();
+  const router = useRouter();
 
   // functions
   const handleClick = () => {
     if (!isInWishlist) {
       // Add to wishlist
+      if (!isAuthenticated) {
+        toast.warning("You need to login to add products to your wishlist", {
+          action: (
+            <Button
+              size="icon"
+              aria-label="login"
+              onClick={() => {
+                router.push("/auth/login");
+              }}
+            >
+              <LogIn size={18} />
+            </Button>
+          ),
+          duration: 2000,
+        });
+        return;
+      }
       addToWishlist(productId);
     } else {
       // Remove from wishlist
