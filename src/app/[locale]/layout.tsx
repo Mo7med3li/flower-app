@@ -4,6 +4,7 @@ import { Sarabun } from "next/font/google";
 import { Pinyon_Script } from "next/font/google";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
@@ -48,7 +49,17 @@ const pinyon = Pinyon_Script({
 
 //Metadata
 export const metadata: Metadata = {
-  title: "Flower Cart",
+  title: {
+    template: "%s | Flower Cart",
+    absolute: "Flower Cart",
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/en",
+      "ar-SA": "/ar",
+    },
+  },
   description: "Flower Cart - Best place to buy flowers",
 };
 // Generate all possible locale-based route parameters for Next.js to pre-render at build time
@@ -77,6 +88,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
           {/* Toast notifications */}
           <Toaster />
         </Providers>
+        <Script src="https://www.google-analytics.com/analytics.js" strategy="lazyOnload" />
       </body>
     </html>
   );

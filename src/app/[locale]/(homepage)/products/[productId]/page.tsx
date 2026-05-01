@@ -1,13 +1,35 @@
 import { getLocale } from "next-intl/server";
+import { Metadata } from "next";
+import { cache } from "react";
 import { getProductDetails } from "@/lib/apis/products.api";
 import { Product } from "@/lib/types/products";
 import ProductThumbnail from "./_components/product-thumbnail";
 import ProductPage from "./_components/product-page";
 import ProductReview from "../../_components/add-product-review/product-review";
-
+const getProduct = cache(getProductDetails);
 interface ProductDetailsProps {
   params: {
     productId: string;
+  };
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; productId: string }>;
+}): Promise<Metadata> {
+  const { productId } = await params;
+
+  const response = await getProduct(productId);
+  if ("error" in response) {
+    return {
+      title: "Products | Error",
+    };
+  }
+
+  const productTitle = response.payload.product.title;
+
+  return {
+    title: `Products | ${productTitle}`,
   };
 }
 
@@ -20,7 +42,7 @@ export default async function Page({ params }: ProductDetailsProps) {
   const { productId } = params;
 
   // Functions
-  const response = await getProductDetails(productId);
+  const response = await getProduct(productId);
 
   if ("error" in response) {
     return <p className="text-center text-red-500">error while loading product</p>;

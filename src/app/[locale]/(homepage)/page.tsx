@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import AboutUs from "./_components/about-us-section";
 import BestSelling from "./_components/best-selling/best-selling";
 import CarouselSection from "./_components/carousel-section";
@@ -7,34 +8,28 @@ import Gallery from "./_components/gallery-section";
 import MostPopular from "./_components/most-popular/most-popular";
 import OccasionsSection from "./_components/occasions-section";
 import TestimonialsSection from "./_components/testimonials-section/testimonials-section";
-
+export const metadata: Metadata = {
+  title: "Home",
+};
 export default function Home({ searchParams }: { searchParams?: { occasion?: string } }) {
   return (
     <section>
       {/* Carousel section */}
       <CarouselSection />
-
       {/* Occasions section */}
       <OccasionsSection />
-
       {/* Features section */}
       <FeaturesSection />
-
       {/*Best selling section*/}
       <BestSelling />
-
       {/*Most Popular section*/}
       <MostPopular searchParams={searchParams || {}} />
-
       {/*About section*/}
       <AboutUs />
-
       {/*Gallery section*/}
       <Gallery />
-
       {/* Testimonials section */}
       <TestimonialsSection />
-
       {/* Companies section */}
       <CompaniesSection />
     </section>
