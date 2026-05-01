@@ -1,14 +1,39 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { Metadata } from "next";
+import { cache } from "react";
 import { getProducts } from "@/lib/api/products.api";
 import { getSingleOccasion } from "./_api/get-single-occasion";
 import ProductOccasions from "./_components/product-occasions";
+
+const occasionDetail = cache(getSingleOccasion);
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+
+  const response = await occasionDetail(id);
+  if ("error" in response) {
+    return {
+      title: "Occasions | Error",
+    };
+  }
+
+  const occasionTitle = response.payload.occasion.title;
+
+  return {
+    title: `Occasions | ${occasionTitle}`,
+  };
+}
 
 const OccasionsDetailPage = async ({ params }: { params: { id: string } }) => {
   const t = await getTranslations();
 
   // Occasion response
-  const responseOccasion = await getSingleOccasion(params.id);
+  const responseOccasion = await occasionDetail(params.id);
   if (!responseOccasion.status) {
     throw new Error(responseOccasion.message || "Failed to fetch occasion");
   }

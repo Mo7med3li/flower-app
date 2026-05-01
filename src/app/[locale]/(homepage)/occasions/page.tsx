@@ -1,10 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { Metadata } from "next";
 import PaginationComponent from "@/components/common/Pagination-components";
 import { getOccasions } from "@/lib/api/occasions.api";
 import { occasion, SearchParamOcassion } from "@/lib/types/occasions";
 import { Link } from "@/i18n/navigation";
-
+export const metadata: Metadata = {
+  title: "Occasions",
+};
 const OccasionsPage = async ({ searchParams }: { searchParams: SearchParamOcassion }) => {
   const t = await getTranslations();
   const response = await getOccasions(searchParams);
