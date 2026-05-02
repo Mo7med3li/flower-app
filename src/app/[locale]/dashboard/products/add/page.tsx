@@ -1,5 +1,5 @@
-import { getOccasions } from "@/lib/api/occasions.api";
-import { getAllCategory } from "@/lib/api/category";
+import { getOccasions } from "@/lib/apis/get-occasions.api";
+import { getAllCategory } from "@/lib/apis/category";
 import ProductForm from "../_components/product-form";
 
 export default async function Page() {

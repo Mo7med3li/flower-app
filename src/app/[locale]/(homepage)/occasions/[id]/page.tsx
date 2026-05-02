@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { Metadata } from "next";
 import { cache } from "react";
-import { getProducts } from "@/lib/api/products.api";
+import { getProducts } from "@/lib/apis/get-products.api";
 import { getSingleOccasion } from "./_api/get-single-occasion";
 import ProductOccasions from "./_components/product-occasions";
 

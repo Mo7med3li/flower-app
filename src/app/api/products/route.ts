@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { NextResponse } from "next/server";
-import { getProducts } from "@/lib/api/products.api";
+import { getProducts } from "@/lib/apis/get-products.api";
 import { SearchParamProduct } from "@/lib/types/products";
 
 export async function GET(request: Request) {

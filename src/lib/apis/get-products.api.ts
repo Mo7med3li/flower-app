@@ -2,7 +2,7 @@ import { Product, Products, SearchParamProduct } from "../types/products";
 
 export const getProducts = async (params: SearchParamProduct | undefined) => {
   // Declaring products API
-  const url = new URL(`${process.env.API}/Products`);
+  const url = new URL(`${process.env.API}/products`);
 
   // If no params are given (undefined)
   if (!params) {

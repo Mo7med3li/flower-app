@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useReadAllNotifications } from "@/hooks/notifications/use-read-all-notification";
 import { useDeleteAllNotifications } from "@/hooks/notifications/use-delete-all-notifications";
-import { fetchUserNotification } from "@/lib/api/notifications";
+import { fetchUserNotification } from "@/lib/apis/notifications";
 import NotificationItemSkeleton from "@/components/skeletons/notifications/notification-item.skeleton";
 import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
 import NotificationCard from "./notification-card";
@@ -56,7 +56,11 @@ export default function Notification() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button type="button" aria-label={t("open-notifications")} className="relative outline-none">
+        <button
+          type="button"
+          aria-label={t("open-notifications")}
+          className="relative outline-none"
+        >
           <div className="relative">
             <TooltipCom
               title={t("open-notifications")}

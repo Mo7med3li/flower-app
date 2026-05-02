@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { Metadata } from "next";
 import PaginationComponent from "@/components/common/Pagination-components";
-import { getOccasions } from "@/lib/api/occasions.api";
+import { getOccasions } from "@/lib/apis/get-occasions.api";
 import { occasion, SearchParamOcassion } from "@/lib/types/occasions";
 import { Link } from "@/i18n/navigation";
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
-import { getOccasions } from "@/lib/api/occasions.api";
+import { getOccasions } from "@/lib/apis/get-occasions.api";
 import BarTitle from "@/components/common/bar-title";
 import SingleProductSkeleton from "@/components/skeletons/single-product/single-product.skeleton";
 import ProductsByOccasion from "./product-by-occasion";

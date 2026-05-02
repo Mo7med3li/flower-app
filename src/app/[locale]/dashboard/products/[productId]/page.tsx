@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ShowImagesDialog } from "@/components/common/show-images-dialog";
-import { getOccasions } from "@/lib/api/occasions.api";
-import { getAllCategory } from "@/lib/api/category";
-import { getProductById } from "@/lib/api/products.api";
+import { getOccasions } from "@/lib/apis/get-occasions.api";
+import { getAllCategory } from "@/lib/apis/category";
+import { getProductById } from "@/lib/apis/get-products.api";
 import ProductForm from "../_components/product-form";
 
 interface ProductIdProbs {
