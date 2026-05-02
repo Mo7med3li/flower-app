@@ -8,7 +8,7 @@ import { useAddToCart } from "@/app/[locale]/(homepage)/products/[productId]/hoo
 import { Button } from "../ui/button";
 import { useCheckUserStatus } from "../providers/components/check-user-status.provider";
 
-const ProductCardCart = ({ productId }: { productId: string }) => {
+const ProductCardCart = ({ productId, outOfStock }: { productId: string; outOfStock: boolean }) => {
   // hooks
   const { isPending, addToCart } = useAddToCart();
   const { isAuthenticated } = useCheckUserStatus();
@@ -35,6 +35,7 @@ const ProductCardCart = ({ productId }: { productId: string }) => {
       className="rounded-full [&_svg]:size-6 h-11 w-11 bg-maroon-600 hover:bg-maroon-700 dark:bg-maroon-500 dark:text-white"
       size="icon"
       aria-label="Add to cart"
+      disabled={outOfStock}
       onClick={handleClick}
     >
       {isPending ? <Loader2 className="animate-spin" /> : <ShoppingCart strokeWidth={1} />}

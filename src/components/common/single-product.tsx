@@ -78,13 +78,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
   };
 
   // Show Out Of Stock Badge
-  const showOutOfStock = () => {
-    if (singleProduct.stock === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const showOutOfStock = singleProduct.stock === 0;
 
   return (
     <div className="relative flex flex-col">
@@ -160,7 +154,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
           </div>
 
           {/* Cart Button */}
-          <ProductCardCart productId={singleProduct.id} />
+          <ProductCardCart productId={singleProduct.id} outOfStock={showOutOfStock} />
         </div>
       </div>
 
@@ -195,7 +189,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
 
           <Badge
             className={cn(
-              showOutOfStock() ? "block" : "hidden",
+              showOutOfStock ? "block" : "hidden",
 
               "text-soft-pink-200 bg-red-600 hover:bg-red-600 py-1 px-2",
               "text-soft-pink-200 bg-red-600 hover:bg-red-600 py-1 px-2",
