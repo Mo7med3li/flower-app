@@ -1,14 +1,18 @@
 import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
 import type { CategoryType } from "@/lib/types/category";
+import PaginationComponent from "@/components/common/Pagination-components";
 import { getAllCategory } from "./_api/get-categories";
 import CategoriesCard from "./_components/categories-card";
-
+export const metadata: Metadata = {
+  title: "Categories",
+};
 const CategoriesPage = async ({
   params,
   searchParams,
 }: {
   params: { locale: string };
-  searchParams?: URLSearchParams;
+  searchParams?: Record<string, string>;
 }) => {
   // Category response
   const response = await getAllCategory({ searchParams });
@@ -51,6 +55,9 @@ const CategoriesPage = async ({
           {categories.map((category: CategoryType) => (
             <CategoriesCard key={category.id} category={category} />
           ))}
+        </div>
+        <div className="col-span-9 mt-5">
+          <PaginationComponent metaData={response.payload?.metadata} />
         </div>
       </section>
     </div>

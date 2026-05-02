@@ -1,13 +1,23 @@
 import { AllCategory } from "@/lib/types/category";
 
-export async function getAllCategory({ searchParams }: { searchParams?: URLSearchParams }) {
-  // Declaring Get all categories API
+export async function getAllCategory({ searchParams }: { searchParams?: Record<string, string> }) {
+  // Get page from search params, default to 1 if not provided
+  const page = searchParams?.page || "1";
+  const limit = searchParams?.limit || "10";
+
+  // Declaring Get all categories API with dynamic page and limit
   const url = new URL(`${process.env.API}/categories`);
 
-  // This handle any given search params
-  if (searchParams?.size && searchParams?.size > 0) {
-    searchParams.forEach((value, key) => {
-      url.searchParams.append(key, value);
+  // Add default parameters
+  url.searchParams.append("page", page);
+  url.searchParams.append("limit", limit);
+
+  // This handle any given search params (excluding page and limit since we already added them)
+  if (searchParams) {
+    Object.entries(searchParams).forEach(([key, value]) => {
+      if (key !== "page" && key !== "limit" && value) {
+        url.searchParams.append(key, value);
+      }
     });
   }
 
