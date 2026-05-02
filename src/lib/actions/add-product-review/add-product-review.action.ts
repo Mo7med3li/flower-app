@@ -2,7 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 import { JSON_HEADER } from "@/lib/constants/api.constant";
-import { ProductReviewField } from "@/lib/schema/add-product-review.schema";
+import { ProductReviewField } from "@/lib/schemas/add-product-review.schema";
 import { AddProductReviewResponse } from "@/lib/types/add-product-review";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
 

@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ResetPasswordFields, useResetPasswordSchema } from "@/lib/schemes/reset-password.schema";
+import { ResetPasswordFields, useResetPasswordSchema } from "@/lib/schemas/reset-password.schema";
 import { cn } from "@/lib/utils/cn";
 import useResetPassword from "../../_hooks/use-reset-password";
 

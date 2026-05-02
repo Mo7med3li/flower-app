@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import {
   ChangePasswordFormType,
   changePasswordSchema,
-} from "@/lib/schema/change-password/change-password.schema";
+} from "@/lib/schemas/change-password/change-password.schema";
 import { Button } from "@/components/ui/button";
 import useChangePassword from "../_hooks/use-change-password";
 

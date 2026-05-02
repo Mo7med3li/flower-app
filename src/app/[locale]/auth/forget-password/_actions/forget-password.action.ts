@@ -1,7 +1,7 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
-import { ForgetPasswordFields } from "@/lib/schemes/forget-password.schema";
+import { ForgetPasswordFields } from "@/lib/schemas/forget-password.schema";
 import { ForgetPassword } from "@/lib/types/forget-password";
 
 export default async function forgetPasswordAction(fields: ForgetPasswordFields) {

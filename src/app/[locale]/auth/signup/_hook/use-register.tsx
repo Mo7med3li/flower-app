@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/navigation";
-import { RegistrationFields } from "@/lib/schemes/auth.schema";
+import { RegistrationFields } from "@/lib/schemas/auth.schema";
 import { registerAction } from "../_action/register.action";
 
 export default function useRegister() {

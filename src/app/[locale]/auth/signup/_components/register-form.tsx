@@ -33,7 +33,7 @@ import {
   useSendVerificationSchema,
   ConfirmVerificationFields,
   useConfirmVerificationSchema,
-} from "@/lib/schemes/auth.schema";
+} from "@/lib/schemas/auth.schema";
 
 import useRegister from "../_hook/use-register";
 import useSendEmailVerification from "../_hook/use-send-email";

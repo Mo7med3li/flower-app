@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   AddDressFormType,
   useAddressFormSchema,
-} from "@/lib/schema/address-model/address-form.schema";
+} from "@/lib/schemas/address-model/address-form.schema";
 import useAddAddress from "@/hooks/address/use-add-address";
 import useUpdateAddress from "@/hooks/address/use-update-address";
 import { Address } from "@/lib/types/user-addresses";

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ConfirmVerificationFields } from "@/lib/schemes/auth.schema";
+import { ConfirmVerificationFields } from "@/lib/schemas/auth.schema";
 import { confirmEmailVerificationAction } from "../_action/confirm-email.action";
 
 export default function useConfirmEmailVerification() {

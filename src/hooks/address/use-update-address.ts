@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { updateAddress } from "@/lib/actions/address/update-address.action";
-import { AddDressFormType } from "@/lib/schema/address-model/address-form.schema";
+import { AddDressFormType } from "@/lib/schemas/address-model/address-form.schema";
 
 export default function useUpdateAddress() {
   // Translations

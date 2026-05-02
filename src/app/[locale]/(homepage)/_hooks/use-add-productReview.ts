@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { addProductReview } from "@/lib/actions/add-product-review/add-product-review.action";
-import { ProductReviewField } from "@/lib/schema/add-product-review.schema";
+import { ProductReviewField } from "@/lib/schemas/add-product-review.schema";
 
 export default function useAddProductReview() {
   // Query Client

@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   ProductReviewField,
   useAddProductReviewSchema,
-} from "@/lib/schema/add-product-review.schema";
+} from "@/lib/schemas/add-product-review.schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,

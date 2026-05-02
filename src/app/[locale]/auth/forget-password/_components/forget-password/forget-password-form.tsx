@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import {
   ForgetPasswordFields,
   useForgetPasswordSchema,
-} from "@/lib/schemes/forget-password.schema";
+} from "@/lib/schemas/forget-password.schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,

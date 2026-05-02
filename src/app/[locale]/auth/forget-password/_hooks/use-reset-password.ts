@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { ResetPasswordFields } from "@/lib/schemes/reset-password.schema";
+import { ResetPasswordFields } from "@/lib/schemas/reset-password.schema";
 import resetPasswordAction from "../_actions/reset-password.action";
 
 export default function useResetPassword() {

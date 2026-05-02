@@ -1,7 +1,7 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
-import { ResetPasswordFields } from "@/lib/schemes/reset-password.schema";
+import { ResetPasswordFields } from "@/lib/schemas/reset-password.schema";
 
 export default async function resetPasswordAction(fields: ResetPasswordFields) {
   // Send POST request to reset password endpoint

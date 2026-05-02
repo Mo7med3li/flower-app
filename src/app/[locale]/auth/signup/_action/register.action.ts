@@ -1,7 +1,7 @@
 "use server";
 
 import { JSON_HEADER, BASE_URL } from "@/lib/constants/api.constant";
-import { RegistrationFields } from "@/lib/schemes/auth.schema";
+import { RegistrationFields } from "@/lib/schemas/auth.schema";
 import { RegisterResponse } from "@/lib/types/auth";
 
 export const registerAction = async (registrationFields: RegistrationFields) => {

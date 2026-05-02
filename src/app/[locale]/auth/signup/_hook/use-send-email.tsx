@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { SendVerificationFields } from "@/lib/schemes/auth.schema";
+import { SendVerificationFields } from "@/lib/schemas/auth.schema";
 import { sendEmailVerificationAction } from "../_action/send-email.action";
 
 export default function useSendEmailVerification() {
