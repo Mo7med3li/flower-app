@@ -3,12 +3,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
+import { useRouter } from "@/i18n/navigation";
 import { updateProfileAction } from "../_actions/update-profile.action";
 
 const useUpdateProfile = () => {
   // translations
   const t = useTranslations();
-
+  const { update } = useSession();
+  const router = useRouter();
   // hooks
   const queryClient = useQueryClient();
   const {
@@ -18,8 +21,10 @@ const useUpdateProfile = () => {
   } = useMutation({
     mutationKey: ["update-profile"],
     mutationFn: async (values: UpdateProfileFields) => await updateProfileAction(values),
-    onSuccess: () => {
+    onSuccess: async (data) => {
       toast(t("profile-updated-successfully"));
+      await update({ user: { ...data?.payload?.user } });
+      router.refresh();
       queryClient.invalidateQueries({
         queryKey: ["user-data"],
       });

@@ -68,11 +68,15 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt: ({ token, user }) => {
+    jwt: ({ token, user, trigger, session }) => {
       if (user) {
         // Add user and token to JWT payload after successful login
         token.token = user.token;
         token.user = user.user;
+      }
+      // Update user data in session
+      if (trigger === "update" && session?.user) {
+        token.user = { ...token.user, ...session.user };
       }
       return token;
     },
