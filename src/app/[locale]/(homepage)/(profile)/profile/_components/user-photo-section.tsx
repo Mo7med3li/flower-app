@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import useUpdateProfilePhoto from "../_hooks/use-update-profile-photo";
 
-const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
+const UserPhotoSection = ({ user }: { user: ApplicationUser | undefined }) => {
   // translations
   const t = useTranslations();
 
@@ -31,7 +31,7 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
   // form
   const form = useForm({
     defaultValues: {
-      photo: user.photo,
+      photo: user?.photo,
     },
   });
 
@@ -54,9 +54,9 @@ const UserPhotoSection = ({ user }: { user: ApplicationUser }) => {
               </div>
             )}
             <Image
-              src={user.photo || "/placeholder.jpg"}
+              src={user?.photo || "/placeholder.jpg"}
               className="rounded-full"
-              alt={user.firstName}
+              alt={user?.firstName || ""}
               width={120}
               height={120}
             />

@@ -28,18 +28,18 @@ import useUpdateProfile from "../_hooks/use-update-profile";
 import UserPhotoSection from "./user-photo-section";
 import useDeleteAccount from "../_hooks/use-delete-account";
 
-const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
+const UpdateUserForm = ({ user }: { user: ApplicationUser | undefined }) => {
   // translations
   const t = useTranslations();
 
   // forms
   const form = useForm({
     defaultValues: {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phone: user.phone || "",
-      gender: user.gender,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      email: user?.email,
+      phone: user?.phone || "",
+      gender: user?.gender,
     },
     resolver: zodResolver(useUpdateProfileSchema()),
   });
@@ -161,7 +161,7 @@ const UpdateUserForm = ({ user }: { user: ApplicationUser }) => {
                     <FormLabel>{t("gender")}</FormLabel>
 
                     {/* Field */}
-                    <Select onValueChange={field.onChange} disabled defaultValue={user.gender}>
+                    <Select onValueChange={field.onChange} disabled defaultValue={user?.gender}>
                       <FormControl dir="ltr">
                         <SelectTrigger>
                           <SelectValue placeholder={t("select-gender")} />

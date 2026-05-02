@@ -1,16 +1,23 @@
-"use client";
-import UpdateUserFormSkeleton from "@/components/skeletons/profile/update-profile.skeleton";
+import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
 import UpdateUserForm from "./_components/update-user-form";
-import { useFetchUserData } from "./_hooks/use-fetch-user-data";
 
-const ProfilePage = () => {
-  const { data, isLoading } = useFetchUserData();
-  if (!data || isLoading || !data.payload) {
-    return <UpdateUserFormSkeleton />;
-  }
+export async function generateMetadata(): Promise<Metadata> {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  return {
+    title: ` ${user?.firstName} Profile`,
+  };
+}
+
+const ProfilePage = async () => {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
   return (
     <div>
-      <UpdateUserForm user={data.payload.user} />
+      <UpdateUserForm user={user} />
     </div>
   );
 };
