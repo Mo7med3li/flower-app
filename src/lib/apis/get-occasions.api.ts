@@ -2,7 +2,7 @@ import { occasions, SearchParamOcassion } from "../types/occasions";
 
 export const getOccasions = async (params?: SearchParamOcassion | undefined) => {
   // Declaring occasion API
-  const url = new URL(`${process.env.API}/occasions`);
+  const url = new URL(`${process.env.API}/occasions?limit=10`);
 
   // If no params are given
   if (!params) {
