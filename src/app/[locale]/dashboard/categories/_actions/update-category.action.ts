@@ -1,7 +1,7 @@
 "use server";
 
 import { Category } from "@/lib/types/category";
-import { getTokenHeader } from "@/lib/utils/token-header";
+import { getTokenHeader } from "@/lib/utils/tokenHeader";
 
 export async function updateCategory({ formData, id }: { formData: FormData; id: string }) {
   const token = await getTokenHeader();

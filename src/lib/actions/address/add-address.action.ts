@@ -2,7 +2,7 @@
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { AddDressFormType } from "@/lib/schema/address-model/address-form.schema";
 import { UserAddresses } from "@/lib/types/user-addresses";
-import { getTokenHeader } from "@/lib/utils/token-header";
+import { getTokenHeader } from "@/lib/utils/tokenHeader";
 
 export async function addAddress({ values }: { values: AddDressFormType }) {
   const token = await getTokenHeader();

@@ -2,13 +2,13 @@
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { Category } from "@/lib/types/category";
-import { getTokenHeader } from "@/lib/utils/token-header";
+import { getTokenHeader } from "@/lib/utils/tokenHeader";
 
 export async function deleteCategory(id: string) {
   // Token
   const token = await getTokenHeader();
 
-  const respone = await fetch(`${process.env.API}/categories/${id}`, {
+  const response = await fetch(`${process.env.API}/categories/${id}`, {
     method: "DELETE",
     headers: {
       ...JSON_HEADER,
@@ -16,7 +16,7 @@ export async function deleteCategory(id: string) {
     },
   });
 
-  const payload: APIResponse<Category> = await respone.json();
+  const payload: APIResponse<Category> = await response.json();
 
   if ("error" in payload) {
     throw new Error(payload.error);

@@ -1,7 +1,7 @@
 "use server";
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { UserAddresses } from "@/lib/types/user-addresses";
-import { getTokenHeader } from "@/lib/utils/token-header";
+import { getTokenHeader } from "@/lib/utils/tokenHeader";
 
 export async function deleteAddress(id: string) {
   const token = await getTokenHeader();

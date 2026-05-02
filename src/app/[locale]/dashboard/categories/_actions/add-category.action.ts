@@ -1,13 +1,13 @@
 "use server";
 
 import { Category } from "@/lib/types/category";
-import { getTokenHeader } from "@/lib/utils/token-header";
+import { getTokenHeader } from "@/lib/utils/tokenHeader";
 
 export async function AddCategory(formData: FormData) {
   // const locale = useLocale();
   const token = await getTokenHeader();
 
-  const respone = await fetch(`${process.env.API}/categories`, {
+  const response = await fetch(`${process.env.API}/categories`, {
     method: "POST",
     body: formData,
     headers: {
@@ -16,7 +16,7 @@ export async function AddCategory(formData: FormData) {
     },
   });
 
-  const payload: APIResponse<Category> = await respone.json();
+  const payload: APIResponse<Category> = await response.json();
 
   if ("error" in payload) {
     throw new Error(payload.error);
