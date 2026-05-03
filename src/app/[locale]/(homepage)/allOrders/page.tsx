@@ -20,7 +20,6 @@ export default async function Page() {
     return (
       <div>
         <EmptyOrders />
-        {JSON.stringify(response)}
       </div>
     );
   }
