@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 const OccasionsPage = async ({ searchParams }: { searchParams: SearchParamOcassion }) => {
   const t = await getTranslations();
-  const response = await getOccasions(searchParams);
+  const response = await getOccasions({ limit: 10, page: searchParams.page || 1 });
 
   if (!response.status) {
     return (
