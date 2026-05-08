@@ -160,7 +160,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
 
       {/* Badges */}
       <div className="absolute top-0 flex end-0 gap-2 p-2 justify-between items-center start-0">
-        {singleProduct?._count && (
+        {singleProduct && (
           <ProductCardWishlist
             isInWishlist={(isInWishlist ?? [])?.length > 0}
             productId={singleProduct.id}

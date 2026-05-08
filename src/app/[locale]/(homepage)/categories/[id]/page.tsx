@@ -5,7 +5,9 @@ import { cache } from "react";
 import { Tag } from "lucide-react";
 import SingleProduct from "@/components/common/single-product";
 import { Product } from "@/lib/types/products";
+import { Link } from "@/i18n/navigation";
 import { getSingleCategory } from "./_api/get-single-category";
+
 const categoryDetail = cache(getSingleCategory);
 export async function generateMetadata({
   params,
@@ -87,15 +89,16 @@ const CategoryPage = async ({ params }: { params: { id: string } }) => {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {subCategories.map((sub: { id: string; title: string }) => (
-              <div
+              <Link
+                href={`/categories/${category.id}/${sub.id}`}
                 key={sub.id}
-                className="group flex items-center gap-2 rounded-xl border border-pink-100 dark:border-pink-800/40 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-950/40 dark:to-rose-950/40 px-4 py-3 shadow-sm hover:shadow-md hover:border-pink-300 dark:hover:border-pink-600 transition-all cursor-default"
+                className="group cursor-pointer flex items-center gap-2 rounded-xl border border-pink-100 dark:border-pink-800/40 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-950/40 dark:to-rose-950/40 px-4 py-3 shadow-sm hover:shadow-md hover:border-pink-300 dark:hover:border-pink-600 transition-all cursor-default"
               >
                 <span className="flex-shrink-0 size-2 rounded-full bg-pink-400 dark:bg-pink-500 group-hover:scale-125 transition-transform" />
                 <span className="text-sm font-medium text-zinc-700 dark:text-zinc-200 truncate">
                   {sub.title}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
