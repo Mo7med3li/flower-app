@@ -1,6 +1,6 @@
 import { CircleDollarSign, ClipboardList, Package, ReceiptText } from "lucide-react";
-import { Overall } from "@/lib/types/statistics";
 import { getFormatter, getTranslations } from "next-intl/server";
+import { Overall } from "@/lib/types/statistics";
 import { getOverallStatistics } from "@/lib/apis/statistics.api";
 import { StatisticsCard } from "./overall-stat-card";
 
