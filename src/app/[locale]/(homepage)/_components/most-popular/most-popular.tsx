@@ -68,8 +68,9 @@ export default async function MostPopular({
         </Tabs>
       </>
     );
-  } catch (error) {
-    console.error("MostPopular component error:", error);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error("MostPopular component error:", e);
     return <MostPopularError />;
   }
 }

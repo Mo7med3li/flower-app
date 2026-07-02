@@ -44,8 +44,9 @@ export default function useLogin() {
 
           // 5. Invalidate the react-query cart so the UI updates
           queryClient.invalidateQueries({ queryKey: ["user-cart"] });
-        } catch (error) {
-          console.error("Failed to sync cart", error);
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.error("Failed to sync cart", e);
           toast.error(t("failed-to-sync-cart"));
         }
       }

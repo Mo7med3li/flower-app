@@ -1,4 +1,5 @@
 import { User } from "next-auth";
+import { ErrorResponse } from "./api";
 
 export type LoginResponse = Pick<User, "token" | "user">;
 
