@@ -1,5 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
 import { JSON_HEADER, BASE_URL } from "./lib/constants/api.constant";
 
 export const authOptions: NextAuthOptions = {
@@ -66,9 +67,13 @@ export const authOptions: NextAuthOptions = {
         throw new Error(errorMessage);
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
   callbacks: {
-    jwt: ({ token, user, trigger, session }) => {
+    jwt: ({ token, user, trigger, session, account, profile }) => {
       if (user) {
         // Add user and token to JWT payload after successful login
         token.token = user.token;
@@ -78,6 +83,22 @@ export const authOptions: NextAuthOptions = {
       if (trigger === "update" && session?.user) {
         token.user = { ...token.user, ...session.user };
       }
+      if (profile && account?.provider === "google") {
+        const googleProfile = profile as GoogleProfile;
+        token.user = {
+          id: googleProfile.sub,
+          firstName: googleProfile.given_name,
+          lastName: googleProfile.family_name,
+          username: googleProfile.name,
+          email: googleProfile.email,
+          emailVerified: googleProfile.email_verified,
+          image: googleProfile.picture,
+        };
+        if (account.access_token) {
+          token.token = account.access_token;
+        }
+      }
+
       return token;
     },
     session: async ({ session, token }) => {

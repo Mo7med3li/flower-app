@@ -39,8 +39,9 @@ export default function Notification() {
     },
     initialPageParam: 1,
     getNextPageParam: (LastPage) => {
-      if (LastPage.payload.metadata.page === LastPage.payload.metadata.totalPages) return undefined;
-      return LastPage.payload.metadata.page + 1;
+      if (LastPage?.payload?.metadata?.page === LastPage?.payload?.metadata?.totalPages)
+        return undefined;
+      return LastPage?.payload?.metadata?.page + 1;
     },
     enabled: isAuthenticated,
   });
@@ -50,7 +51,7 @@ export default function Notification() {
   const { readPending, readAllNotificationsMutate } = useReadAllNotifications();
 
   // Variables
-  const notificationsFetched = payload?.pages?.flatMap((page) => page.payload.data) ?? [];
+  const notificationsFetched = payload?.pages?.flatMap((page) => page?.payload?.data ?? []) ?? [];
   const unreadCount = payload?.pages?.[0]?.metadata?.total ?? 0;
 
   return (
