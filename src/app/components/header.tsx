@@ -16,7 +16,7 @@ import { authOptions } from "@/auth";
 import { Link } from "@/i18n/navigation";
 
 // UI Components
-import { Input } from "@/components/ui/input";
+import CommandPalette from "@/components/layout/header/components/command-palette";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import ToggleLocale from "@/components/layout/header/components/toggle-locale";
 import Notification from "@/components/common/notifications/notification-section";
@@ -104,7 +104,7 @@ export default async function Header() {
           <div className="hidden lg:block">{session && <LocationHeader />}</div>
 
           {/* input search */}
-          <Input type="search" className="md:max-w-full max-w-xl" placeholder={t("search-bar")} />
+          <CommandPalette placeholder={t("search-bar")} />
 
           {/* action */}
           <div className="flex items-center gap-4 p-4">
@@ -147,7 +147,7 @@ export default async function Header() {
       {/* Mobile search bar */}
       <div className="bg-white dark:bg-zinc-800 w-full md:hidden border-t">
         <div className="container mx-auto px-4 pb-3">
-          <Input type="search" className="w-full" placeholder={t("search-bar")} />
+          <CommandPalette placeholder={t("search-bar")} />
         </div>
       </div>
 
