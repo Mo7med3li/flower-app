@@ -1,6 +1,7 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
+import { APIResponse } from "@/lib/types/api";
 
 export async function subscribeAction(values: { email: string }) {
   const response = await fetch(`${process.env.API}/subscriptions/subscribe`, {

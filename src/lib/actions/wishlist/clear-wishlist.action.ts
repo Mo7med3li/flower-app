@@ -1,6 +1,7 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 import { WishlistResponse } from "@/lib/types/wishlist";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
 

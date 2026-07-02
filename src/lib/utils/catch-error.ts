@@ -1,3 +1,4 @@
+import { APIResponse, SuccessfulResponse } from "../types/api";
 export default async function catchError<T>(
   callback: () => Promise<APIResponse<T>>,
 ): Promise<[SuccessfulResponse<T>, null] | [null, string]> {

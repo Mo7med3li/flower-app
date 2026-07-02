@@ -22,10 +22,11 @@ import {
 } from "@/lib/schemas/categories/add-categories.schema";
 
 import { Category } from "@/lib/types/category";
+import { SuccessfulResponse } from "@/lib/types/api";
 import { useAddCategory } from "../_hooks/use-add-category";
 import useUpdateCategory from "../_hooks/use-update-category";
 
-export default function CategoryForm({ category }: { category?: Category }) {
+export default function CategoryForm({ category }: { category?: SuccessfulResponse<Category> }) {
   // Hooks
   const { addCategoryFn, addPending, error } = useAddCategory();
   const { updateCategoryFn, updateCategoryPending } = useUpdateCategory();
@@ -42,7 +43,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
   // Form
   const form = useForm({
     defaultValues: {
-      name: category?.category.title || "",
+      name: category?.payload?.category.title || "",
       image: "",
     },
     resolver: zodResolver(addCategoryFormSchema),
@@ -53,7 +54,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
     const formData = new FormData(formRef.current || undefined);
 
     if (category) {
-      updateCategoryFn({ formData, id: category.category.id });
+      updateCategoryFn({ formData, id: category.payload?.category.id || "" });
     } else {
       addCategoryFn(formData);
     }
@@ -62,7 +63,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
     <section className="bg-zinc-50 px-4 pt-4 dark:bg-zinc-600 space-y-6">
       {category ? (
         <h2 className="font-bold text-xl text-zinc-800 dark:text-zinc-50">
-          {t("update-category")}: {category.category.title}
+          {t("update-category")}: {category.payload?.category.title || ""}
         </h2>
       ) : (
         <h2 className="font-bold text-xl text-zinc-800 dark:text-zinc-50">

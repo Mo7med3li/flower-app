@@ -2,6 +2,9 @@
 import { revalidateTag } from "next/cache";
 import { Address } from "@/lib/types/user-addresses";
 import { getAuthHeader } from "@/lib/utils/auth-header";
+import { SuccessfulResponse } from "@/lib/types/api";
+import { Order } from "@/lib/types/orders";
+import { APIResponse } from "@/lib/types/api";
 
 interface CashOrderData {
   addressId: string;
@@ -37,7 +40,7 @@ export default async function CheckCashOrder(
     body: JSON.stringify(orderData),
   });
 
-  const payload: APIResponse<unknown> = await response.json();
+  const payload: APIResponse<SuccessfulResponse<Order>> = await response.json();
 
   if (!payload.status) {
     throw new Error(payload.message || "Something went wrong");

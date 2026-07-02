@@ -2,11 +2,12 @@
 
 import { Category } from "@/lib/types/category";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 export async function updateCategory({ formData, id }: { formData: FormData; id: string }) {
   const token = await getTokenHeader();
 
-  const respone = await fetch(`${process.env.API}/categories/${id}`, {
+  const response = await fetch(`${process.env.API}/categories/${id}`, {
     method: "PUT",
     body: formData,
     headers: {
@@ -15,10 +16,10 @@ export async function updateCategory({ formData, id }: { formData: FormData; id:
     },
   });
 
-  const payload: APIResponse<Category> = await respone.json();
+  const payload: APIResponse<SuccessfulResponse<Category>> = await response.json();
 
-  if ("error" in payload) {
-    throw new Error(payload.error);
+  if (!payload.status) {
+    throw new Error(payload.message || "Something went wrong");
   }
 
   return payload;

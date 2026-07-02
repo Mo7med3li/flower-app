@@ -4,6 +4,7 @@ import { revalidateTag } from "next/cache";
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { CartResponse } from "@/lib/types/cart";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 const clearCart = async () => {
   const token = await getTokenHeader();

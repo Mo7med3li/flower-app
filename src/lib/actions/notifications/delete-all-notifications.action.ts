@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 import { JSON_HEADER } from "@/lib/constants/api.constant";
+import { APIResponse } from "@/lib/types/api";
 
 export async function deleteAllNotifications() {
   const token = await getAuthHeader();

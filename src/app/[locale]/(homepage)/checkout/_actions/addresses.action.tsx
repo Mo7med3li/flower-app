@@ -1,6 +1,7 @@
 // "use server";
 
 import { UserAddresses } from "@/lib/types/user-addresses";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 
 export default async function getAddresses() {

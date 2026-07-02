@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 import { Product } from "@/lib/types/products";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 export type AddToCartResult = {
   message: string;
@@ -35,7 +36,7 @@ export async function addToCartAction(productId: string, quantity: number = 1) {
     }),
   });
 
-  const payload: APIResponse<AddToCartResult> = await response.json();
+  const payload: APIResponse<SuccessfulResponse<AddToCartResult>> = await response.json();
   if (!payload.status) {
     throw new Error(payload.message);
   }

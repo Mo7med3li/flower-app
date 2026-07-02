@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ApplicationUser } from "@/lib/types/api";
 import useUpdateProfilePhoto from "../_hooks/use-update-profile-photo";
 
 const UserPhotoSection = ({ user }: { user: ApplicationUser | undefined }) => {

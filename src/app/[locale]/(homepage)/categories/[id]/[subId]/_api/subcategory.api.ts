@@ -1,3 +1,4 @@
+import { APIResponse } from "@/lib/types/api";
 import { SubCategoryResponse } from "@/lib/types/sub-category";
 
 export const getSubCategory = async (subId: string) => {

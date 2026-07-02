@@ -1,4 +1,5 @@
 import { CircleDollarSign, ClipboardList, Package, ReceiptText } from "lucide-react";
+import { Overall } from "@/lib/types/statistics";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getOverallStatistics } from "@/lib/apis/statistics.api";
 import { StatisticsCard } from "./overall-stat-card";
@@ -10,7 +11,7 @@ export default async function OverAllStat() {
 
   // Functions
   const response = await getOverallStatistics();
-  if ("error" in response) {
+  if (!response.status) {
     return (
       <div className="col-span-5 bg-white p-6 rounded-2xl gap-4 text-maroon-500 flex justify-center items-center">
         <h2 className="text-center">Something Went Wrong!</h2>
@@ -18,7 +19,7 @@ export default async function OverAllStat() {
     );
   }
   const { payload } = response;
-  const { statistics } = payload;
+  const { statistics } = payload as Overall;
 
   // Variables
   const totalProducts = format.number(statistics.totalProducts, "number-format");

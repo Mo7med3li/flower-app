@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 import { Products } from "@/lib/types/products";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 export default async function deleteOccasionAction(productId: string) {
   const headers = await getAuthHeader();
@@ -14,10 +15,10 @@ export default async function deleteOccasionAction(productId: string) {
     },
   });
 
-  const payload: APIResponse<Products> = await response.json();
+  const payload: APIResponse<SuccessfulResponse<Products>> = await response.json();
 
-  if ("error" in payload) {
-    throw new Error(payload.error);
+  if (!payload.status) {
+    throw new Error(payload.message || "Something went wrong");
   }
 
   // Revalidate so the UI updates without a manual refresh

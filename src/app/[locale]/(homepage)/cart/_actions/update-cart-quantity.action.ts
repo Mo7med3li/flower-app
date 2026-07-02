@@ -2,6 +2,7 @@
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { CartResponse } from "@/lib/types/cart";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
 
 const updateCartQuantity = async (productId: string, quantity: number) => {

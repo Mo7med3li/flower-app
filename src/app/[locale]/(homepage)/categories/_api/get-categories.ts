@@ -1,4 +1,6 @@
 import { AllCategory } from "@/lib/types/category";
+import { APIResponse } from "@/lib/types/api";
+import { PaginatedResponse } from "@/lib/types/api";
 
 export async function getAllCategory({ searchParams }: { searchParams?: Record<string, string> }) {
   // Get page from search params, default to 1 if not provided

@@ -2,6 +2,7 @@
 
 import { OrderStatus } from "@/lib/types/statistics";
 import { getAuthHeader } from "@/lib/utils/auth-header";
+import { SuccessfulResponse } from "../types/api";
 
 export async function getOrders() {
   const response = await fetch(`${process.env.API}/statistics/orders`, {

@@ -1,5 +1,6 @@
 import { BASE_URL } from "../constants/api.constant";
 import { ProductDetails, Products, RelatedProducts, SearchParamProduct } from "../types/products";
+import { APIResponse, PaginatedResponse } from "../types/api";
 
 // Get all products
 export const getProducts = async (params?: SearchParamProduct | undefined) => {

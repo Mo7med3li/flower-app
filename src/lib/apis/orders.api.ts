@@ -1,6 +1,6 @@
 import { Orders } from "../types/orders";
 import { getAuthHeader } from "../utils/auth-header";
-
+import { APIResponse, PaginatedResponse } from "../types/api";
 // Get user orders
 export const getOrders = async () => {
   // Declareing user orders API

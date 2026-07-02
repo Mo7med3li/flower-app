@@ -5,6 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useFormatter, useTranslations } from "next-intl";
 import { AllCategory, CategoryType } from "@/lib/types/category";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PaginatedResponse } from "@/lib/types/api";
 
 export default function AllCategories() {
   // Translation

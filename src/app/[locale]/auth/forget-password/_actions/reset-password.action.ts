@@ -2,6 +2,7 @@
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { ResetPasswordFields } from "@/lib/schemas/reset-password.schema";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 export default async function resetPasswordAction(fields: ResetPasswordFields) {
   // Send POST request to reset password endpoint
@@ -14,7 +15,7 @@ export default async function resetPasswordAction(fields: ResetPasswordFields) {
   });
 
   // Parse response as JSON
-  const payload: APIResponse<ResetPasswordFields> = await response.json();
+  const payload: APIResponse<SuccessfulResponse<ResetPasswordFields>> = await response.json();
   if (!payload.status) {
     throw new Error(payload.message || payload.error || "Failed to reset password");
   }

@@ -1,6 +1,7 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
+import { UpdateProfileFields } from "@/lib/types/api";
 import { getAuthHeader } from "@/lib/utils/auth-header";
 
 export async function updateProfileAction(values: UpdateProfileFields) {

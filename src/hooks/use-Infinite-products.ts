@@ -2,6 +2,7 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Products, SearchParamProduct } from "@/lib/types/products";
+import { PaginatedResponse } from "@/lib/types/api";
 
 export const useInfiniteProducts = (
   queryKey: string[],

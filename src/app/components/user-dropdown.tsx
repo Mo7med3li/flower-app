@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ApplicationUser } from "@/lib/types/api";
 
 // Types
 type UserProps = {

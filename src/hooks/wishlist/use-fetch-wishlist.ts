@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { WishlistResponse } from "@/lib/types/wishlist";
 import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
+import { APIResponse } from "@/lib/types/api";
 
 export function useFetchWishlist() {
   const { isAuthenticated } = useCheckUserStatus();

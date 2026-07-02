@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import SingleProduct from "@/components/common/single-product";
 import { getProducts } from "@/lib/apis/products.api";
-import { SearchParamProduct } from "@/lib/types/products";
+import { Product, SearchParamProduct } from "@/lib/types/products";
 import EmptyState from "@/components/common/empty-state";
 import PaginationComponent from "@/components/common/Pagination-components";
 
@@ -20,7 +20,7 @@ export default async function ProductList({ searchParams }: { searchParams?: Sea
       {products?.length === 0 ? (
         <EmptyState title={t("no-products-found")} subtitle={t("product-filter")} />
       ) : (
-        products?.map((product) => (
+        products?.map((product: Product) => (
           <div key={product._id} className="col-span-9 md:col-span-4 lg:col-span-3">
             <SingleProduct singleProduct={product} />
           </div>

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import useFetchAddresses from "@/hooks/address/use-fetch-addresses";
 import AddressSkeleton from "@/components/skeletons/address/address.skeleton";
-
+import { Address } from "@/lib/types/addresses";
 import FormSteps from "./address-model/form-steps";
 import AddressForm from "./address-model/address-form";
 import AddressCard from "./address-model/address-card";
@@ -90,7 +90,7 @@ export default function LocationHeader() {
               <p className="text-2xl font-semibold text-zinc-800">{t("no-addresses-to-show")}</p>
             </div>
           ) : (
-            payload?.payload?.addresses?.map((address) => (
+            payload?.payload?.addresses?.map((address: Address) => (
               <AddressCard key={address.id} address={address} setSteps={setSteps} steps={steps} />
             ))
           )}

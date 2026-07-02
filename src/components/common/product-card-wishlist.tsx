@@ -7,6 +7,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useAddToWishlist } from "@/app/[locale]/(homepage)/products/[productId]/hooks/use-add-to-wishlist";
 import { useRemoveFromWishlist } from "@/app/[locale]/(homepage)/products/[productId]/hooks/use-delete-from-wishlist";
 import { useFetchWishlist } from "@/hooks/wishlist/use-fetch-wishlist";
+import { Wishlist } from "@/lib/types/wishlist";
 import { Badge } from "../ui/badge";
 import { useCheckUserStatus } from "../providers/components/check-user-status.provider";
 import { Button } from "../ui/button";
@@ -29,7 +30,7 @@ const ProductCardWishlist = ({
   const { payload, isLoading } = useFetchWishlist();
   const products = payload?.wishlistItems ?? [];
 
-  const productInWishlist = products.find((item) => item.productId === productId);
+  const productInWishlist = products.find((item: Wishlist) => item.productId === productId);
 
   return (
     <Badge

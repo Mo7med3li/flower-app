@@ -5,6 +5,7 @@ import { useFormatter, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
 import UserCartCardSkeleton from "@/components/skeletons/user-cart/cart-card.skeleton";
+import { CartItem } from "@/lib/types/cart";
 import useFetchCart from "../_hooks/use-fetch-cart";
 import UserCartCard from "./user-cart-card";
 import EmptyCart from "./empty-cart";
@@ -61,7 +62,7 @@ const CartSection = () => {
         ) : itemsLength === 0 ? (
           <EmptyCart />
         ) : (
-          items.map((item) => {
+          items.map((item: CartItem) => {
             return <UserCartCard key={item.id} item={item} />;
           })
         )}

@@ -18,10 +18,10 @@ export async function generateMetadata({
   try {
     const { subId } = await params;
     const payload = await getSubCategory(subId);
-    const sub = payload.payload.subCategory;
+    const sub = payload?.payload?.subCategory;
     return {
-      title: `${sub.title} | ${sub.category.title}`,
-      description: sub.description,
+      title: `${sub?.title} | ${sub?.category?.title}`,
+      description: sub?.description,
     };
   } catch {
     return { title: "Subcategory" };
@@ -40,7 +40,7 @@ export default async function SubCategoryPage({
 
   try {
     const payload = await getSubCategory(subId);
-    subCategory = payload.payload.subCategory;
+    subCategory = payload?.payload?.subCategory as subCategory;
   } catch (error) {
     return <SubCategoryError categoryId={id} message={(error as Error).message} />;
   }

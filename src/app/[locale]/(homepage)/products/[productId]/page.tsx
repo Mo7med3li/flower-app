@@ -20,13 +20,13 @@ export async function generateMetadata({
   const { productId } = await params;
 
   const response = await getProduct(productId);
-  if ("error" in response) {
+  if (!response.status) {
     return {
       title: "Products | Error",
     };
   }
 
-  const productTitle = response.payload.product.title;
+  const productTitle = response.payload?.product.title;
 
   return {
     title: `Products | ${productTitle}`,
@@ -48,7 +48,7 @@ export default async function Page({ params }: ProductDetailsProps) {
     return <p className="text-center text-red-500">error while loading product</p>;
   }
 
-  const product = response.payload.product as Product;
+  const product = response.payload?.product as Product;
 
   return (
     <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 lg:gap-16 px-4 sm:px-6 md:px-10 lg:px-20">

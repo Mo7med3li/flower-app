@@ -2,6 +2,7 @@
 
 import { Category } from "@/lib/types/category";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 export async function AddCategory(formData: FormData) {
   // const locale = useLocale();
@@ -16,7 +17,7 @@ export async function AddCategory(formData: FormData) {
     },
   });
 
-  const payload: APIResponse<Category> = await response.json();
+  const payload: APIResponse<SuccessfulResponse<Category>> = await response.json();
 
   if ("error" in payload) {
     throw new Error(payload.error);

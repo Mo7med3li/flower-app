@@ -1,4 +1,5 @@
 import { occasions, SearchParamOcassion } from "../types/occasions";
+import { APIResponse, PaginatedResponse } from "../types/api";
 
 export const getOccasions = async (params?: SearchParamOcassion | undefined) => {
   // Declaring occasion API

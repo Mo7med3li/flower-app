@@ -1,4 +1,5 @@
 import type { ReviewsResponse } from "@/lib/types/add-product-review";
+import { APIResponse, SuccessfulResponse } from "../types/api";
 
 type FetchProductReviewsProps = {
   pageParam: number;

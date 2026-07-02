@@ -1,3 +1,5 @@
+import { USER_ROLES } from "../constants/api.constant";
+
 declare type DatabaseProps = {
   id: string;
   _id?: string; // fallback
@@ -8,7 +10,7 @@ declare type DatabaseProps = {
 
 declare type ErrorResponse = {
   status: false;
-  code: string | number;
+  code: number;
   message: string;
   error: string;
   errors?: {
@@ -19,27 +21,28 @@ declare type ErrorResponse = {
 
 declare type SuccessfulResponse<T> = {
   status: true;
-  code: string | number;
-  message: string;
-  payload: T; // For endpoints using "payload" wrapper (like login)
+  code: number;
+  message?: string;
+  payload: ?T; // For endpoints using "payload" wrapper (like login)
   // For endpoints using "data" wrapper (like products)
 };
 
 declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
 
 //^ the user response after a successful login
+export type IRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
 declare type ApplicationUser = {
   id: string;
   username: string;
   email: string;
-  phone: string;
+  phone: string | null;
   firstName: string;
   lastName: string;
   gender: "MALE" | "FEMALE";
-  photo?: string;
+  photo?: string | null;
   emailVerified: boolean;
   phoneVerified: boolean;
-  role: "USER" | "ADMIN" | "SUPER_ADMIN";
+  role: IRole;
   createdAt: string;
   updatedAt: string;
 };

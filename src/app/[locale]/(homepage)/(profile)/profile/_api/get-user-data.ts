@@ -1,3 +1,4 @@
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 import { UserDataResponse } from "@/lib/types/user-data";
 
 export async function getUserData() {

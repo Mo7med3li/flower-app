@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { getOrders } from "@/lib/apis/orders.api";
+import { Order } from "@/lib/types/orders";
 import OrderCard from "./_components/order-card";
 import EmptyOrders from "./_components/empty-orders";
 import ErrorOrders from "./_components/error-orders";
@@ -16,7 +17,7 @@ export default async function Page() {
   }
 
   // If there are no orders
-  if (response.payload.data.length === 0) {
+  if (response.payload?.data.length === 0) {
     return (
       <div>
         <EmptyOrders />
@@ -33,7 +34,7 @@ export default async function Page() {
 
       {/* Order card */}
       <div className="flex flex-col gap-4 mb-16">
-        {response.payload.data.map((order) => (
+        {response.payload?.data.map((order: Order) => (
           <OrderCard order={order} key={order.id} />
         ))}
       </div>

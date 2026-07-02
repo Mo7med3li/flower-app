@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import { getOccasions } from "@/lib/apis/get-occasions.api";
 import BarTitle from "@/components/common/bar-title";
 import SingleProductSkeleton from "@/components/skeletons/single-product/single-product.skeleton";
+import { occasion } from "@/lib/types/occasions";
 import ProductsByOccasion from "./product-by-occasion";
 import TabsTitle from "./tabs-title";
 import MostPopularError from "./most-popular-error";
@@ -25,9 +26,9 @@ export default async function MostPopular({
     const result = response.payload;
 
     // Variables - result.data is of type 'occasions' which has a 'data' field.
-    const occasions = result.data;
+    const occasions = result?.data || [];
 
-    let selectedOccasion = occasions.find((o) => o?.id === searchParams.occasion);
+    let selectedOccasion = occasions.find((o: occasion) => o?.id === searchParams.occasion);
 
     // If search params are empty (default search param)
     if (!searchParams.occasion) {

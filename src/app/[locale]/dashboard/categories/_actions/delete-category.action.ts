@@ -1,6 +1,7 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
+import { APIResponse } from "@/lib/types/api";
 import { Category } from "@/lib/types/category";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
 

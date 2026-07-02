@@ -15,6 +15,7 @@ import CreditImg from "@assets/Credit-Card.png";
 import { Address } from "@/lib/types/user-addresses";
 import { CheckoutSessionTS } from "@/lib/types/checkout-session";
 import { useRouter } from "@/i18n/navigation";
+import { APIResponse } from "@/lib/types/api";
 import CheckCreditOrder from "../_actions/checkout-session.action";
 import CheckCashOrder from "../_actions/cash-order.action";
 // Types

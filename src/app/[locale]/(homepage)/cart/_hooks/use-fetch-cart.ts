@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { CartResponse } from "@/lib/types/cart";
 import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 export default function useFetchCart() {
   const { isAuthenticated } = useCheckUserStatus();

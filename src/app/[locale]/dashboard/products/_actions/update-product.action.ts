@@ -2,6 +2,8 @@
 "use server";
 
 import { getAuthHeader } from "@/lib/utils/auth-header";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
+import { Products } from "@/lib/types/products";
 
 interface UpdateProductFields {
   title: string;
@@ -23,7 +25,11 @@ export async function updateProductAction(productId: string, fields: UpdateProdu
       "Content-Type": "application/json",
     },
   });
-  const payload: APIResponse<any> = await response.json();
+  const payload: APIResponse<SuccessfulResponse<Products>> = await response.json();
+
+  if (!payload.status) {
+    throw new Error(payload.message || "Something went wrong");
+  }
 
   return payload;
 }

@@ -24,6 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useUpdateProfileSchema } from "@/lib/schemas/profile.schema";
 import DeleteModel from "@/app/[locale]/dashboard/_components/delete-model";
+import { ApplicationUser, UpdateProfileFields } from "@/lib/types/api";
 import useUpdateProfile from "../_hooks/use-update-profile";
 import UserPhotoSection from "./user-photo-section";
 import useDeleteAccount from "../_hooks/use-delete-account";

@@ -15,6 +15,9 @@ export default async function Page() {
   }
 
   return (
-    <ProductForm occasions={occasions.payload.data} categories={categories.payload.data.data} />
+    <ProductForm
+      occasions={occasions.payload?.data || []}
+      categories={categories.payload?.data.data || []}
+    />
   );
 }

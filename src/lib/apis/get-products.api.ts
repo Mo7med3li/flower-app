@@ -1,4 +1,5 @@
 import { Product, Products, SearchParamProduct } from "../types/products";
+import { APIResponse, PaginatedResponse } from "../types/api";
 
 export const getProducts = async (params: SearchParamProduct | undefined) => {
   // Declaring products API
@@ -9,15 +10,17 @@ export const getProducts = async (params: SearchParamProduct | undefined) => {
     const response = await fetch(url.toString());
 
     const payload: APIResponse<PaginatedResponse<Products>> = await response.json();
-    if ("error" in payload) {
+    if (!payload.status) {
       throw new Error(payload.error);
     }
     return payload;
   }
 
   // If params are given (this handle any given params included in the type)
-  Object.entries(params).forEach((param) => {
-    url.searchParams.append(param[0].toString(), param[1].toString());
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      url.searchParams.append(key.toString(), value.toString());
+    }
   });
 
   // Extracting only the API link

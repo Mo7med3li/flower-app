@@ -30,7 +30,7 @@ export default function FilterCategories() {
     useInfiniteCategories();
   if (data && "error" in data)
     return <div className="text-red-500 text-center font-primary py-4">Some error occurred</div>;
-  const categories = data?.pages.flatMap((page) => (page.status ? page.payload.data : [])) ?? [];
+  const categories = data?.pages.flatMap((page) => (page.status ? page.payload?.data : [])) ?? [];
 
   // Functions
   const handleClick = (id: string) => {
@@ -75,22 +75,22 @@ export default function FilterCategories() {
             id="scrollableDiv"
             className="h-[260px] hide-scroll space-y-1 overflow-y-auto border-b-zinc-100 pb-5 pt-2.5 scrollbar-hide"
           >
-            {categories.map((category: CategoryType) => (
+            {categories.map((category: CategoryType | undefined) => (
               <li
-                key={category.id}
+                key={category?.id}
                 className={cn(
                   "group flex items-center gap-1 text-sm rtl:pr-0",
-                  selectedCategory === category.id ? "" : "",
+                  selectedCategory === category?.id ? "" : "",
                 )}
               >
                 {/* Image inside wrapper for styling */}
                 <button
                   type="button"
-                  onClick={() => handleClick(category.id)}
-                  aria-pressed={selectedCategory === category.id}
+                  onClick={() => handleClick(category?.id ?? "")}
+                  aria-pressed={selectedCategory === category?.id}
                   className={cn(
                     "flex w-full items-center gap-2 rounded-md border border-transparent p-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maroon-500 hover:bg-maroon-50",
-                    selectedCategory === category.id
+                    selectedCategory === category?.id
                       ? "bg-maroon-50 dark:bg-soft-pink-100 dark:text-zinc-800"
                       : "bg-zinc-200 dark:bg-zinc-700 dark:hover:text-zinc-800",
                   )}
@@ -98,13 +98,13 @@ export default function FilterCategories() {
                   <div
                     className={cn(
                       "rounded-md p-1.5 transition-colors",
-                      selectedCategory === category.id
+                      selectedCategory === category?.id
                         ? "bg-maroon-600 dark:bg-soft-pink-300"
                         : "bg-zinc-400 group-hover:bg-maroon-600 dark:group-hover:bg-soft-pink-300",
                     )}
                   >
                     <Image
-                      src={category.image}
+                      src={category?.image ?? ""}
                       alt=""
                       width={24}
                       height={24}
@@ -112,9 +112,11 @@ export default function FilterCategories() {
                     />
                   </div>
                   <span className="ms-1.5 truncate font-medium flex-1 text-left">
-                    {category.title}
+                    {category?.title ?? ""}
                   </span>
-                  {selectedCategory === category.id && <Check className="size-4 text-maroon-600" />}
+                  {selectedCategory === category?.id && (
+                    <Check className="size-4 text-maroon-600" />
+                  )}
                 </button>
               </li>
             ))}

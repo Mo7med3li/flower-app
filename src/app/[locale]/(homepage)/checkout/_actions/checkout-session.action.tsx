@@ -1,6 +1,7 @@
 import { Address } from "@/lib/types/user-addresses";
 import { CheckoutSessionTS } from "@/lib/types/checkout-session";
 import { getAuthHeader } from "@/lib/utils/auth-header";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 export default async function CheckCreditOrder(shippingAddress: Address) {
   const response = await fetch(

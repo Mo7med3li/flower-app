@@ -1,4 +1,5 @@
 import { occasions, SearchParamOcassion } from "../types/occasions";
+import { APIResponse, PaginatedResponse } from "../types/api";
 
 export const getOccasions = async (params: SearchParamOcassion | undefined) => {
   // Declare occasion API
@@ -9,7 +10,9 @@ export const getOccasions = async (params: SearchParamOcassion | undefined) => {
     const response = await fetch(url.toString());
 
     const payload: APIResponse<PaginatedResponse<occasions>> = await response.json();
-
+    if (!payload.status) {
+      throw new Error(payload.error);
+    }
     return payload;
   }
 

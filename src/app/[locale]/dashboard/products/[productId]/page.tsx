@@ -29,6 +29,9 @@ export default async function Page({ params }: ProductIdProbs) {
   if ("error" in response || !("payload" in occasions) || !("payload" in categories)) {
     notFound();
   }
+  if (!response.payload || !occasions.payload || !categories.payload) {
+    notFound();
+  }
 
   return (
     <div className="flex flex-col">

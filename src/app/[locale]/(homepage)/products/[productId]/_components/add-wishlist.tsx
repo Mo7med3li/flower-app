@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "@/i18n/navigation";
 import { useCheckUserStatus } from "@/components/providers/components/check-user-status.provider";
 import { Button } from "@/components/ui/button";
+import { Wishlist } from "@/lib/types/wishlist";
 import { useFetchWishlist } from "@/hooks/wishlist/use-fetch-wishlist";
 import { useAddToWishlist } from "../hooks/use-add-to-wishlist";
 import { useRemoveFromWishlist } from "../hooks/use-delete-from-wishlist";
@@ -24,8 +25,9 @@ export default function FavoriteToggle({ productId, extend, animation }: AddToWi
   const { payload, isLoading } = useFetchWishlist();
 
   const wishlist = payload?.wishlistItems ?? [];
-  const isInWishlist = wishlist.filter((item) => item.product.id === productId).length > 0;
-  const productInWishlist = wishlist.find((item) => item.productId === productId);
+  const isInWishlist =
+    wishlist.filter((item: Wishlist) => item.product.id === productId).length > 0;
+  const productInWishlist = wishlist.find((item: Wishlist) => item.productId === productId);
 
   // translations
   const t = useTranslations();

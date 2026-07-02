@@ -2,6 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 import { getAuthHeader } from "@/lib/utils/auth-header";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 
 type WishlistCheckResult = {
   isInWishlist: boolean;
@@ -17,7 +18,7 @@ export async function checkWishlistAction(productId: string) {
     },
   });
 
-  const payload: APIResponse<WishlistCheckResult> = await response.json();
+  const payload: APIResponse<SuccessfulResponse<WishlistCheckResult>> = await response.json();
   if ("error" in payload) {
     throw new Error(payload.error);
   }

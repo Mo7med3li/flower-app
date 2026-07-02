@@ -1,3 +1,4 @@
+import { APIResponse } from "../types/api";
 import { Overall } from "../types/statistics";
 import { getAuthHeader } from "../utils/auth-header";
 

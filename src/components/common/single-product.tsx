@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
 import { Link } from "@/i18n/navigation";
 import { useFetchWishlist } from "@/hooks/wishlist/use-fetch-wishlist";
+import { Wishlist } from "@/lib/types/wishlist";
 import ProductCardWishlist from "./product-card-wishlist";
 import ProductCardCart from "./product-card-cart";
 /**
@@ -41,7 +42,7 @@ export default function SingleProduct({ singleProduct }: SingleProduct) {
   const wishlistHook = useFetchWishlist();
   const payload = wishlistHook.payload;
   const wishlist = payload?.wishlistItems;
-  const isInWishlist = wishlist?.filter((item) => item.product.id === singleProduct.id);
+  const isInWishlist = wishlist?.filter((item: Wishlist) => item.product.id === singleProduct.id);
   // Dates
   const currentDate = Date.now();
   const productDate = new Date(singleProduct.createdAt).getTime();

@@ -6,6 +6,7 @@ import { occasions } from "@/lib/types/occasions";
 import { getOccasions } from "@/lib/apis/occasions.api";
 import { Input } from "@/components/ui/input";
 import PaginationComponent from "@/components/common/Pagination-components";
+import { APIResponse, PaginatedResponse } from "@/lib/types/api";
 import HeaderOccasionDashboard from "./header-occasion-dashboard";
 import TableOccasionDashboard from "./table-occasion-dashboard";
 
@@ -42,11 +43,11 @@ export default function OccasionDashboard() {
         </form>
 
         {/* Table */}
-        <TableOccasionDashboard occasions={occasion?.payload.data ?? []} />
+        <TableOccasionDashboard occasions={occasion?.payload?.data ?? []} />
       </section>
 
       {/*Pagination */}
-      <PaginationComponent metaData={occasion?.payload.metadata ?? undefined} />
+      <PaginationComponent metaData={occasion?.payload?.metadata ?? undefined} />
     </div>
   );
 }

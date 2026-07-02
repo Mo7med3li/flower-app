@@ -5,6 +5,7 @@ import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { ProductReviewField } from "@/lib/schemas/add-product-review.schema";
 import { AddProductReviewResponse } from "@/lib/types/add-product-review";
 import { getTokenHeader } from "@/lib/utils/tokenHeader";
+import { APIResponse } from "@/lib/types/api";
 
 type AddProductReviewProps = {
   values: ProductReviewField & { productId?: string };

@@ -40,7 +40,7 @@ export default function OccasionFilter() {
       initialPageParam: 1,
     });
 
-  const allOccasions = data?.pages.flatMap((page) => page.payload.data) ?? [];
+  const allOccasions = data?.pages.flatMap((page) => page.payload?.data) ?? [];
 
   // Handle error & loading ui
   if (isLoading) {
@@ -116,11 +116,11 @@ export default function OccasionFilter() {
         <div className="grid grid-cols-2 gap-3">
           {allOccasions
             .flatMap((occasions) => occasions)
-            .map((occasion: occasion) => (
+            .map((occasion: occasion | undefined) => (
               <div
                 key={occasion?.id}
                 className="relative flex items-center justify-center h-20 rounded-lg col-span-2 md:col-span-1"
-                onClick={() => handleClick(occasion?.id)}
+                onClick={() => handleClick(occasion?.id ?? "")}
               >
                 <Button
                   className={cn(
@@ -131,8 +131,8 @@ export default function OccasionFilter() {
                   {occasion?.title}
                 </Button>
                 <Image
-                  src={occasion.image.startsWith("http") ? occasion.image : ""}
-                  alt={occasion?.title}
+                  src={occasion?.image?.startsWith("http") ? occasion?.image : ""}
+                  alt={occasion?.title ?? ""}
                   width={100}
                   height={100}
                   className="absolute z-20 rounded-lg object-cover w-full h-full "

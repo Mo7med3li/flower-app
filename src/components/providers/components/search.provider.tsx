@@ -24,7 +24,7 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
   async function searchCategory(searchValue: string): Promise<CategoryType[]> {
     const payload = await getAllCategories();
 
-    const filteredCategories = payload.payload.data.filter((category) =>
+    const filteredCategories = payload.payload?.data.filter((category: CategoryType) =>
       category.title.toLowerCase().includes(searchValue.toLowerCase()),
     );
     setSearchCategoryList(filteredCategories || []);

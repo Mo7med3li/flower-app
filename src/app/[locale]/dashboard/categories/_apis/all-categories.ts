@@ -1,3 +1,4 @@
+import { APIResponse } from "@/lib/types/api";
 import { AllCategory } from "@/lib/types/category";
 
 export async function getAllCategories() {
@@ -10,7 +11,7 @@ export async function getAllCategories() {
 
   const payload: APIResponse<AllCategory> = await response.json();
 
-  if ("error" in payload) {
+  if (!payload.status) {
     throw new Error(payload.message);
   }
   return payload;

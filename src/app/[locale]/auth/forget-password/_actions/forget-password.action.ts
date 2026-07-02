@@ -2,6 +2,7 @@
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
 import { ForgetPasswordFields } from "@/lib/schemas/forget-password.schema";
+import { APIResponse, SuccessfulResponse } from "@/lib/types/api";
 import { ForgetPassword } from "@/lib/types/forget-password";
 
 export default async function forgetPasswordAction(fields: ForgetPasswordFields) {
@@ -15,7 +16,7 @@ export default async function forgetPasswordAction(fields: ForgetPasswordFields)
   });
 
   // Parse response as JSON
-  const payload: APIResponse<ForgetPassword> = await response.json();
+  const payload: APIResponse<SuccessfulResponse<ForgetPassword>> = await response.json();
   if (!payload.status) {
     throw new Error(payload.message || payload.error || "Failed to forget password");
   }
