@@ -6,7 +6,14 @@ import { routing } from "./i18n/routing";
 import { hasPermission } from "./lib/utils/access-control";
 
 const publicAuthPages = ["/auth/login", "/auth/signup", "/auth/forget-password"];
-const publicPages = ["/", ...publicAuthPages, "/products", "/products/[productId]"];
+const publicPages = [
+  "/",
+  ...publicAuthPages,
+  "/products",
+  "/products/[productId]",
+  "/contact-us",
+  "/about",
+];
 
 const handleI18nRouting = createMiddleware(routing);
 
