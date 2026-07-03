@@ -13,6 +13,7 @@ const publicPages = [
   "/products/[productId]",
   "/contact-us",
   "/about",
+  "/contact",
 ];
 
 const handleI18nRouting = createMiddleware(routing);
